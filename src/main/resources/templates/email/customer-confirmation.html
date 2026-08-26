@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Confirmed</title>
+    <style>
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #121212; color: #ffffff; margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; background-color: #1e1e1e; padding: 30px; border-radius: 8px; border: 1px solid #333; }
+        .header { text-align: center; border-bottom: 2px solid #d4af37; padding-bottom: 20px; margin-bottom: 20px; }
+        .header h1 { color: #d4af37; margin: 0; font-size: 24px; text-transform: uppercase; letter-spacing: 2px; }
+        .badge { display: inline-block; background-color: #28a745; color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; }
+        .content { line-height: 1.6; font-size: 16px; color: #e0e0e0; }
+        .details-box { background-color: #2a2a2a; padding: 20px; border-radius: 6px; margin: 20px 0; border-left: 4px solid #d4af37; }
+        .details-box table { width: 100%; }
+        .details-box td { padding: 8px 0; }
+        .details-box td.label { font-weight: bold; color: #a0a0a0; width: 120px; }
+        .details-box td.value { color: #ffffff; }
+        .driver-box { background-color: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); padding: 15px; border-radius: 6px; margin-top: 20px; }
+        .driver-box h3 { color: #d4af37; margin-top: 0; font-size: 16px; text-transform: uppercase; }
+        .btn-container { text-align: center; margin: 30px 0; }
+        .btn { display: inline-block; background-color: #d4af37; color: #121212 !important; text-decoration: none; padding: 12px 24px; font-weight: bold; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-secondary { background-color: transparent; border: 2px solid #d4af37; color: #d4af37 !important; margin-top: 15px; }
+        .footer { text-align: center; font-size: 12px; color: #888; margin-top: 30px; border-top: 1px solid #333; padding-top: 20px; }
+        .footer a { color: #d4af37; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>HONK Limousine</h1>
+            <div class="badge">Officially Confirmed</div>
+        </div>
+        <div class="content">
+            <p>Dear <span th:text="${booking.customer.name}">Customer</span>,</p>
+            <p>Great news! Your luxury ride with HONK Limousine Service is officially confirmed. You are on our schedule.</p>
+            
+            <div class="details-box">
+                <table>
+                    <tr><td class="label">Reference:</td><td class="value" style="color: #d4af37; font-weight: bold;" th:text="${booking.bookingReference}"></td></tr>
+                    <tr><td class="label">Pickup:</td><td class="value" th:text="${booking.pickupLocation}"></td></tr>
+                    <tr><td class="label">Drop-off:</td><td class="value" th:text="${booking.dropoffLocation}"></td></tr>
+                    <tr><td class="label">Date &amp; Time:</td><td class="value" th:text="${booking.pickupDate + ' at ' + booking.pickupTime}"></td></tr>
+                    <tr><td class="label">Vehicle:</td><td class="value" th:text="${booking.vehicleType}"></td></tr>
+                </table>
+            </div>
+
+            <div class="driver-box" th:if="${booking.driverName != null and !booking.driverName.isEmpty()}">
+                <h3>Your Chauffeur</h3>
+                <p style="margin-bottom:5px;"><strong>Name:</strong> <span th:text="${booking.driverName}"></span></p>
+                <p style="margin:0;" th:if="${booking.driverPhone != null and !booking.driverPhone.isEmpty()}"><strong>Phone:</strong> <span th:text="${booking.driverPhone}"></span></p>
+            </div>
+
+            <div class="btn-container">
+                <a th:href="@{${baseUrl} + '/api/bookings/' + ${booking.bookingReference} + '/calendar'}" class="btn">Add to Calendar</a>
+                <br>
+                <a th:href="@{${baseUrl} + '/track?ref=' + ${booking.bookingReference}}" class="btn btn-secondary">View Live Status</a>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Questions? Call us at <a href="tel:3125550100">(312) 555-0100</a>.</p>
+            <p>&copy; 2026 HONK Limousine Service. Chicago, IL.</p>
+        </div>
+    </div>
+</body>
+</html>

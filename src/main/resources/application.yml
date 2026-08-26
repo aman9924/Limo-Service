@@ -1,0 +1,86 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: chicago-elite-limo
+  thymeleaf:
+    cache: false
+  # Default/dev profile uses a file-based H2 database — zero setup, persists
+  # between restarts in ./data. Swap this block for AWS RDS Postgres settings
+  # (via env vars) when moving to production.
+  datasource:
+    url: jdbc:h2:file:./data/honklimo;AUTO_SERVER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    open-in-view: false
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  # Email notifications via SMTP — for Gmail, use an App Password (not your regular password)
+  # and MAIL_HOST=smtp.gmail.com, MAIL_PORT=587. Notifications are silently skipped (with a
+  # logged warning) if MAIL_HOST is unset.
+  mail:
+    host: ${MAIL_HOST:}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+# All Twilio values come from environment variables — never hardcode real
+# credentials here. Set these in your shell / IDE run configuration before
+# starting the app:
+#   TWILIO_ACCOUNT_SID
+#   TWILIO_AUTH_TOKEN
+#   TWILIO_WHATSAPP_FROM        e.g. whatsapp:+14155238886 (sandbox) or your approved sender
+#   OWNER_WHATSAPP_NUMBER       e.g. whatsapp:+13125550100
+#   TWILIO_CONTENT_SID_OWNER    approved/sandbox content template SID for the owner alert
+#   TWILIO_CONTENT_SID_CUSTOMER approved/sandbox content template SID for the customer confirmation
+twilio:
+  account-sid: ${TWILIO_ACCOUNT_SID:}
+  auth-token: ${TWILIO_AUTH_TOKEN:}
+  whatsapp-from: ${TWILIO_WHATSAPP_FROM:whatsapp:+14155238886}
+  owner-whatsapp-to: ${OWNER_WHATSAPP_NUMBER:}
+  content-sid-owner: ${TWILIO_CONTENT_SID_OWNER:}
+  content-sid-customer: ${TWILIO_CONTENT_SID_CUSTOMER:}
+  content-sid-customer-confirmed: ${TWILIO_CONTENT_SID_CUSTOMER_CONFIRMED:}
+
+# Server-side Mapbox token, used only for the Directions API (distance/fare calculation).
+# Separate from the public token embedded in main.js for the browser-side autocomplete widget.
+mapbox:
+  access-token: ${MAPBOX_ACCESS_TOKEN:}
+
+# Falls back to admin/admin123 for local dev if unset (a warning is logged) — always set both
+# ADMIN_USERNAME and ADMIN_PASSWORD via environment variables before deploying to production.
+admin:
+  username: ${ADMIN_USERNAME:}
+  password: ${ADMIN_PASSWORD:}
+
+mail:
+  owner-email: ${OWNER_EMAIL:}
+  from-address: ${MAIL_FROM_ADDRESS:bookings@honklimo.com}
+
+# Used to build absolute canonical/Open Graph URLs. Set to your real domain in production
+# (e.g. https://www.honklimo.com), no trailing slash.
+app:
+  base-url: ${APP_BASE_URL:http://localhost:8080}
+
+# Optional — set to a GA4 Measurement ID (e.g. G-XXXXXXXXXX) to enable Google Analytics.
+# Left blank, no tracking script is rendered at all.
+analytics:
+  google-tracking-id: ${GOOGLE_ANALYTICS_ID:}
+
+logging:
+  level:
+    com.chicagoelitelimo: INFO

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pricing | HONK Limousine Service</title>
+<meta name="description" content="Transparent flat-rate and per-mile pricing for Chicago airport transfers, suburban trips, and additional services with HONK Limousine Service." />
+<link rel="canonical" th:href="${baseUrl + '/pricing'}" href="http://localhost:8080/pricing" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="HONK Limousine Service" />
+<meta property="og:title" content="Pricing | HONK Limousine Service" />
+<meta property="og:description" content="Transparent flat-rate and per-mile pricing for Chicago airport transfers and suburban trips." />
+<meta property="og:url" th:content="${baseUrl + '/pricing'}" content="http://localhost:8080/pricing" />
+<meta name="twitter:card" content="summary" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+<link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css" />
+<script th:if="${!#strings.isEmpty(gaTrackingId)}" th:src="@{'https://www.googletagmanager.com/gtag/js?id=' + ${gaTrackingId}}" async="async"></script>
+<script th:if="${!#strings.isEmpty(gaTrackingId)}" th:inline="javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', /*[[${gaTrackingId}]]*/ 'G-XXXXXXXXXX');
+</script>
+</head>
+<body>
+
+<div class="navbar-top-bar">
+  <div class="container d-flex justify-content-between flex-wrap">
+    <div><i class="bi bi-geo-alt-fill text-gold"></i> Serving Chicago &amp; Suburbs, 24/7</div>
+    <div>
+      <a href="tel:+13125550100"><i class="bi bi-telephone-fill text-gold"></i> (312) 555-0100</a>
+      &nbsp;|&nbsp;
+      <a href="mailto:bookings@honklimo.com"><i class="bi bi-envelope-fill text-gold"></i> bookings@honklimo.com</a>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-custom fixed-top" style="top:33px;">
+  <div class="container">
+    <a class="navbar-brand brand-font fs-4 fw-bold" th:href="@{/}" href="/">HONK <span>LIMOUSINE</span> SERVICE</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+      <ul class="navbar-nav align-items-lg-center">
+        <li class="nav-item"><a class="nav-link" th:href="@{/}" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/services}" href="/services">Services</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/fleet}" href="/fleet">Fleet</a></li>
+        <li class="nav-item"><a class="nav-link active" th:href="@{/pricing}" href="/pricing">Pricing</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/faq}" href="/faq">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/about}" href="/about">About</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/contact}" href="/contact">Contact</a></li>
+        <li class="nav-item ms-lg-3"><a class="btn btn-gold" th:href="@{/booking}" href="/booking">Book Now</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <h1 class="section-title">Pricing</h1>
+    <div class="breadcrumb-custom"><a th:href="@{/}" href="/">Home</a> / <span>Pricing</span></div>
+  </div>
+</header>
+
+<section class="section-padding">
+  <div class="container">
+
+    <h3 class="mb-4">Airport &rarr; City (Flat Rate)</h3>
+    <div class="table-responsive mb-5">
+      <table class="table table-dark table-bordered align-middle">
+        <thead>
+          <tr><th>Vehicle</th><th>Price</th></tr>
+        </thead>
+        <tbody>
+          <tr th:each="r : ${rates}">
+            <td th:text="${r.label}"></td>
+            <td th:text="'$' + ${r.flatAirportRate}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="mb-4">Airport &rarr; Suburban Area (Per Mile)</h3>
+    <div class="table-responsive mb-5">
+      <table class="table table-dark table-bordered align-middle">
+        <thead>
+          <tr><th>Vehicle</th><th>Rate</th></tr>
+        </thead>
+        <tbody>
+          <tr th:each="r : ${rates}">
+            <td th:text="${r.label}"></td>
+            <td th:text="'$' + ${r.perMileRate} + ' / mile'"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="mb-4">Long Distance</h3>
+    <p style="color:var(--gray);" class="mb-5">Call for Pricing — <a href="tel:+13125550100" class="text-gold">(312) 555-0100</a></p>
+
+    <h3 class="mb-4">Additional Charges</h3>
+    <div class="table-responsive">
+      <table class="table table-dark table-bordered align-middle">
+        <thead>
+          <tr><th>Item</th><th>Charge</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Baby Seat</td><td>+$15</td></tr>
+          <tr><td>Meet &amp; Greet (Domestic)</td><td>+$35</td></tr>
+          <tr><td>Meet &amp; Greet (International)</td><td>+$45</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="container">
+    <h2 class="section-title">Ready to Book Your Ride?</h2>
+    <p class="section-subtitle mb-4">Get an instant quote confirmed personally by our team.</p>
+    <a th:href="@{/booking}" href="/booking" class="btn btn-gold me-2">Book Your Ride</a>
+    <a href="tel:+13125550100" class="btn btn-outline-gold">Call (312) 555-0100</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <h5 class="brand-font">HONK <span class="text-gold">LIMOUSINE</span> SERVICE</h5>
+        <p>Chicago's trusted flat-rate luxury ground transportation, available 24/7 for airports, corporate travel, weddings, and events.</p>
+        <div class="social-icons mt-3">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-6">
+        <h5>Quick Links</h5>
+        <a th:href="@{/}" href="/">Home</a>
+        <a th:href="@{/services}" href="/services">Services</a>
+        <a th:href="@{/fleet}" href="/fleet">Fleet</a>
+        <a th:href="@{/about}" href="/about">About</a>
+        <a th:href="@{/contact}" href="/contact">Contact</a>
+        <a th:href="@{/pricing}" href="/pricing">Pricing</a>
+        <a th:href="@{/faq}" href="/faq">FAQ</a>
+        <a th:href="@{/track}" href="/track">Track Booking</a>
+      </div>
+      <div class="col-lg-3 col-6">
+        <h5>Services</h5>
+        <a th:href="@{/services}" href="/services">Airport Transfers</a>
+        <a th:href="@{/services}" href="/services">Corporate Travel</a>
+        <a th:href="@{/services}" href="/services">Weddings &amp; Events</a>
+        <a th:href="@{/services}" href="/services">Group Transportation</a>
+      </div>
+      <div class="col-lg-3">
+        <h5>Contact</h5>
+        <a href="tel:+13125550100"><i class="bi bi-telephone-fill"></i> (312) 555-0100</a>
+        <a href="mailto:bookings@honklimo.com"><i class="bi bi-envelope-fill"></i> bookings@honklimo.com</a>
+        <a href="#"><i class="bi bi-geo-alt-fill"></i> Chicago, IL</a>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 HONK Limousine Service. All rights reserved.</div>
+  </div>
+</footer>
+
+<div class="floating-actions">
+  <a href="https://wa.me/13125550100" target="_blank" class="whatsapp-btn" title="WhatsApp Us"><i class="bi bi-whatsapp"></i></a>
+  <a href="tel:+13125550100" class="call-btn" title="Call Us"><i class="bi bi-telephone-fill"></i></a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/main.js}" src="../static/js/main.js"></script>
+</body>
+</html>

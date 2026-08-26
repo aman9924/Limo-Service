@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /h2-console/
+Disallow: /api/
+
+Sitemap: /sitemap.xml

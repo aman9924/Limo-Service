@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chicago Elite Limo — Project Guide</title>
+<style>
+  :root {
+    --gold: #b8863b;
+    --dark: #1a1a1f;
+    --gray: #555;
+    --border: #e0e0e0;
+    --bg-soft: #f7f6f3;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #222;
+    line-height: 1.6;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    background: #fff;
+  }
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 4px;
+    color: var(--dark);
+  }
+  h1 span { color: var(--gold); }
+  .subtitle {
+    color: var(--gray);
+    margin-bottom: 32px;
+    font-size: 1.05rem;
+  }
+  h2 {
+    margin-top: 48px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--gold);
+    color: var(--dark);
+    font-size: 1.4rem;
+  }
+  h3 {
+    margin-top: 24px;
+    color: var(--dark);
+    font-size: 1.1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 0.92rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--bg-soft);
+    color: var(--dark);
+  }
+  code, pre {
+    font-family: "Cascadia Code", Consolas, monospace;
+    background: var(--bg-soft);
+    border-radius: 4px;
+  }
+  code {
+    padding: 2px 6px;
+    font-size: 0.9em;
+  }
+  pre {
+    padding: 16px;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    line-height: 1.5;
+  }
+  ul, ol {
+    padding-left: 22px;
+  }
+  li {
+    margin-bottom: 6px;
+  }
+  .status {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #fff;
+  }
+  .status.done { background: #2e7d32; }
+  .status.blocked { background: #c62828; }
+  .status.planned { background: #8a8a8a; }
+  .warning {
+    background: #fff8e1;
+    border-left: 4px solid var(--gold);
+    padding: 12px 16px;
+    margin: 16px 0;
+    font-size: 0.94rem;
+  }
+  .toc {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 8px;
+  }
+  .toc a { color: var(--dark); text-decoration: none; }
+  .toc a:hover { color: var(--gold); }
+  footer {
+    margin-top: 60px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    color: var(--gray);
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<h1>CHICAGO <span>ELITE</span> LIMO — Project Guide</h1>
+<p class="subtitle">Use case, feature status, and setup instructions for local development.</p>
+
+<div class="toc">
+  <strong>Contents</strong>
+  <ol>
+    <li><a href="#usecase">Use Case</a></li>
+    <li><a href="#stack">Tech Stack</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#structure">Project Structure</a></li>
+    <li><a href="#running">Running the Application</a></li>
+    <li><a href="#envvars">Environment Variables</a></li>
+    <li><a href="#known-issues">Known Issues</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+  </ol>
+</div>
+
+<h2 id="usecase">1. Use Case</h2>
+<p>
+  Chicago Elite Limo is a limo/car service booking website (inspired by
+  eminentlimo.com, royalcarriagelimo.com, and americancoachlimousine.com).
+  Customers fill out a ride booking form (pickup/drop-off, date, time,
+  vehicle type, passengers, etc.) and submit it directly from the site —
+  no phone call required.
+</p>
+<p>On submission, the request is automatically delivered via <strong>WhatsApp</strong> to:</p>
+<ul>
+  <li>The <strong>business owner</strong> — an alert with the full booking details.</li>
+  <li>The <strong>customer</strong> — a confirmation of their ride request (with their consent).</li>
+</ul>
+<p>
+  This removes the need for a customer-facing backend dashboard while still giving
+  the business owner instant, real-time notification of every booking request.
+</p>
+
+<h2 id="stack">2. Tech Stack</h2>
+<table>
+  <tr><th>Layer</th><th>Choice</th><th>Reason</th></tr>
+  <tr>
+    <td>Frontend</td>
+    <td>Thymeleaf + Bootstrap 5 + vanilla JS (server-rendered, inside Spring Boot)</td>
+    <td>Best SEO for a local service business, single deployable unit, no separate hosting</td>
+  </tr>
+  <tr>
+    <td>Backend</td>
+    <td>Spring Boot 3.3.4, Java 17, Maven</td>
+    <td>Standard, well-documented, easy single-JAR deployment</td>
+  </tr>
+  <tr>
+    <td>Messaging</td>
+    <td>Twilio (WhatsApp Business Platform / Meta Cloud API)</td>
+    <td>Cheapest reliable option for automatic, backend-triggered WhatsApp delivery</td>
+  </tr>
+  <tr>
+    <td>Database (planned)</td>
+    <td>Amazon RDS PostgreSQL</td>
+    <td>Free tier for 12 months, fits relational booking/user data, low ops overhead</td>
+  </tr>
+</table>
+
+<h2 id="features">3. Features</h2>
+
+<h3>Built &amp; verified <span class="status done">DONE</span></h3>
+<ul>
+  <li>Full multi-page UI: Home, Booking, Fleet, Services, About, Contact (black &amp; gold luxury theme, responsive)</li>
+  <li>Thymeleaf templates wired to Spring Boot controllers (<code>PageController</code>)</li>
+  <li><code>POST /api/bookings</code> endpoint with request validation (<code>BookingRequest</code> DTO, <code>ApiExceptionHandler</code>)</li>
+  <li><code>WhatsAppService</code> — Twilio SDK integration, sends to owner + customer via Content Templates</li>
+  <li>Graceful degradation — app runs fine and logs a warning if Twilio credentials aren't configured, instead of crashing</li>
+  <li>Consent checkbox on the booking form (required before messaging the customer, per Meta policy)</li>
+</ul>
+
+<h3>Built, but blocked by local network <span class="status blocked">BLOCKED (env only)</span></h3>
+<ul>
+  <li>Live WhatsApp delivery — confirmed working via a direct <code>curl</code> test outside this workspace's network.
+    Inside this dev environment, a corporate proxy (Zscaler) intercepts/resets the JVM's outbound TLS connection to
+    Twilio's API. Not a code issue — needs testing from an unrestricted network or a deployed environment.</li>
+</ul>
+
+<h3>Designed, not yet implemented <span class="status planned">PLANNED</span></h3>
+<ul>
+  <li>Distance/pricing calculation via a routing API (Mapbox or Google Maps)</li>
+  <li>Live address autocomplete on pickup/drop-off fields</li>
+  <li>Database persistence for bookings and users (PostgreSQL + Spring Data JPA)</li>
+  <li>Guest booking with a random booking reference + phone-verified <code>/track</code> page (view status, cancel — no login required)</li>
+  <li>Optional customer accounts (booking history, faster rebooking)</li>
+  <li>Admin login with role-based access (Spring Security) to view/manage all bookings</li>
+  <li>AWS deployment (RDS + EC2/Lightsail)</li>
+</ul>
+
+<h2 id="structure">4. Project Structure</h2>
+<pre>Chicago Travels/
+├── pom.xml
+├── src/main/java/com/chicagoelitelimo/
+│   ├── ChicagoEliteLimoApplication.java
+│   ├── config/TwilioProperties.java
+│   ├── controller/PageController.java
+│   ├── controller/BookingApiController.java
+│   ├── controller/ApiExceptionHandler.java
+│   ├── dto/BookingRequest.java
+│   └── service/WhatsAppService.java
+└── src/main/resources/
+    ├── application.yml
+    ├── templates/   (index, booking, fleet, services, about, contact)
+    └── static/      (css, js)</pre>
+
+<h2 id="running">5. Running the Application</h2>
+
+<h3>Prerequisites</h3>
+<ul>
+  <li>Java 17 (JAVA_HOME must point to a JDK 17 installation)</li>
+  <li>Maven 3.9+</li>
+  <li>A Twilio account with WhatsApp Sandbox or an approved WhatsApp Sender, plus at least one Content Template</li>
+</ul>
+
+<h3>Build</h3>
+<pre>mvn clean compile</pre>
+
+<h3>Run (with WhatsApp sending disabled — safe default)</h3>
+<pre>mvn spring-boot:run</pre>
+<p>The app starts on <code>http://localhost:8080</code>. Without Twilio env vars set, booking submissions are
+   still accepted and return success, but WhatsApp sending is skipped with a logged warning.</p>
+
+<h3>Run (with WhatsApp sending enabled)</h3>
+<p>Set the environment variables listed in the next section first, then run the same command:</p>
+<pre>mvn spring-boot:run</pre>
+
+<div class="warning">
+  <strong>Never</strong> hardcode Twilio credentials in <code>application.yml</code> or any committed file.
+  Always supply them as environment variables (or a local, git-ignored <code>application-local.yml</code>).
+</div>
+
+<h2 id="envvars">6. Environment Variables</h2>
+<table>
+  <tr><th>Variable</th><th>Required</th><th>Example</th><th>Description</th></tr>
+  <tr>
+    <td><code>TWILIO_ACCOUNT_SID</code></td>
+    <td>Yes (to enable WhatsApp)</td>
+    <td><code>ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</code></td>
+    <td>Your Twilio Account SID</td>
+  </tr>
+  <tr>
+    <td><code>TWILIO_AUTH_TOKEN</code></td>
+    <td>Yes (to enable WhatsApp)</td>
+    <td><code>&lt;your auth token&gt;</code></td>
+    <td>Your Twilio Auth Token — treat as a secret, rotate immediately if ever exposed</td>
+  </tr>
+  <tr>
+    <td><code>TWILIO_WHATSAPP_FROM</code></td>
+    <td>No (defaults to sandbox)</td>
+    <td><code>whatsapp:+14155238886</code></td>
+    <td>Your Twilio sandbox number or approved WhatsApp Sender, in <code>whatsapp:+E164</code> format</td>
+  </tr>
+  <tr>
+    <td><code>OWNER_WHATSAPP_NUMBER</code></td>
+    <td>Yes (to notify the owner)</td>
+    <td><code>whatsapp:+13125550100</code></td>
+    <td>The business owner's WhatsApp number that receives booking alerts</td>
+  </tr>
+  <tr>
+    <td><code>TWILIO_CONTENT_SID_OWNER</code></td>
+    <td>Yes (to notify the owner)</td>
+    <td><code>HXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</code></td>
+    <td>Approved/sandbox Content Template SID used for the owner alert message</td>
+  </tr>
+  <tr>
+    <td><code>TWILIO_CONTENT_SID_CUSTOMER</code></td>
+    <td>Yes (to notify the customer)</td>
+    <td><code>HXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</code></td>
+    <td>Approved/sandbox Content Template SID used for the customer confirmation message</td>
+  </tr>
+</table>
+
+<h3>Example (PowerShell, current session only)</h3>
+<pre>$env:TWILIO_ACCOUNT_SID="AC..."
+$env:TWILIO_AUTH_TOKEN="your_token"
+$env:TWILIO_WHATSAPP_FROM="whatsapp:+14155238886"
+$env:OWNER_WHATSAPP_NUMBER="whatsapp:+13125550100"
+$env:TWILIO_CONTENT_SID_OWNER="HX..."
+$env:TWILIO_CONTENT_SID_CUSTOMER="HX..."
+mvn spring-boot:run</pre>
+
+<h2 id="known-issues">7. Known Issues</h2>
+<ul>
+  <li>
+    <strong>Corporate network blocks outbound Twilio calls in this dev environment.</strong>
+    A Zscaler proxy intercepts TLS traffic on this machine, causing the JVM's HTTPS
+    connection to Twilio's API to fail (PKIX / connection reset errors), even though
+    the same Twilio credentials work correctly via a direct <code>curl</code> test outside
+    this network. To verify live WhatsApp delivery, test from an unrestricted network
+    or a deployed environment.
+  </li>
+</ul>
+
+<h2 id="roadmap">8. Roadmap</h2>
+<ol>
+  <li>Database layer: PostgreSQL + Spring Data JPA, <code>users</code> and <code>bookings</code> tables</li>
+  <li>Guest booking reference + <code>/track</code> status/cancel page</li>
+  <li>Admin login with role-based access (Spring Security)</li>
+  <li>Distance/pricing API + address autocomplete (Mapbox or Google Maps)</li>
+  <li>Re-verify live WhatsApp delivery on an unrestricted network or deployment</li>
+  <li>AWS deployment (RDS + EC2/Lightsail)</li>
+</ol>
+
+<footer>
+  Chicago Elite Limo — internal project documentation. Last updated 2026-08-14.
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Our Services | HONK Limousine Service</title>
+<meta name="description" content="Airport transfers, corporate travel, weddings, group transportation, and more — explore all HONK Limousine Service offerings in Chicago." />
+<link rel="canonical" th:href="${baseUrl + '/services'}" href="http://localhost:8080/services" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="HONK Limousine Service" />
+<meta property="og:title" content="Our Services | HONK Limousine Service" />
+<meta property="og:description" content="Airport transfers, corporate travel, weddings, group transportation, and more in Chicago." />
+<meta property="og:url" th:content="${baseUrl + '/services'}" content="http://localhost:8080/services" />
+<meta name="twitter:card" content="summary" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+<link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css" />
+<script th:if="${!#strings.isEmpty(gaTrackingId)}" th:src="@{'https://www.googletagmanager.com/gtag/js?id=' + ${gaTrackingId}}" async="async"></script>
+<script th:if="${!#strings.isEmpty(gaTrackingId)}" th:inline="javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', /*[[${gaTrackingId}]]*/ 'G-XXXXXXXXXX');
+</script>
+</head>
+<body>
+
+<div class="navbar-top-bar">
+  <div class="container d-flex justify-content-between flex-wrap">
+    <div><i class="bi bi-geo-alt-fill text-gold"></i> Serving Chicago &amp; Suburbs, 24/7</div>
+    <div>
+      <a href="tel:+13125550100"><i class="bi bi-telephone-fill text-gold"></i> (312) 555-0100</a>
+      &nbsp;|&nbsp;
+      <a href="mailto:bookings@honklimo.com"><i class="bi bi-envelope-fill text-gold"></i> bookings@honklimo.com</a>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-custom fixed-top" style="top:33px;">
+  <div class="container">
+    <a class="navbar-brand brand-font fs-4 fw-bold" th:href="@{/}" href="/">HONK <span>LIMOUSINE</span> SERVICE</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+      <ul class="navbar-nav align-items-lg-center">
+        <li class="nav-item"><a class="nav-link" th:href="@{/}" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" th:href="@{/services}" href="/services">Services</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/fleet}" href="/fleet">Fleet</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/about}" href="/about">About</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/contact}" href="/contact">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/pricing}" href="/pricing">Pricing</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/faq}" href="/faq">FAQ</a></li>
+        <li class="nav-item ms-lg-3"><a class="btn btn-gold" th:href="@{/booking}" href="/booking">Book Now</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <h1 class="section-title">Our Services</h1>
+    <div class="breadcrumb-custom"><a th:href="@{/}" href="/">Home</a> / <span>Services</span></div>
+  </div>
+</header>
+
+<section class="section-padding">
+  <div class="container">
+    <div class="row g-4">
+
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-airplane-fill"></i></div>
+          <h5>Airport Transfers</h5>
+          <p style="color:var(--gray);">Door-to-door service to and from O'Hare and Midway with live flight tracking, meet &amp; greet, and no surge pricing.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-briefcase-fill"></i></div>
+          <h5>Corporate &amp; Black Car</h5>
+          <p style="color:var(--gray);">Executive transportation for meetings, roadshows, client visits, and daily commutes with professional, discreet chauffeurs.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-heart-fill"></i></div>
+          <h5>Weddings</h5>
+          <p style="color:var(--gray);">Elegant rides for the bridal party and guests — stretch limos, luxury sedans, and Sprinter shuttles available.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-mortarboard-fill"></i></div>
+          <h5>Prom &amp; Graduation</h5>
+          <p style="color:var(--gray);">Safe, stylish transportation for prom night and graduation celebrations, with flexible group packages.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-people-fill"></i></div>
+          <h5>Group Transportation</h5>
+          <p style="color:var(--gray);">Sprinter vans, mini buses, and motor coaches for conferences, family reunions, and large group travel.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-clock-fill"></i></div>
+          <h5>Hourly / As Directed</h5>
+          <p style="color:var(--gray);">Keep the same vehicle and chauffeur on standby for the exact duration of your itinerary, anywhere in the city.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-music-note-beamed"></i></div>
+          <h5>Concerts &amp; Sports Events</h5>
+          <p style="color:var(--gray);">Drop-off and pickup at every major Chicago venue — United Center, Wrigley Field, Soldier Field, and more.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-cup-straw"></i></div>
+          <h5>Wine &amp; Brewery Tours</h5>
+          <p style="color:var(--gray);">A designated chauffeur for a full day of tastings — relax and enjoy without worrying about driving.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-building"></i></div>
+          <h5>Hotel &amp; Concierge Partnerships</h5>
+          <p style="color:var(--gray);">Reliable, on-demand transportation partnerships for hotels and travel agents across Chicagoland.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="container">
+    <h2 class="section-title">Ready to Book Your Service?</h2>
+    <p class="section-subtitle mb-4">Fill out our quick form and we'll confirm your ride within minutes.</p>
+    <a th:href="@{/booking}" href="/booking" class="btn btn-gold me-2">Book Your Ride</a>
+    <a href="tel:+13125550100" class="btn btn-outline-gold">Call (312) 555-0100</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <h5 class="brand-font">HONK <span class="text-gold">LIMOUSINE</span> SERVICE</h5>
+        <p>Chicago's trusted flat-rate luxury ground transportation, available 24/7 for airports, corporate travel, weddings, and events.</p>
+        <div class="social-icons mt-3">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-6">
+        <h5>Quick Links</h5>
+        <a th:href="@{/}" href="/">Home</a>
+        <a th:href="@{/services}" href="/services">Services</a>
+        <a th:href="@{/fleet}" href="/fleet">Fleet</a>
+        <a th:href="@{/about}" href="/about">About</a>
+        <a th:href="@{/contact}" href="/contact">Contact</a>
+        <a th:href="@{/pricing}" href="/pricing">Pricing</a>
+        <a th:href="@{/faq}" href="/faq">FAQ</a>
+        <a th:href="@{/track}" href="/track">Track Booking</a>
+      </div>
+      <div class="col-lg-3 col-6">
+        <h5>Services</h5>
+        <a th:href="@{/services}" href="/services">Airport Transfers</a>
+        <a th:href="@{/services}" href="/services">Corporate Travel</a>
+        <a th:href="@{/services}" href="/services">Weddings &amp; Events</a>
+        <a th:href="@{/services}" href="/services">Group Transportation</a>
+      </div>
+      <div class="col-lg-3">
+        <h5>Contact</h5>
+        <a href="tel:+13125550100"><i class="bi bi-telephone-fill"></i> (312) 555-0100</a>
+        <a href="mailto:bookings@honklimo.com"><i class="bi bi-envelope-fill"></i> bookings@honklimo.com</a>
+        <a href="#"><i class="bi bi-geo-alt-fill"></i> Chicago, IL</a>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 HONK Limousine Service. All rights reserved.</div>
+  </div>
+</footer>
+
+<div class="floating-actions">
+  <a href="https://wa.me/13125550100" target="_blank" class="whatsapp-btn" title="WhatsApp Us"><i class="bi bi-whatsapp"></i></a>
+  <a href="tel:+13125550100" class="call-btn" title="Call Us"><i class="bi bi-telephone-fill"></i></a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/main.js}" src="../static/js/main.js"></script>
+</body>
+</html>

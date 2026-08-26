@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Booking Alert</title>
+    <style>
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f4f4f4; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 30px; border-radius: 8px; border-top: 5px solid #d4af37; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .header { text-align: left; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
+        .header h1 { color: #d4af37; margin: 0; font-size: 20px; text-transform: uppercase; }
+        .badge { display: inline-block; background-color: #ffc107; color: #212529; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-top: 5px; }
+        .details-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .details-table th, .details-table td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; }
+        .details-table th { width: 30%; color: #666; font-size: 14px; }
+        .details-table td { font-weight: 500; }
+        .btn-container { text-align: center; margin: 30px 0 10px; }
+        .btn { display: inline-block; background-color: #121212; color: #ffffff !important; text-decoration: none; padding: 12px 24px; font-weight: bold; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>New Booking Request</h1>
+            <div class="badge">Action Required</div>
+        </div>
+        
+        <table class="details-table">
+            <tr><th>Reference</th><td th:text="${booking.bookingReference}" style="color: #d4af37; font-weight: bold;"></td></tr>
+            <tr><th>Customer</th><td th:text="${booking.customer.name}"></td></tr>
+            <tr><th>Phone</th><td><a th:href="'tel:' + ${booking.customer.phone}" th:text="${booking.customer.phone}"></a></td></tr>
+            <tr><th>Email</th><td><a th:href="'mailto:' + ${booking.customer.email}" th:text="${booking.customer.email}"></a></td></tr>
+            <tr><th>Date &amp; Time</th><td th:text="${booking.pickupDate + ' ' + booking.pickupTime}"></td></tr>
+            <tr><th>Pickup</th><td th:text="${booking.pickupLocation}"></td></tr>
+            <tr><th>Drop-off</th><td th:text="${booking.dropoffLocation}"></td></tr>
+            <tr><th>Vehicle</th><td th:text="${booking.vehicleType}"></td></tr>
+            <tr><th>Pax / Luggage</th><td th:text="${booking.passengers + ' / ' + booking.luggage}"></td></tr>
+            <tr th:if="${booking.flightNumber != null and !booking.flightNumber.isEmpty()}">
+                <th>Flight #</th><td th:text="${booking.flightNumber}"></td>
+            </tr>
+            <tr th:if="${booking.specialRequests != null and !booking.specialRequests.isEmpty()}">
+                <th>Notes</th><td th:text="${booking.specialRequests}" style="color: #d9534f;"></td>
+            </tr>
+        </table>
+
+        <div class="btn-container">
+            <a th:href="@{${baseUrl} + '/admin/bookings'}" class="btn">Open Admin Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>
