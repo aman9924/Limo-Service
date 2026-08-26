@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: chicago-elite-limo
+    name: honk-limo
   thymeleaf:
     cache: false
   # Default/dev profile uses a file-based H2 database — zero setup, persists
@@ -83,4 +83,4 @@ analytics:
 
 logging:
   level:
-    com.chicagoelitelimo: INFO
+    com.honklimo: INFO
