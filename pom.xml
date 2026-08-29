@@ -14,6 +14,7 @@
   <groupId>com.honklimo</groupId>
   <artifactId>honk-limo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>         
   <name>honk-limo</name>
   <description>Honk Limousine Service booking application</description>
 
