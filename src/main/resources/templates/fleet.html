@@ -73,7 +73,10 @@
 
       <div class="col-md-6 col-lg-4" th:each="v : ${vehicles}">
         <div class="fleet-card">
-          <div class="fleet-image"><i th:class="'bi ' + ${v.iconClass}"></i></div>
+          <div class="fleet-image">
+            <img th:if="${v.imageUrl != null and !v.imageUrl.isEmpty()}" th:src="@{${v.imageUrl}}" alt="Vehicle Image" />
+            <i th:unless="${v.imageUrl != null and !v.imageUrl.isEmpty()}" th:class="'bi ' + ${v.iconClass}"></i>
+          </div>
           <h5 th:text="${v.name}"></h5>
           <span class="price-tag" th:text="'From $' + ${v.pricePerHour} + '/hr'"></span>
           <ul>

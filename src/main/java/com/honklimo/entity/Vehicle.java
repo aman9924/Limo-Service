@@ -24,6 +24,7 @@ public class Vehicle {
     private Integer luggage;
     private Double pricePerHour;
     private String iconClass;
+    private String imageUrl;
 
     @Column(length = 1000)
     private String description;
@@ -84,6 +85,14 @@ public class Vehicle {
 
     public void setIconClass(String iconClass) {
         this.iconClass = iconClass;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getDescription() {

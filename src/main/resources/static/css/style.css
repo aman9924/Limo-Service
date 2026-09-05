@@ -168,17 +168,34 @@ a.navbar-brand, .navbar-brand {
   min-height: 92vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #0b0b0d 0%, #1a1a1f 55%, #0b0b0d 100%);
+  background-color: #0b0b0d; /* Fallback */
   overflow: hidden;
   padding-top: 100px;
 }
 
-.hero::before {
-  content: "";
+.hero-slide {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle at 20% 30%, rgba(201, 162, 75, 0.12), transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(201, 162, 75, 0.08), transparent 45%);
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  animation: heroSlideshow 15s infinite;
+  z-index: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(11, 11, 13, 0.9) 0%, rgba(26, 26, 31, 0.7) 50%, rgba(11, 11, 13, 0.9) 100%);
+  z-index: 1;
+}
+
+@keyframes heroSlideshow {
+  0%   { opacity: 0; transform: scale(1.05); }
+  5%   { opacity: 0.6; transform: scale(1.02); }
+  33%  { opacity: 0.6; transform: scale(1); }
+  38%  { opacity: 0; transform: scale(0.98); }
+  100% { opacity: 0; }
 }
 
 .hero-content {
@@ -326,6 +343,18 @@ a.navbar-brand, .navbar-brand {
   font-size: 3rem;
   color: var(--gold);
   margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.fleet-card .fleet-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.fleet-card:hover .fleet-image img {
+  transform: scale(1.05);
 }
 
 .fleet-card .price-tag {
@@ -738,4 +767,104 @@ a.navbar-brand, .navbar-brand {
     min-height: auto;
     padding-bottom: 60px;
   }
+}
+/* ===================== ADMIN DASHBOARD ===================== */
+.admin-stat-card {
+  background: var(--black-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: var(--glass-border-gold);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.admin-stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(201, 162, 75, 0.2);
+}
+.admin-stat-card h3 {
+  color: var(--gray);
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.admin-stat-card .stat-value {
+  color: var(--gold);
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+}
+
+.admin-table-wrapper {
+  background: var(--black-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: var(--glass-border);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+}
+.admin-table {
+  width: 100%;
+  color: var(--white);
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+.admin-table th {
+  color: var(--gray);
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  padding: 0 16px 10px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.admin-table td {
+  padding: 16px;
+  background: rgba(15, 15, 18, 0.5);
+  vertical-align: middle;
+}
+.admin-table tr td:first-child {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.admin-table tr td:last-child {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.admin-table tbody tr {
+  transition: all 0.3s ease;
+}
+.admin-table tbody tr:hover td {
+  background: rgba(201, 162, 75, 0.1);
+}
+
+.admin-badge-pending {
+  background-color: rgba(201, 162, 75, 0.15);
+  color: var(--gold);
+  border: 1px solid rgba(201, 162, 75, 0.4);
+}
+.admin-badge-confirmed {
+  background-color: rgba(40, 167, 69, 0.15);
+  color: #28a745;
+  border: 1px solid rgba(40, 167, 69, 0.4);
+}
+.admin-badge-cancelled {
+  background-color: rgba(220, 53, 69, 0.15);
+  color: #dc3545;
+  border: 1px solid rgba(220, 53, 69, 0.4);
+}
+.admin-badge-completed {
+  background-color: rgba(108, 117, 125, 0.15);
+  color: #adb5bd;
+  border: 1px solid rgba(108, 117, 125, 0.4);
+}
+
+.admin-action-box {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 12px;
 }

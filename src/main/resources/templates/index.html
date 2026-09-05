@@ -68,6 +68,12 @@
 
 <!-- Hero -->
 <section class="hero">
+  <!-- Slideshow Backgrounds -->
+  <div class="hero-slide" style="background-image: url('/images/fleet/rolls-royce.jpg');"></div>
+  <div class="hero-slide" style="background-image: url('/images/fleet/range-rover.jpg'); animation-delay: 5s;"></div>
+  <div class="hero-slide" style="background-image: url('/images/fleet/mercedes-sedan.jpg'); animation-delay: 10s;"></div>
+  <div class="hero-overlay"></div>
+
   <div class="container hero-content">
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
@@ -264,40 +270,19 @@
     <p class="section-subtitle">Clean, late-model vehicles for every group size and occasion.</p>
 
     <div class="row g-4 text-start">
-      <div class="col-md-4">
+      <div class="col-md-4" th:each="v : ${vehicles}">
         <div class="fleet-card">
-          <div class="fleet-image"><i class="bi bi-car-front-fill"></i></div>
-          <h5>Executive Sedan</h5>
-          <span class="price-tag">From $89/hr</span>
+          <div class="fleet-image">
+            <img th:if="${v.imageUrl != null and !v.imageUrl.isEmpty()}" th:src="@{${v.imageUrl}}" alt="Vehicle Image" />
+            <i th:unless="${v.imageUrl != null and !v.imageUrl.isEmpty()}" th:class="'bi ' + ${v.iconClass}"></i>
+          </div>
+          <h5 th:text="${v.name}"></h5>
+          <span class="price-tag" th:text="'From $' + ${v.pricePerHour} + '/hr'"></span>
           <ul>
-            <li><i class="bi bi-check-circle-fill"></i>Seats up to 3 passengers</li>
-            <li><i class="bi bi-check-circle-fill"></i>Free Wi-Fi &amp; bottled water</li>
+            <li><i class="bi bi-check-circle-fill"></i><span th:text="'Seats up to ' + ${v.capacity} + ' passengers'"></span></li>
+            <li><i class="bi bi-check-circle-fill"></i><span th:text="${v.luggage} + ' luggage capacity'"></span></li>
           </ul>
-          <a th:href="@{/booking(vehicleType='sedan')}" href="/booking?vehicleType=sedan" class="btn btn-outline-gold w-100">Book This Vehicle</a>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="fleet-card">
-          <div class="fleet-image"><i class="bi bi-truck-front-fill"></i></div>
-          <h5>Luxury SUV</h5>
-          <span class="price-tag">From $110/hr</span>
-          <ul>
-            <li><i class="bi bi-check-circle-fill"></i>Seats up to 6 passengers</li>
-            <li><i class="bi bi-check-circle-fill"></i>Extra luggage space</li>
-          </ul>
-          <a th:href="@{/booking(vehicleType='suv')}" href="/booking?vehicleType=suv" class="btn btn-outline-gold w-100">Book This Vehicle</a>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="fleet-card">
-          <div class="fleet-image"><i class="bi bi-bus-front-fill"></i></div>
-          <h5>Sprinter Van</h5>
-          <span class="price-tag">From $115/hr</span>
-          <ul>
-            <li><i class="bi bi-check-circle-fill"></i>Seats up to 14 passengers</li>
-            <li><i class="bi bi-check-circle-fill"></i>Wi-Fi &amp; USB charging onboard</li>
-          </ul>
-          <a th:href="@{/booking(vehicleType='sprinter')}" href="/booking?vehicleType=sprinter" class="btn btn-outline-gold w-100">Book This Vehicle</a>
+          <a th:href="@{/booking(vehicleType=${v.vehicleKey})}" href="/booking" class="btn btn-outline-gold w-100">Book This Vehicle</a>
         </div>
       </div>
     </div>

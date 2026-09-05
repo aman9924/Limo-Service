@@ -28,24 +28,48 @@
 
 <section class="section-padding" style="padding-top:120px;">
   <div class="container">
-    <h1 class="section-title mb-4">Bookings</h1>
+    <h1 class="section-title mb-5">Dashboard Overview</h1>
 
-    <div class="row mb-4 g-2 align-items-center">
-      <div class="col-md-6">
-        <form th:action="@{/admin/bookings}" method="get" class="d-flex gap-2">
-          <input type="text" name="q" th:value="${q}" class="form-control form-control-dark" placeholder="Search by reference, name, or phone" />
-          <button type="submit" class="btn btn-gold">Search</button>
-        </form>
+    <!-- KPI Metric Cards -->
+    <div class="row mb-5 g-4">
+      <div class="col-md-4">
+        <div class="admin-stat-card">
+          <h3>Total Bookings</h3>
+          <div class="stat-value" th:text="${bookings.size()}">0</div>
+        </div>
       </div>
-      <div class="col-md-6 text-md-end">
-        <a th:href="@{/admin/bookings/export(q=${q})}" class="btn btn-outline-gold">
-          <i class="bi bi-download"></i> Export CSV
-        </a>
+      <div class="col-md-4">
+        <div class="admin-stat-card" style="border-color: var(--gold);">
+          <h3 style="color: var(--white);">Pending Action</h3>
+          <div class="stat-value" th:text="${bookings.?[status.name() == 'PENDING'].size()}">0</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="admin-stat-card">
+          <h3>Confirmed</h3>
+          <div class="stat-value" th:text="${bookings.?[status.name() == 'CONFIRMED'].size()}">0</div>
+        </div>
       </div>
     </div>
 
-    <div class="table-responsive">
-      <table class="table table-dark table-bordered align-middle">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="fs-4 fw-bold" style="color: var(--white);">Recent Bookings</h2>
+      <a th:href="@{/admin/bookings/export(q=${q})}" class="btn btn-outline-gold btn-sm">
+        <i class="bi bi-download"></i> Export CSV
+      </a>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <form th:action="@{/admin/bookings}" method="get" class="d-flex gap-2">
+          <input type="text" name="q" th:value="${q}" class="form-control form-control-dark" placeholder="Search by reference, customer name, or phone" style="max-width: 400px;" />
+          <button type="submit" class="btn btn-gold">Search</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="admin-table-wrapper">
+      <table class="admin-table align-middle">
         <thead>
           <tr>
             <th>Reference</th>
@@ -69,19 +93,23 @@
             <td th:text="${b.pickupDate + ' ' + b.pickupTime}"></td>
             <td th:text="${b.vehicleType}"></td>
             <td>
-              <span class="badge"
-                    th:classappend="${b.status.name() == 'PENDING'} ? 'bg-warning text-dark' : (${b.status.name() == 'CONFIRMED'} ? 'bg-success' : (${b.status.name() == 'CANCELLED'} ? 'bg-danger' : 'bg-secondary'))"
+              <span class="badge" style="padding: 8px 12px; font-weight: 500;"
+                    th:classappend="${b.status.name() == 'PENDING'} ? 'admin-badge-pending' : (${b.status.name() == 'CONFIRMED'} ? 'admin-badge-confirmed' : (${b.status.name() == 'CANCELLED'} ? 'admin-badge-cancelled' : 'admin-badge-completed'))"
                     th:text="${b.status}"></span>
             </td>
             <td style="min-width:260px;">
-              <form th:action="@{/admin/bookings/{id}/update(id=${b.id})}" method="post" class="d-flex flex-column gap-2 mb-2 p-2 rounded" style="background: rgba(255,255,255,0.05);">
+              <form th:action="@{/admin/bookings/{id}/update(id=${b.id})}" method="post" class="admin-action-box mb-2">
                 <input type="hidden" name="q" th:value="${q}" />
-                <select name="status" class="form-select form-select-dark form-select-sm">
-                  <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}" th:selected="${s == b.status}"></option>
-                </select>
-                <input type="text" name="driverName" class="form-control form-control-dark form-control-sm" placeholder="Driver Name" th:value="${b.driverName}" />
-                <input type="text" name="driverPhone" class="form-control form-control-dark form-control-sm" placeholder="Driver Phone" th:value="${b.driverPhone}" />
-                <button type="submit" class="btn btn-outline-gold btn-sm w-100">Update Booking</button>
+                <div class="d-flex gap-2 mb-2">
+                  <select name="status" class="form-select form-select-dark form-select-sm" style="flex: 1;">
+                    <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}" th:selected="${s == b.status}"></option>
+                  </select>
+                </div>
+                <div class="d-flex gap-2 mb-2">
+                  <input type="text" name="driverName" class="form-control form-control-dark form-control-sm" placeholder="Driver Name" th:value="${b.driverName}" />
+                  <input type="text" name="driverPhone" class="form-control form-control-dark form-control-sm" placeholder="Driver Phone" th:value="${b.driverPhone}" />
+                </div>
+                <button type="submit" class="btn btn-gold btn-sm w-100">Update</button>
               </form>
               <form th:action="@{/admin/bookings/{id}/delete(id=${b.id})}" method="post"
                     onsubmit="return confirm('Delete this booking permanently?');">

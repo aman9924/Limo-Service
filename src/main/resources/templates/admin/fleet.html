@@ -30,8 +30,8 @@
   <div class="container">
     <h1 class="section-title mb-4">Fleet</h1>
 
-    <div class="table-responsive mb-5">
-      <table class="table table-dark table-bordered align-middle">
+    <div class="admin-table-wrapper mb-5">
+      <table class="admin-table align-middle">
         <thead>
           <tr>
             <th>Key</th>
@@ -40,6 +40,7 @@
             <th>Luggage</th>
             <th>$/hr</th>
             <th>Icon Class</th>
+            <th>Image URL</th>
             <th>Description</th>
             <th>Order</th>
             <th>Actions</th>
@@ -64,6 +65,9 @@
             </td>
             <td>
               <input type="text" name="iconClass" th:value="${v.iconClass}" th:form="'vf' + ${v.id}" class="form-control form-control-dark form-control-sm" style="width:120px;" />
+            </td>
+            <td>
+              <input type="text" name="imageUrl" th:value="${v.imageUrl}" th:form="'vf' + ${v.id}" class="form-control form-control-dark form-control-sm" style="width:140px;" placeholder="/images/fleet/car.jpg" />
             </td>
             <td>
               <input type="text" name="description" th:value="${v.description}" th:form="'vf' + ${v.id}" class="form-control form-control-dark form-control-sm" style="min-width:220px;" />
@@ -106,11 +110,15 @@
         <label class="form-label-dark">$/hr</label>
         <input type="number" step="0.01" name="pricePerHour" class="form-control form-control-dark" required />
       </div>
-      <div class="col-md-4">
-        <label class="form-label-dark">Icon Class (Bootstrap Icons)</label>
-        <input type="text" name="iconClass" class="form-control form-control-dark" placeholder="e.g. bi-car-front-fill" required />
+      <div class="col-md-2">
+        <label class="form-label-dark">Icon Class</label>
+        <input type="text" name="iconClass" class="form-control form-control-dark" placeholder="bi-car-front" required />
       </div>
-      <div class="col-md-6">
+      <div class="col-md-3">
+        <label class="form-label-dark">Image URL</label>
+        <input type="text" name="imageUrl" class="form-control form-control-dark" placeholder="/images/fleet/car.jpg" />
+      </div>
+      <div class="col-md-5">
         <label class="form-label-dark">Description</label>
         <input type="text" name="description" class="form-control form-control-dark" required />
       </div>

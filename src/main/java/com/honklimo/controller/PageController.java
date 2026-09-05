@@ -28,7 +28,9 @@ public class PageController {
     }
 
     @GetMapping("/")
-    public String home() {
+    public String home(Model model) {
+        // Only get top 3 for the home page preview
+        model.addAttribute("vehicles", vehicleRepository.findAllByOrderByDisplayOrderAsc().stream().limit(3).toList());
         return "index";
     }
 
