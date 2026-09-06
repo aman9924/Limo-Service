@@ -35,7 +35,8 @@ public class PageController {
     }
 
     @GetMapping("/booking")
-    public String booking() {
+    public String booking(Model model) {
+        model.addAttribute("vehicles", vehicleRepository.findAllByOrderByDisplayOrderAsc());
         return "booking";
     }
 

@@ -132,6 +132,13 @@ public class BookingService {
             } catch (Exception e) {
                 // Log and continue, don't fail transaction
             }
+        } else if (oldStatus != BookingStatus.CANCELLED && status == BookingStatus.CANCELLED) {
+            try {
+                emailService.sendBookingCancellation(saved);
+                whatsAppService.sendBookingCancellation(saved);
+            } catch (Exception e) {
+                // Log and continue
+            }
         }
         
         return saved;

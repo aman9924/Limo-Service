@@ -17,6 +17,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+<link rel="stylesheet" href="https://npmcdn.com/flatpickr/dist/themes/dark.css" />
 <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css" />
 <script th:if="${!#strings.isEmpty(gaTrackingId)}" th:src="@{'https://www.googletagmanager.com/gtag/js?id=' + ${gaTrackingId}}" async="async"></script>
 <script th:if="${!#strings.isEmpty(gaTrackingId)}" th:inline="javascript">
@@ -41,7 +43,10 @@
 
 <nav class="navbar navbar-expand-lg navbar-custom fixed-top" style="top:33px;">
   <div class="container">
-    <a class="navbar-brand brand-font fs-4 fw-bold" th:href="@{/}" href="/">HONK <span>LIMOUSINE</span> SERVICE</a>
+    <a class="navbar-brand brand-font fs-4 fw-bold d-flex align-items-center gap-2" th:href="@{/}" href="/">
+      <img src="/images/fleet/logo/honk-logo.png" alt="HONK Logo" height="40" />
+      HONK <span>LIMOUSINE</span> SERVICE
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -152,11 +157,7 @@
             <div class="col-md-4">
               <label class="form-label-dark">Vehicle Type</label>
               <select id="vehicleTypeSelect" name="vehicleType" class="form-select form-select-dark">
-                <option value="sedan">Executive Sedan</option>
-                <option value="suv">Luxury SUV</option>
-                <option value="sprinter">Sprinter Van</option>
-                <option value="stretch">Stretch Limo</option>
-                <option value="partybus">Party Bus</option>
+                <option th:each="v : ${vehicles}" th:value="${v.vehicleKey}" th:text="${v.name}" th:data-image="${v.imageUrl}"></option>
               </select>
             </div>
             <div class="col-md-4">
@@ -215,6 +216,15 @@
       </div>
 
       <div class="col-lg-4">
+        <!-- Vehicle Showcase Visualizer -->
+        <div class="booking-sidebar-card mb-4 p-0 overflow-hidden" id="vehicleShowcaseContainer" style="display:none; transition: all 0.5s ease;">
+          <div style="position: relative; padding-bottom: 60%;">
+            <img id="vehicleShowcaseImage" src="" alt="Selected Vehicle" style="position: absolute; top:0; left:0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.4s ease;" />
+            <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(11,11,13,1), transparent); padding: 20px;">
+              <h5 id="vehicleShowcaseName" class="mb-0 text-gold brand-font" style="text-shadow: 0 2px 4px rgba(0,0,0,0.8);"></h5>
+            </div>
+          </div>
+        </div>
         <div class="booking-sidebar-card mb-4">
           <h5 class="mb-3"><i class="bi bi-telephone-fill"></i> Prefer to Book by Phone?</h5>
           <p style="color:var(--gray);">Our dispatch team is available 24/7 to take your reservation directly.</p>
@@ -239,7 +249,10 @@
   <div class="container">
     <div class="row g-4">
       <div class="col-lg-4">
-        <h5 class="brand-font">HONK <span class="text-gold">LIMOUSINE</span> SERVICE</h5>
+        <h5 class="brand-font d-flex align-items-center gap-2">
+          <img src="/images/fleet/logo/honk-logo.png" alt="HONK Logo" height="30" />
+          HONK <span class="text-gold">LIMOUSINE</span> SERVICE
+        </h5>
         <p>Chicago's trusted flat-rate luxury ground transportation, available 24/7 for airports, corporate travel, weddings, and events.</p>
         <div class="social-icons mt-3">
           <a href="#"><i class="bi bi-facebook"></i></a>
@@ -282,6 +295,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script th:src="@{/js/main.js}" src="../static/js/main.js"></script>
 </body>
 </html>

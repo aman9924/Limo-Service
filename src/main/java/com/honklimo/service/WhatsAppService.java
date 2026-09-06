@@ -74,6 +74,17 @@ public class WhatsAppService {
         }
     }
 
+    public void sendBookingCancellation(Booking booking) {
+        if (!initialized) return;
+        
+        if (StringUtils.hasText(booking.getCustomer().getPhone()) && StringUtils.hasText(props.getContentSidCustomerCancelled())) {
+            Map<String, String> vars = new LinkedHashMap<>();
+            vars.put("1", nullSafe(booking.getCustomer().getName()));
+            vars.put("2", nullSafe(booking.getBookingReference()));
+            sendTemplateMessage(toWhatsAppAddress(booking.getCustomer().getPhone()), props.getContentSidCustomerCancelled(), vars);
+        }
+    }
+
     private void sendTemplateMessage(String to, String contentSid, Map<String, String> variables) {
         try {
             MessageCreator creator = Message.creator(

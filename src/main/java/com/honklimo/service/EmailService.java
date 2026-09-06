@@ -74,6 +74,18 @@ public class EmailService {
         }
     }
 
+    public void sendBookingCancellation(Booking booking) {
+        if (!isConfigured()) return;
+        String customerEmail = booking.getCustomer().getEmail();
+        if (StringUtils.hasText(customerEmail)) {
+            Context context = new Context();
+            context.setVariable("booking", booking);
+            context.setVariable("baseUrl", baseUrl);
+            String htmlBody = templateEngine.process("email/customer-cancellation", context);
+            sendHtmlEmail(customerEmail, "Your HONK Limousine ride is CANCELLED — " + booking.getBookingReference(), htmlBody);
+        }
+    }
+
     private void sendHtmlEmail(String to, String subject, String htmlBody) {
         try {
             MimeMessage message = mailSender.createMimeMessage();

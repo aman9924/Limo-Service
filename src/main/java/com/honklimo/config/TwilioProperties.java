@@ -13,6 +13,7 @@ public class TwilioProperties {
     private String contentSidOwner;
     private String contentSidCustomer;
     private String contentSidCustomerConfirmed;
+    private String contentSidCustomerCancelled;
 
     public String getAccountSid() {
         return accountSid;
@@ -68,5 +69,13 @@ public class TwilioProperties {
 
     public void setContentSidCustomerConfirmed(String contentSidCustomerConfirmed) {
         this.contentSidCustomerConfirmed = contentSidCustomerConfirmed;
+    }
+
+    public String getContentSidCustomerCancelled() {
+        return contentSidCustomerCancelled;
+    }
+
+    public void setContentSidCustomerCancelled(String contentSidCustomerCancelled) {
+        this.contentSidCustomerCancelled = contentSidCustomerCancelled;
     }
 }

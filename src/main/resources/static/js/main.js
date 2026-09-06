@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initGpsButtons();
   initSwapButton();
   initCapacityValidator();
+  initSidebarShowcase();
 });
 
 /* ---------- Phone Auto-formatter ---------- */
@@ -117,10 +118,10 @@ function initGpsButtons() {
 const VEHICLE_CAPACITIES = {
   "sedan": { pax: 3, lug: 3, label: "Executive Sedan" },
   "suv": { pax: 6, lug: 6, label: "Luxury SUV" },
-  "sprinter": { pax: 14, lug: 14, label: "Sprinter Van" },
+  "sprinter": { pax: 4, lug: 3, label: "Ultra-Luxury Sedan" },
   "stretch": { pax: 10, lug: 4, label: "Stretch Limo" },
-  "partybus": { pax: 25, lug: 10, label: "Party Bus" },
-  "motorcoach": { pax: 55, lug: 55, label: "Motor Coach" }
+  "partybus": { pax: 7, lug: 6, label: "Premium SUV" },
+  "motorcoach": { pax: 4, lug: 3, label: "Sport Luxury Sedan" }
 };
 
 function initCapacityValidator() {
@@ -156,16 +157,73 @@ function initCapacityValidator() {
   lugInput.addEventListener("input", validate);
 }
 
-/* ---------- Date Constraints ---------- */
+/* ---------- Dynamic Booking Visualizer ---------- */
+function initSidebarShowcase() {
+  const vehicleSelect = document.getElementById("vehicleTypeSelect");
+  const showcaseContainer = document.getElementById("vehicleShowcaseContainer");
+  const showcaseImg = document.getElementById("vehicleShowcaseImage");
+  const showcaseName = document.getElementById("vehicleShowcaseName");
+
+  if (!vehicleSelect || !showcaseContainer || !showcaseImg || !showcaseName) return;
+
+  function updateShowcase() {
+    const selectedOption = vehicleSelect.options[vehicleSelect.selectedIndex];
+    const imageUrl = selectedOption.getAttribute("data-image");
+    const name = selectedOption.text;
+
+    if (imageUrl && imageUrl.trim() !== "") {
+      showcaseImg.style.opacity = 0;
+      setTimeout(() => {
+        showcaseImg.src = imageUrl;
+        showcaseName.textContent = name;
+        showcaseContainer.style.display = "block";
+        showcaseImg.style.opacity = 1;
+      }, 150);
+    } else {
+      showcaseContainer.style.display = "none";
+    }
+  }
+
+  vehicleSelect.addEventListener("change", updateShowcase);
+  // Initial call to pre-populate based on default or URL param
+  setTimeout(updateShowcase, 100);
+}
+
+/* ---------- Date Constraints & Flatpickr ---------- */
 function initDateConstraints() {
   const dateInputs = document.querySelectorAll('input[type="date"]');
   if (dateInputs.length === 0) return;
   
-  // Format today as YYYY-MM-DD
   const today = new Date().toLocaleDateString('en-CA'); 
-  dateInputs.forEach(input => {
-    input.setAttribute('min', today);
-  });
+  
+  if (typeof flatpickr !== "undefined") {
+    flatpickr('input[type="date"]', {
+      minDate: "today",
+      dateFormat: "Y-m-d",
+      altInput: true,
+      altFormat: "F j, Y",
+      altInputClass: "form-control form-control-dark",
+      disableMobile: "true",
+      onChange: function(selectedDates, dateStr, instance) {
+        // Flatpickr triggers blur or change, which is good for validation
+      }
+    });
+    
+    flatpickr('input[type="time"]', {
+      enableTime: true,
+      noCalendar: true,
+      dateFormat: "H:i",
+      altInput: true,
+      altFormat: "h:i K",
+      altInputClass: "form-control form-control-dark",
+      time_24hr: false, // Use AM/PM
+      disableMobile: "true"
+    });
+  } else {
+    dateInputs.forEach(input => {
+      input.setAttribute('min', today);
+    });
+  }
 }
 
 /* ---------- Navbar shrink on scroll ---------- */
