@@ -2,6 +2,8 @@ package com.honklimo.controller;
 
 import com.honklimo.repository.PricingRateRepository;
 import com.honklimo.repository.VehicleRepository;
+import com.honklimo.repository.AddonPricingRepository;
+import com.honklimo.entity.AddonPricing;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ public class PageController {
 
     private final VehicleRepository vehicleRepository;
     private final PricingRateRepository pricingRateRepository;
+    private final AddonPricingRepository addonPricingRepository;
 
     @Value("${app.base-url:http://localhost:8080}")
     private String baseUrl;
@@ -22,9 +25,11 @@ public class PageController {
             "/", "/booking", "/fleet", "/services", "/pricing", "/faq", "/about", "/contact", "/track"
     };
 
-    public PageController(VehicleRepository vehicleRepository, PricingRateRepository pricingRateRepository) {
+    public PageController(VehicleRepository vehicleRepository, PricingRateRepository pricingRateRepository,
+                           AddonPricingRepository addonPricingRepository) {
         this.vehicleRepository = vehicleRepository;
         this.pricingRateRepository = pricingRateRepository;
+        this.addonPricingRepository = addonPricingRepository;
     }
 
     @GetMapping("/")
@@ -37,6 +42,8 @@ public class PageController {
     @GetMapping("/booking")
     public String booking(Model model) {
         model.addAttribute("vehicles", vehicleRepository.findAllByOrderByDisplayOrderAsc());
+        model.addAttribute("meetAndGreetFee",
+                addonPricingRepository.findById(1L).orElseGet(AddonPricing::new).getMeetAndGreetFee());
         return "booking";
     }
 

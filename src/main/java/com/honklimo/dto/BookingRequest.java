@@ -34,6 +34,7 @@ public class BookingRequest {
     private String luggage;
     private String flightNumber;
     private String specialRequests;
+    private boolean meetAndGreet;
 
     public String getFullName() {
         return fullName;
@@ -153,5 +154,13 @@ public class BookingRequest {
 
     public void setSpecialRequests(String specialRequests) {
         this.specialRequests = specialRequests;
+    }
+
+    public boolean isMeetAndGreet() {
+        return meetAndGreet;
+    }
+
+    public void setMeetAndGreet(boolean meetAndGreet) {
+        this.meetAndGreet = meetAndGreet;
     }
 }

@@ -4,8 +4,10 @@ import com.honklimo.entity.Booking;
 import com.honklimo.entity.BookingStatus;
 import com.honklimo.entity.PricingRate;
 import com.honklimo.entity.Vehicle;
+import com.honklimo.entity.AddonPricing;
 import com.honklimo.repository.PricingRateRepository;
 import com.honklimo.repository.VehicleRepository;
+import com.honklimo.repository.AddonPricingRepository;
 import com.honklimo.service.BookingService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
@@ -22,12 +24,14 @@ public class AdminController {
     private final BookingService bookingService;
     private final VehicleRepository vehicleRepository;
     private final PricingRateRepository pricingRateRepository;
+    private final AddonPricingRepository addonPricingRepository;
 
     public AdminController(BookingService bookingService, VehicleRepository vehicleRepository,
-                            PricingRateRepository pricingRateRepository) {
+                            PricingRateRepository pricingRateRepository, AddonPricingRepository addonPricingRepository) {
         this.bookingService = bookingService;
         this.vehicleRepository = vehicleRepository;
         this.pricingRateRepository = pricingRateRepository;
+        this.addonPricingRepository = addonPricingRepository;
     }
 
     @GetMapping("/login")
@@ -121,7 +125,16 @@ public class AdminController {
     @GetMapping("/pricing")
     public String pricing(Model model) {
         model.addAttribute("rates", pricingRateRepository.findAllByOrderByDisplayOrderAsc());
+        model.addAttribute("addonPricing", addonPricingRepository.findById(1L).orElseGet(AddonPricing::new));
         return "admin/pricing";
+    }
+
+    @PostMapping("/pricing/addons")
+    public String updateAddonPricing(@RequestParam Double meetAndGreetFee) {
+        AddonPricing addon = addonPricingRepository.findById(1L).orElseGet(AddonPricing::new);
+        addon.setMeetAndGreetFee(meetAndGreetFee);
+        addonPricingRepository.save(addon);
+        return "redirect:/admin/pricing";
     }
 
     @PostMapping("/pricing/{id}")

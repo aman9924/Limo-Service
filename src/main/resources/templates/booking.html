@@ -186,6 +186,22 @@
             </div>
 
             <div class="col-12">
+              <div class="form-check p-3" style="background-color: rgba(212, 175, 55, 0.08); border: 1px solid rgba(201, 162, 75, 0.25); border-radius: 6px;">
+                <input class="form-check-input" type="checkbox" id="meetAndGreetCheck" th:attr="data-fee=${meetAndGreetFee}" />
+                <label class="form-check-label fw-semibold" for="meetAndGreetCheck" style="color: var(--white);">
+                  Add Meet &amp; Greet Service
+                </label>
+                <div style="color: var(--gray); font-size: 0.85rem; margin-top:4px;">
+                  <i class="bi bi-info-circle-fill text-gold me-1"></i>
+                  Your chauffeur will meet you inside baggage claim holding a personalized name sign and help load your luggage to the vehicle. Recommended for airport arrivals.
+                </div>
+                <div id="meetAndGreetFeeNotice" style="display:none; margin-top:8px; color: var(--gold); font-weight:600; font-size:0.9rem;">
+                  <i class="bi bi-cash-coin me-1"></i>+$<span id="meetAndGreetFeeAmount"></span> will be added to your final fare.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
               <label class="form-label-dark">Special Requests</label>
               <textarea name="specialRequests" rows="4" class="form-control form-control-dark" placeholder="Child seat, extra stops, meet & greet, etc."></textarea>
             </div>

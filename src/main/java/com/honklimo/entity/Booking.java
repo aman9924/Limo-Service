@@ -45,6 +45,9 @@ public class Booking {
     @Column(length = 1000)
     private String specialRequests;
 
+    // Chauffeur meets the passenger inside baggage claim with a name sign and helps with luggage.
+    private boolean meetAndGreet;
+
     @Enumerated(EnumType.STRING)
     private BookingStatus status = BookingStatus.PENDING;
 
@@ -176,6 +179,14 @@ public class Booking {
 
     public void setSpecialRequests(String specialRequests) {
         this.specialRequests = specialRequests;
+    }
+
+    public boolean isMeetAndGreet() {
+        return meetAndGreet;
+    }
+
+    public void setMeetAndGreet(boolean meetAndGreet) {
+        this.meetAndGreet = meetAndGreet;
     }
 
     public BookingStatus getStatus() {

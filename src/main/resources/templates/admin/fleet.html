@@ -20,7 +20,6 @@
     <div class="d-flex align-items-center gap-3">
       <a th:href="@{/admin/bookings}" class="nav-link d-inline">Bookings</a>
       <a th:href="@{/admin/fleet}" class="nav-link d-inline text-gold">Fleet</a>
-      <a th:href="@{/admin/pricing}" class="nav-link d-inline">Pricing</a>
       <span style="color:var(--gray);">Logged in as <strong sec:authentication="name" class="text-gold"></strong></span>
       <form th:action="@{/admin/logout}" method="post" class="mb-0">
         <button type="submit" class="btn btn-outline-gold btn-sm">Log Out</button>
@@ -31,110 +30,156 @@
 
 <section class="section-padding" style="padding-top:120px;">
   <div class="container">
-    <h1 class="section-title mb-4">Fleet</h1>
+    <h1 class="section-title mb-1">Fleet Management</h1>
+    <p class="section-subtitle" style="margin:0 0 30px;max-width:100%;">Manage vehicles shown on the public site. Edits and new vehicles appear immediately on the Home, Fleet, and Booking pages.</p>
 
     <div class="admin-table-wrapper mb-5">
       <table class="admin-table align-middle">
         <thead>
           <tr>
-            <th>Key</th>
-            <th>Name</th>
-            <th>Capacity</th>
-            <th>Luggage</th>
-            <th>$/hr</th>
-            <th>Icon Class</th>
-            <th>Image URL</th>
-            <th>Description</th>
-            <th>Order</th>
-            <th>Actions</th>
+            <th style="min-width:190px;">Vehicle</th>
+            <th style="width:130px;">Specs</th>
+            <th style="width:110px;">Price/hr</th>
+            <th style="width:170px;">Photo</th>
+            <th style="min-width:240px;">Details</th>
+            <th style="width:70px;" class="text-center">Order</th>
+            <th style="width:100px;">Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr th:each="v : ${vehicles}">
             <td>
-              <input type="text" name="vehicleKey" th:value="${v.vehicleKey}" th:form="'vf' + ${v.id}" class="form-control form-control-dark form-control-sm" />
-            </td>
-            <td>
-              <input type="text" name="name" th:value="${v.name}" th:form="'vf' + ${v.id}" class="form-control form-control-dark form-control-sm" />
-            </td>
-            <td>
-              <input type="number" name="capacity" th:value="${v.capacity}" th:form="'vf' + ${v.id}" class="form-control form-control-dark form-control-sm" style="width:80px;" />
-            </td>
-            <td>
-              <input type="number" name="luggage" th:value="${v.luggage}" th:form="'vf' + ${v.id}" class="form-control form-control-dark form-control-sm" style="width:80px;" />
-            </td>
-            <td>
-              <input type="number" step="0.01" name="pricePerHour" th:value="${v.pricePerHour}" th:form="'vf' + ${v.id}" class="form-control form-control-dark form-control-sm" style="width:90px;" />
-            </td>
-            <td>
-              <input type="text" name="iconClass" th:value="${v.iconClass}" th:form="'vf' + ${v.id}" class="form-control form-control-dark form-control-sm" style="width:120px;" />
-            </td>
-            <td>
-              <input type="text" name="imageUrl" th:value="${v.imageUrl}" th:form="'vf' + ${v.id}" class="form-control form-control-dark form-control-sm" style="width:140px;" placeholder="/images/fleet/car.jpg" />
-            </td>
-            <td>
-              <input type="text" name="description" th:value="${v.description}" th:form="'vf' + ${v.id}" class="form-control form-control-dark form-control-sm" style="min-width:220px;" />
-            </td>
-            <td>
-              <input type="number" name="displayOrder" th:value="${v.displayOrder}" th:form="'vf' + ${v.id}" class="form-control form-control-dark form-control-sm" style="width:70px;" />
-            </td>
-            <td class="d-flex gap-1">
-              <!-- Empty form declared here; inputs above reference it by id via the form="" attribute since a <form> can't wrap multiple <td>s. -->
+              <!-- Empty form declared here; inputs across this row reference it by id via the form="" attribute since a <form> can't wrap multiple <td>s. -->
               <form th:id="'vf' + ${v.id}" th:action="@{/admin/fleet/{id}(id=${v.id})}" method="post"></form>
-              <button type="submit" th:form="'vf' + ${v.id}" class="btn btn-outline-gold btn-sm">Save</button>
-              <form th:action="@{/admin/fleet/{id}/delete(id=${v.id})}" method="post" onsubmit="return confirm('Delete this vehicle?');">
-                <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
-              </form>
+              <input type="text" name="name" th:value="${v.name}" th:form="'vf' + ${v.id}" class="form-control form-control-dark form-control-sm fw-semibold mb-1" placeholder="Vehicle name" />
+              <div class="input-group input-group-sm">
+                <span class="input-group-text" title="Key used by the booking form"><i class="bi bi-key-fill"></i></span>
+                <input type="text" name="vehicleKey" th:value="${v.vehicleKey}" th:form="'vf' + ${v.id}" class="form-control form-control-dark" style="font-family:monospace;font-size:0.8rem;" placeholder="key" />
+              </div>
+            </td>
+            <td>
+              <div class="input-group input-group-sm mb-1">
+                <span class="input-group-text" title="Passenger capacity"><i class="bi bi-people-fill text-gold"></i></span>
+                <input type="number" name="capacity" th:value="${v.capacity}" th:form="'vf' + ${v.id}" class="form-control form-control-dark" />
+              </div>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text" title="Luggage capacity"><i class="bi bi-briefcase-fill text-gold"></i></span>
+                <input type="number" name="luggage" th:value="${v.luggage}" th:form="'vf' + ${v.id}" class="form-control form-control-dark" />
+              </div>
+            </td>
+            <td>
+              <div class="input-group input-group-sm">
+                <span class="input-group-text fw-semibold text-gold">$</span>
+                <input type="number" step="0.01" name="pricePerHour" th:value="${v.pricePerHour}" th:form="'vf' + ${v.id}" class="form-control form-control-dark" />
+              </div>
+            </td>
+            <td class="js-image-field">
+              <div class="admin-fleet-thumb">
+                <img th:src="${v.imageUrl != null and !v.imageUrl.isEmpty()} ? @{${v.imageUrl}} : '/images/fleet/logo/honk-logo.png'" alt="Vehicle photo preview" />
+              </div>
+              <input type="text" name="imageUrl" th:value="${v.imageUrl}" th:form="'vf' + ${v.id}" class="form-control form-control-dark form-control-sm js-image-url" placeholder="/images/fleet/car.jpg" />
+            </td>
+            <td>
+              <div class="input-group input-group-sm mb-1">
+                <span class="input-group-text"><i th:if="${v.iconClass != null and !v.iconClass.isEmpty()}" th:class="'bi ' + ${v.iconClass} + ' text-gold'"></i><i th:unless="${v.iconClass != null and !v.iconClass.isEmpty()}" class="bi bi-question-lg text-gray"></i></span>
+                <input type="text" name="iconClass" th:value="${v.iconClass}" th:form="'vf' + ${v.id}" class="form-control form-control-dark" placeholder="bi-car-front" />
+              </div>
+              <input type="text" name="description" th:value="${v.description}" th:form="'vf' + ${v.id}" class="form-control form-control-dark form-control-sm" placeholder="Short description shown on the site" />
+            </td>
+            <td>
+              <input type="number" name="displayOrder" th:value="${v.displayOrder}" th:form="'vf' + ${v.id}" class="form-control form-control-dark form-control-sm text-center" />
+            </td>
+            <td>
+              <div class="d-flex gap-2">
+                <button type="submit" th:form="'vf' + ${v.id}" class="btn btn-outline-gold btn-sm" title="Save changes"><i class="bi bi-check-lg"></i></button>
+                <form th:action="@{/admin/fleet/{id}/delete(id=${v.id})}" method="post" onsubmit="return confirm('Delete this vehicle?');" class="mb-0">
+                  <button type="submit" class="btn btn-outline-danger btn-sm" title="Delete vehicle"><i class="bi bi-trash"></i></button>
+                </form>
+              </div>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <h2 class="section-title mb-4">Add New Vehicle</h2>
-    <form th:action="@{/admin/fleet}" method="post" class="row g-3 booking-form-card">
-      <div class="col-md-3">
-        <label class="form-label-dark">Key (matches booking form value)</label>
-        <input type="text" name="vehicleKey" class="form-control form-control-dark" required placeholder="e.g. sedan" />
-      </div>
-      <div class="col-md-3">
-        <label class="form-label-dark">Name</label>
-        <input type="text" name="name" class="form-control form-control-dark" required />
-      </div>
-      <div class="col-md-2">
-        <label class="form-label-dark">Capacity</label>
-        <input type="number" name="capacity" class="form-control form-control-dark" required />
-      </div>
-      <div class="col-md-2">
-        <label class="form-label-dark">Luggage</label>
-        <input type="number" name="luggage" class="form-control form-control-dark" required />
-      </div>
-      <div class="col-md-2">
-        <label class="form-label-dark">$/hr</label>
-        <input type="number" step="0.01" name="pricePerHour" class="form-control form-control-dark" required />
-      </div>
-      <div class="col-md-2">
-        <label class="form-label-dark">Icon Class</label>
-        <input type="text" name="iconClass" class="form-control form-control-dark" placeholder="bi-car-front" required />
-      </div>
-      <div class="col-md-3">
-        <label class="form-label-dark">Image URL</label>
-        <input type="text" name="imageUrl" class="form-control form-control-dark" placeholder="/images/fleet/car.jpg" />
-      </div>
-      <div class="col-md-5">
-        <label class="form-label-dark">Description</label>
-        <input type="text" name="description" class="form-control form-control-dark" required />
-      </div>
-      <div class="col-md-2">
-        <label class="form-label-dark">Display Order</label>
-        <input type="number" name="displayOrder" class="form-control form-control-dark" value="0" />
-      </div>
-      <div class="col-12">
-        <button type="submit" class="btn btn-gold">Add Vehicle</button>
-      </div>
-    </form>
+    <div class="booking-form-card">
+      <h2 class="section-title mb-1" style="font-size:1.4rem;"><i class="bi bi-plus-circle-fill text-gold me-2"></i>Add New Vehicle</h2>
+      <p class="section-subtitle" style="margin:0 0 24px;max-width:100%;">Fill in the details below to publish a new vehicle to the fleet.</p>
+      <form th:action="@{/admin/fleet}" method="post" class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label-dark">Name</label>
+          <input type="text" name="name" class="form-control form-control-dark" required placeholder="e.g. Executive Sedan" />
+        </div>
+        <div class="col-md-3">
+          <label class="form-label-dark">Key (matches booking form value)</label>
+          <input type="text" name="vehicleKey" class="form-control form-control-dark" required placeholder="e.g. sedan" />
+        </div>
+        <div class="col-md-3">
+          <label class="form-label-dark">Icon Class</label>
+          <input type="text" name="iconClass" class="form-control form-control-dark" placeholder="bi-car-front" required />
+        </div>
+        <div class="col-md-2">
+          <label class="form-label-dark">Display Order</label>
+          <input type="number" name="displayOrder" class="form-control form-control-dark" value="0" />
+        </div>
+
+        <div class="col-12"><hr style="border-color: rgba(255,255,255,0.08);margin:4px 0;" /></div>
+
+        <div class="col-md-3">
+          <label class="form-label-dark">Capacity</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-people-fill text-gold"></i></span>
+            <input type="number" name="capacity" class="form-control form-control-dark" required />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label-dark">Luggage</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-briefcase-fill text-gold"></i></span>
+            <input type="number" name="luggage" class="form-control form-control-dark" required />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label-dark">Price / Hour</label>
+          <div class="input-group">
+            <span class="input-group-text fw-semibold text-gold">$</span>
+            <input type="number" step="0.01" name="pricePerHour" class="form-control form-control-dark" required />
+          </div>
+        </div>
+
+        <div class="col-12"><hr style="border-color: rgba(255,255,255,0.08);margin:4px 0;" /></div>
+
+        <div class="col-md-4 js-image-field">
+          <label class="form-label-dark">Image URL</label>
+          <div class="d-flex align-items-center gap-2">
+            <div class="admin-fleet-thumb mb-0">
+              <img src="/images/fleet/logo/honk-logo.png" alt="Vehicle photo preview" />
+            </div>
+            <input type="text" name="imageUrl" class="form-control form-control-dark js-image-url" placeholder="/images/fleet/car.jpg" />
+          </div>
+        </div>
+        <div class="col-md-8">
+          <label class="form-label-dark">Description</label>
+          <input type="text" name="description" class="form-control form-control-dark" required placeholder="Short description shown on the site" />
+        </div>
+
+        <div class="col-12">
+          <button type="submit" class="btn btn-gold"><i class="bi bi-plus-lg me-1"></i>Add Vehicle</button>
+        </div>
+      </form>
+    </div>
   </div>
 </section>
+
+<script>
+  // Live thumbnail preview as an admin types/edits an image URL.
+  document.addEventListener('input', function (e) {
+    if (!e.target.matches('.js-image-url')) return;
+    var field = e.target.closest('.js-image-field');
+    var thumb = field ? field.querySelector('.admin-fleet-thumb img') : null;
+    if (thumb) thumb.src = e.target.value || '/images/fleet/logo/honk-logo.png';
+  });
+</script>
 
 </body>
 </html>

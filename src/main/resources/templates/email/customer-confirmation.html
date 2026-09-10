@@ -41,6 +41,7 @@
                     <tr><td class="label">Drop-off:</td><td class="value" th:text="${booking.dropoffLocation}"></td></tr>
                     <tr><td class="label">Date &amp; Time:</td><td class="value" th:text="${booking.pickupDate + ' at ' + booking.pickupTime}"></td></tr>
                     <tr><td class="label">Vehicle:</td><td class="value" th:text="${booking.vehicleType}"></td></tr>
+                    <tr th:if="${booking.meetAndGreet}"><td class="label">Meet &amp; Greet:</td><td class="value" style="color:#d4af37;">Confirmed — your chauffeur will meet you inside baggage claim.</td></tr>
                 </table>
             </div>
 

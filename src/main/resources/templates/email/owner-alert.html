@@ -37,6 +37,9 @@
             <tr th:if="${booking.flightNumber != null and !booking.flightNumber.isEmpty()}">
                 <th>Flight #</th><td th:text="${booking.flightNumber}"></td>
             </tr>
+            <tr th:if="${booking.meetAndGreet}">
+                <th>Meet &amp; Greet</th><td style="color: #d4af37; font-weight: bold;">Requested</td>
+            </tr>
             <tr th:if="${booking.specialRequests != null and !booking.specialRequests.isEmpty()}">
                 <th>Notes</th><td th:text="${booking.specialRequests}" style="color: #d9534f;"></td>
             </tr>

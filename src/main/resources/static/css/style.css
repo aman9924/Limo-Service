@@ -901,6 +901,43 @@ a.navbar-brand, .navbar-brand {
   padding: 12px;
 }
 
+/* ===================== ADMIN FLEET TABLE ===================== */
+.admin-fleet-thumb {
+  width: 64px;
+  height: 48px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--black-soft);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+  margin-bottom: 6px;
+}
+.admin-fleet-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.admin-table .input-group-text {
+  background-color: rgba(15, 15, 18, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-right: none;
+  color: var(--gray);
+}
+.booking-form-card .input-group-text {
+  background-color: rgba(15, 15, 18, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-right: none;
+  color: var(--gray);
+}
+.admin-table .input-group .form-control-dark,
+.booking-form-card .input-group .form-control-dark {
+  border-left: none;
+}
+.admin-table .input-group:focus-within .input-group-text,
+.booking-form-card .input-group:focus-within .input-group-text {
+  border-color: var(--gold);
+}
+
  / *   = = = = = = = = = = = = = = = = = = = = =   F L A T P I C K R   C U S T O M I Z A T I O N   = = = = = = = = = = = = = = = = = = = = =   * / 
  . f l a t p i c k r - c a l e n d a r   { 
      b a c k g r o u n d :   v a r ( - - b l a c k - c a r d )   ! i m p o r t a n t ; 
@@ -927,7 +964,8 @@ a.navbar-brand, .navbar-brand {
  . f l a t p i c k r - t i m e   i n p u t : h o v e r ,   . f l a t p i c k r - t i m e   . f l a t p i c k r - a m - p m : h o v e r ,   . f l a t p i c k r - t i m e   i n p u t : f o c u s ,   . f l a t p i c k r - t i m e   . f l a t p i c k r - a m - p m : f o c u s   { 
      b a c k g r o u n d :   r g b a ( 2 0 1 ,   1 6 2 ,   7 5 ,   0 . 1 )   ! i m p o r t a n t ; 
  } 
-  
+ 
+ 
  
  / *   F i x   f o r   f l a t p i c k r   a l t - i n p u t   o v e r r i d i n g   o u r   s t y l e s   * / 
  i n p u t . f l a t p i c k r - i n p u t . f o r m - c o n t r o l - d a r k , 
@@ -942,5 +980,6 @@ a.navbar-brand, .navbar-brand {
      b o r d e r - c o l o r :   v a r ( - - g o l d )   ! i m p o r t a n t ; 
      b o x - s h a d o w :   0   0   1 5 p x   r g b a ( 2 0 1 ,   1 6 2 ,   7 5 ,   0 . 2 5 )   ! i m p o r t a n t ; 
  } 
-  
+ 
+ 
  

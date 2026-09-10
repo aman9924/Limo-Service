@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initSwapButton();
   initCapacityValidator();
   initSidebarShowcase();
+  initMeetAndGreet();
 });
 
 /* ---------- Phone Auto-formatter ---------- */
@@ -341,6 +342,8 @@ function initBookingForm() {
     }
 
     const data = Object.fromEntries(new FormData(form).entries());
+    const meetAndGreetCheck = document.getElementById("meetAndGreetCheck");
+    if (meetAndGreetCheck) data.meetAndGreet = meetAndGreetCheck.checked;
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalLabel = submitBtn.textContent;
     submitBtn.disabled = true;
@@ -461,6 +464,7 @@ function initTrackForm() {
     document.getElementById("resultPickupLocation").textContent = data.pickupLocation || "-";
     document.getElementById("resultDropoffLocation").textContent = data.dropoffLocation || "-";
     document.getElementById("resultDateTime").textContent = `${data.pickupDate || "-"} ${data.pickupTime || ""}`;
+    document.getElementById("resultMeetAndGreet").style.display = data.meetAndGreet ? "block" : "none";
 
     const badge = document.getElementById("resultStatusBadge");
     badge.textContent = data.bookingStatus;
@@ -561,6 +565,27 @@ const ADDRESS_STATE = {
   pickup: null, // { lat, lng }
   dropoff: null,
 };
+
+let lastFareEstimateResult = null;
+let lastFareEstimateVehicleLabel = null;
+
+/* ---------- Meet & Greet add-on: shows its fee and folds it into the fare estimate ---------- */
+function initMeetAndGreet() {
+  const checkbox = document.getElementById("meetAndGreetCheck");
+  if (!checkbox) return;
+  const notice = document.getElementById("meetAndGreetFeeNotice");
+  const amountEl = document.getElementById("meetAndGreetFeeAmount");
+  const fee = parseFloat(checkbox.dataset.fee || "0");
+  if (amountEl) amountEl.textContent = fee.toFixed(2);
+
+  checkbox.addEventListener("change", () => {
+    if (notice) notice.style.display = checkbox.checked ? "block" : "none";
+    const panel = document.getElementById("fareEstimate");
+    if (panel && lastFareEstimateResult) {
+      renderFareCard(panel, { result: lastFareEstimateResult, vehicleLabel: lastFareEstimateVehicleLabel });
+    }
+  });
+}
 
 function initAddressAutocomplete() {
   attachAutocomplete("pickupLocationInput", "pickupSuggestions", "pickup");
@@ -725,11 +750,14 @@ async function maybeUpdateFareEstimate() {
     const result = await res.json();
 
     if (!res.ok) {
+      lastFareEstimateResult = null;
       renderFareCard(panel, { error: result.message || "Could not calculate an estimate right now." });
       return;
     }
 
-    renderFareCard(panel, { result, vehicleLabel: vehicleSelect.options[vehicleSelect.selectedIndex].text });
+    lastFareEstimateResult = result;
+    lastFareEstimateVehicleLabel = vehicleSelect.options[vehicleSelect.selectedIndex].text;
+    renderFareCard(panel, { result, vehicleLabel: lastFareEstimateVehicleLabel });
   } catch (err) {
     if (err.name === 'AbortError') {
       return; // Ignore aborted requests
@@ -766,7 +794,10 @@ function renderFareCard(panel, { loading, error, result, vehicleLabel } = {}) {
   }
 
   const isCallForPricing = result.pricingType === "CALL_FOR_PRICING";
-  const priceText = isCallForPricing ? "Call for Pricing" : `$${result.estimatedFare}`;
+  const meetAndGreetCheck = document.getElementById("meetAndGreetCheck");
+  const meetAndGreetFee = meetAndGreetCheck && meetAndGreetCheck.checked ? parseFloat(meetAndGreetCheck.dataset.fee || "0") : 0;
+  const totalFare = isCallForPricing ? null : parseFloat(result.estimatedFare) + meetAndGreetFee;
+  const priceText = isCallForPricing ? "Call for Pricing" : `$${totalFare.toFixed(2)}`;
   const detailsId = "fareDetailsPanel";
   
   let mapHtml = "";
@@ -794,6 +825,7 @@ function renderFareCard(panel, { loading, error, result, vehicleLabel } = {}) {
           <dt>Pricing Type</dt><dd>${isCallForPricing ? "Custom Quote" : result.pricingType === "FLAT" ? "Airport Flat Rate" : "Per-Mile Rate"}</dd>
           <dt>Distance</dt><dd>${result.distanceMiles} miles</dd>
           <dt>Estimated Duration</dt><dd>${result.durationMinutes} minutes</dd>
+          ${meetAndGreetFee > 0 ? `<dt>Meet &amp; Greet</dt><dd>+$${meetAndGreetFee.toFixed(2)}</dd>` : ""}
           <dt>Note</dt><dd>${result.note}</dd>
         </dl>
       </div>

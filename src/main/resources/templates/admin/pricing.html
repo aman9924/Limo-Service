@@ -20,7 +20,6 @@
     <div class="d-flex align-items-center gap-3">
       <a th:href="@{/admin/bookings}" class="nav-link d-inline">Bookings</a>
       <a th:href="@{/admin/fleet}" class="nav-link d-inline">Fleet</a>
-      <a th:href="@{/admin/pricing}" class="nav-link d-inline text-gold">Pricing</a>
       <span style="color:var(--gray);">Logged in as <strong sec:authentication="name" class="text-gold"></strong></span>
       <form th:action="@{/admin/logout}" method="post" class="mb-0">
         <button type="submit" class="btn btn-outline-gold btn-sm">Log Out</button>
@@ -36,6 +35,23 @@
       These rates drive both the public Pricing page and the live fare estimate on the booking form.
       Vehicle types not listed here always show as "Call for Pricing".
     </p>
+
+    <div class="booking-form-card mb-5">
+      <h2 class="section-title mb-1" style="font-size:1.3rem;"><i class="bi bi-person-check-fill text-gold me-2"></i>Additional Services</h2>
+      <p class="section-subtitle" style="margin:0 0 20px;max-width:100%;">Optional add-ons offered on the booking form.</p>
+      <form th:action="@{/admin/pricing/addons}" method="post" class="row g-3 align-items-end">
+        <div class="col-md-4">
+          <label class="form-label-dark">Meet &amp; Greet Fee</label>
+          <div class="input-group">
+            <span class="input-group-text fw-semibold text-gold">$</span>
+            <input type="number" step="0.01" min="0" name="meetAndGreetFee" th:value="${addonPricing.meetAndGreetFee}" class="form-control form-control-dark" required />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <button type="submit" class="btn btn-gold">Save Fee</button>
+        </div>
+      </form>
+    </div>
 
     <div class="admin-table-wrapper">
       <table class="admin-table align-middle">

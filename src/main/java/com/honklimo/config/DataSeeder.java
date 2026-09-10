@@ -1,7 +1,9 @@
 package com.honklimo.config;
 
+import com.honklimo.entity.AddonPricing;
 import com.honklimo.entity.PricingRate;
 import com.honklimo.entity.Vehicle;
+import com.honklimo.repository.AddonPricingRepository;
 import com.honklimo.repository.PricingRateRepository;
 import com.honklimo.repository.VehicleRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -14,16 +16,20 @@ public class DataSeeder implements CommandLineRunner {
 
     private final VehicleRepository vehicleRepository;
     private final PricingRateRepository pricingRateRepository;
+    private final AddonPricingRepository addonPricingRepository;
 
-    public DataSeeder(VehicleRepository vehicleRepository, PricingRateRepository pricingRateRepository) {
+    public DataSeeder(VehicleRepository vehicleRepository, PricingRateRepository pricingRateRepository,
+                       AddonPricingRepository addonPricingRepository) {
         this.vehicleRepository = vehicleRepository;
         this.pricingRateRepository = pricingRateRepository;
+        this.addonPricingRepository = addonPricingRepository;
     }
 
     @Override
     public void run(String... args) {
         seedVehicles();
         seedPricingRates();
+        seedAddonPricing();
     }
 
     private void seedVehicles() {
@@ -96,6 +102,11 @@ public class DataSeeder implements CommandLineRunner {
                 rate("stretch", "Luxury Sedan (Stretch Limo)", 110.0, 4.5, 3),
                 rate("sprinter", "Luxury SUV (Sprinter Van)", 135.0, 6.0, 4)
         ));
+    }
+
+    private void seedAddonPricing() {
+        if (addonPricingRepository.count() > 0) return;
+        addonPricingRepository.save(new AddonPricing());
     }
 
     private Vehicle vehicle(String key, String name, int capacity, int luggage, double pricePerHour,
