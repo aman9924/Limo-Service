@@ -746,9 +746,23 @@ body {
   transition: transform 0.65s ease, filter 0.65s ease;
 }
 
+.service-media--contained {
+  background: radial-gradient(circle at center, #292a2f 0%, #0c0c0f 75%);
+}
+
+.service-media--contained img {
+  width: 100%;
+  object-fit: contain;
+  padding: 8px 18px;
+}
+
 .service-card:hover .service-media img {
   transform: scale(1.06);
   filter: saturate(1.08) contrast(1.04);
+}
+
+.service-card:hover .service-media--contained img {
+  transform: scale(1.025);
 }
 
 .service-card .service-icon {
