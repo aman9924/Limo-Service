@@ -46,7 +46,9 @@ public class Booking {
     private String specialRequests;
 
     // Chauffeur meets the passenger inside baggage claim with a name sign and helps with luggage.
-    private boolean meetAndGreet;
+    // Nullable Boolean (not primitive) so ddl-auto=update can add this column to tables that
+    // already have rows — a NOT NULL column addition fails silently on non-empty tables.
+    private Boolean meetAndGreet = Boolean.FALSE;
 
     @Enumerated(EnumType.STRING)
     private BookingStatus status = BookingStatus.PENDING;
@@ -182,7 +184,7 @@ public class Booking {
     }
 
     public boolean isMeetAndGreet() {
-        return meetAndGreet;
+        return Boolean.TRUE.equals(meetAndGreet);
     }
 
     public void setMeetAndGreet(boolean meetAndGreet) {
