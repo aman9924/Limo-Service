@@ -44,7 +44,7 @@ spring:
 #   TWILIO_ACCOUNT_SID
 #   TWILIO_AUTH_TOKEN
 #   TWILIO_WHATSAPP_FROM        e.g. whatsapp:+14155238886 (sandbox) or your approved sender
-#   OWNER_WHATSAPP_NUMBER       e.g. whatsapp:+13125550100
+#   OWNER_WHATSAPP_NUMBER       e.g. whatsapp:+18439296113
 #   TWILIO_CONTENT_SID_OWNER    approved/sandbox content template SID for the owner alert
 #   TWILIO_CONTENT_SID_CUSTOMER approved/sandbox content template SID for the customer confirmation
 twilio:
@@ -69,7 +69,7 @@ admin:
 
 mail:
   owner-email: ${OWNER_EMAIL:}
-  from-address: ${MAIL_FROM_ADDRESS:bookings@honklimo.com}
+  from-address: ${MAIL_FROM_ADDRESS:HonkLimoservice@gmail.com}
 
 # Used to build absolute canonical/Open Graph URLs. Set to your real domain in production
 # (e.g. https://www.honklimo.com), no trailing slash.

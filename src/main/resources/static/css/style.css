@@ -561,6 +561,97 @@ a.navbar-brand, .navbar-brand {
   margin-bottom: 20px;
 }
 
+/* ===================== SITE-WIDE MOTION ===================== */
+body { animation: site-page-in 0.65s ease both; }
+
+.navbar-top-bar { animation: site-bar-in 0.6s ease both; }
+
+.navbar-custom { box-shadow: 0 8px 26px rgba(0, 0, 0, 0.18); }
+
+.navbar-custom .nav-link {
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.navbar-custom .nav-link:hover,
+.navbar-custom .nav-link.active { transform: translateY(-1px); }
+
+.hero-content { animation: site-content-in 0.85s 0.1s ease both; }
+
+.section-padding > .container > .section-title,
+.section-padding > .container > .section-subtitle,
+.section-padding > .container > .row { animation: site-content-in 0.75s ease both; }
+
+.service-card,
+.fleet-card,
+.testimonial-card,
+.quick-booking-card,
+.booking-form-card,
+.booking-sidebar-card,
+.fare-estimate-card,
+.cta-banner {
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.service-card:hover,
+.fleet-card:hover,
+.testimonial-card:hover,
+.quick-booking-card:hover,
+.booking-form-card:hover,
+.booking-sidebar-card:hover,
+.fare-estimate-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28);
+}
+
+.service-icon,
+.fleet-card .fleet-image,
+.hero-badge i { transition: transform 0.28s ease, color 0.28s ease; }
+
+.service-card:hover .service-icon,
+.fleet-card:hover .fleet-image { transform: translateY(-3px) scale(1.04); }
+
+.cta-banner { position: relative; overflow: hidden; }
+
+.cta-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgba(201, 162, 75, 0.08), transparent 65%);
+  transform: translateX(-100%);
+  animation: site-sheen 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes site-page-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes site-bar-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes site-content-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes site-sheen {
+  0%, 60% { transform: translateX(-100%); }
+  85%, 100% { transform: translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  .navbar-top-bar,
+  .hero-content,
+  .section-padding > .container > .section-title,
+  .section-padding > .container > .section-subtitle,
+  .section-padding > .container > .row,
+  .cta-banner::after { animation: none; }
+}
+
 /* Floating quick-contact buttons */
 .floating-actions {
   position: fixed;
@@ -596,6 +687,137 @@ a.navbar-brand, .navbar-brand {
 /* Alert used for form submission feedback */
 #formFeedback {
   display: none;
+}
+
+/* ===================== CONTACT PAGE POLISH ===================== */
+.contact-page .page-header {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(201, 162, 75, 0.08) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(201, 162, 75, 0.06) 1px, transparent 1px),
+    linear-gradient(135deg, #0b0b0d 0%, #1a1a1f 100%);
+  background-size: 42px 42px, 42px 42px, auto;
+}
+
+.contact-page .page-header::after {
+  content: "";
+  display: block;
+  width: 76px;
+  height: 3px;
+  margin: 24px auto 0;
+  background: var(--gold);
+  box-shadow: 0 0 24px rgba(201, 162, 75, 0.45);
+  animation: contact-line-in 0.8s ease both;
+}
+
+.contact-page .section-padding {
+  background: linear-gradient(180deg, #101014 0%, var(--black) 75%);
+}
+
+.contact-page .booking-form-card,
+.contact-page .booking-sidebar-card {
+  opacity: 0;
+  animation: contact-card-in 0.7s ease forwards;
+}
+
+.contact-page .booking-form-card {
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
+  border-color: rgba(201, 162, 75, 0.25);
+}
+
+.contact-page .booking-sidebar-card:nth-child(2) { animation-delay: 0.12s; }
+.contact-page .booking-sidebar-card:nth-child(3) { animation-delay: 0.24s; }
+
+.contact-page .booking-sidebar-card {
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.contact-page .booking-sidebar-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(201, 162, 75, 0.5);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.24);
+}
+
+.contact-page .booking-sidebar-card .ratio {
+  overflow: hidden;
+  border: 1px solid rgba(201, 162, 75, 0.18);
+}
+
+.contact-page .booking-sidebar-card .ratio i {
+  animation: contact-map-pulse 2.8s ease-in-out infinite;
+}
+
+.contact-page .form-control-dark,
+.contact-page textarea.form-control-dark {
+  border-color: rgba(255, 255, 255, 0.16);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.contact-page .form-control-dark:focus,
+.contact-page textarea.form-control-dark:focus {
+  background-color: #131318;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.14);
+}
+
+.contact-page .btn-gold,
+.contact-page .btn-outline-gold {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-page .btn-gold::after,
+.contact-page .btn-outline-gold::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.2), transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.5s ease;
+}
+
+.contact-page .btn-gold:hover::after,
+.contact-page .btn-outline-gold:hover::after { transform: translateX(120%); }
+
+.contact-page .floating-actions a {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.contact-page .floating-actions a:hover {
+  transform: translateY(-4px) scale(1.06);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.42);
+}
+
+@keyframes contact-card-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes contact-line-in {
+  from { opacity: 0; transform: scaleX(0.35); }
+  to { opacity: 1; transform: scaleX(1); }
+}
+
+@keyframes contact-map-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-page .booking-form-card,
+  .contact-page .booking-sidebar-card,
+  .contact-page .page-header::after,
+  .contact-page .booking-sidebar-card .ratio i {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 575px) {
+  .contact-page .booking-form-card,
+  .contact-page .booking-sidebar-card { padding: 24px; }
+  .contact-page .floating-actions { right: 14px; bottom: 14px; }
 }
 
 /* ===================== TOAST NOTIFICATIONS ===================== */

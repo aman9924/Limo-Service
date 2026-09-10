@@ -5,7 +5,7 @@
 // Client-side config for the WhatsApp "quick contact" links/buttons only.
 // Actual booking notifications are sent server-side (see BookingApiController + WhatsAppService).
 const SITE_CONFIG = {
-  ownerWhatsAppNumber: "13125550100", // country code + number, no + or spaces
+  ownerWhatsAppNumber: "18439296113", // country code + number, no + or spaces
   // Public Mapbox token for browser-side autocomplete only — restrict it to this site's
   // domain(s) in your Mapbox account (Tokens > URL restrictions). The Directions API call
   // (distance/fare) runs server-side using a separate MAPBOX_ACCESS_TOKEN env var.
