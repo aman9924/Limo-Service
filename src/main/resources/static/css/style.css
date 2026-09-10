@@ -359,13 +359,7 @@ a.navbar-brand, .navbar-brand {
 }
 
 .service-media--contained {
-  background: radial-gradient(circle at center, #292a2f 0%, #0c0c0f 75%);
-}
-
-.service-media--contained img {
-  width: 100%;
-  object-fit: contain;
-  padding: 8px 18px;
+  background: #111116;
 }
 
 .service-card:hover .service-media img {
@@ -374,7 +368,7 @@ a.navbar-brand, .navbar-brand {
 }
 
 .service-card:hover .service-media--contained img {
-  transform: scale(1.025);
+  transform: scale(1.06);
 }
 
 .service-card .service-icon {
