@@ -131,6 +131,15 @@ a.navbar-brand, .navbar-brand {
   color: var(--white) !important;
 }
 
+.navbar-brand > img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  flex: 0 0 56px;
+  background: #050506;
+  border-radius: 4px;
+}
+
 .navbar-brand span {
   color: var(--gold);
 }
@@ -670,6 +679,12 @@ body { animation: site-page-in 0.65s ease both; }
 }
 
 @media (max-width: 767.98px) {
+  .navbar-brand > img {
+    width: 46px;
+    height: 46px;
+    flex-basis: 46px;
+  }
+
   .navbar-custom,
   .quick-booking-card,
   .booking-form-card,
