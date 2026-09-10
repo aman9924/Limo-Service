@@ -20,6 +20,7 @@
     <div class="d-flex align-items-center gap-3">
       <a th:href="@{/admin/bookings}" class="nav-link d-inline">Bookings</a>
       <a th:href="@{/admin/fleet}" class="nav-link d-inline text-gold">Fleet</a>
+      <a th:href="@{/admin/pricing}" class="nav-link d-inline">Pricing</a>
       <span style="color:var(--gray);">Logged in as <strong sec:authentication="name" class="text-gold"></strong></span>
       <form th:action="@{/admin/logout}" method="post" class="mb-0">
         <button type="submit" class="btn btn-outline-gold btn-sm">Log Out</button>
