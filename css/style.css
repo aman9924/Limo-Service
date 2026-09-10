@@ -418,6 +418,33 @@ a {
   font-size: 0.85rem;
 }
 
+.footer-credit {
+  margin-top: 10px;
+  color: var(--gray);
+  font-size: 0.8rem;
+}
+
+.footer-credit strong {
+  color: var(--gold-light);
+  font-weight: 600;
+}
+
+.footer-credit-divider {
+  color: rgba(201, 162, 75, 0.55);
+  margin: 0 8px;
+}
+
+.footer-credit a {
+  display: inline;
+  color: var(--gold-light);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.footer-credit a:hover {
+  color: var(--white);
+}
+
 /* ===================== PAGE HEADER (inner pages) ===================== */
 .page-header {
   background: linear-gradient(135deg, #0b0b0d 0%, #1a1a1f 100%);
