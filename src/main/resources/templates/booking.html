@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
@@ -194,15 +194,19 @@
               <textarea name="specialRequests" rows="4" class="form-control form-control-dark" placeholder="Child seat, extra stops, meet & greet, etc."></textarea>
             </div>
 
-            <input type="hidden" name="consent" value="true" />
-
-            <div class="col-12">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="consentCheck" required />
-                <label class="form-check-label" for="consentCheck" style="color:var(--gray); font-size:0.85rem;">
-                  I agree to receive WhatsApp booking updates from HONK Limousine Service.
+                        <div class="col-12">
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="smsConsent" name="smsConsent" value="true" />
+                <label class="form-check-label" for="smsConsent" style="color:var(--gray); font-size:0.85rem;">
+                  I agree to receive transactional SMS messages from Honk Limousine Service regarding my booking request, reservation updates, and related customer service communications. Message and data rates may apply. SMS consent is optional and is not a condition of booking. Reply STOP to opt out and HELP for help.
                 </label>
-                <div class="invalid-feedback">Please confirm you agree to receive WhatsApp updates.</div>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="termsConsent" required />
+                <label class="form-check-label" for="termsConsent" style="color:var(--gray); font-size:0.85rem;">
+                  I have read and agree to the <a href="/terms" target="_blank" style="color:var(--gold);">Terms &amp; Conditions</a> and <a href="/privacy-policy" target="_blank" style="color:var(--gold);">Privacy Policy</a>.
+                </label>
+                <div class="invalid-feedback">You must agree to the Terms &amp; Conditions and Privacy Policy.</div>
               </div>
             </div>
 
@@ -273,6 +277,8 @@
         <a th:href="@{/contact}" href="/contact">Contact</a>
         <a th:href="@{/faq}" href="/faq">FAQ</a>
         <a th:href="@{/track}" href="/track">Track Booking</a>
+        <a th:href="@{/privacy-policy}" href="/privacy-policy">Privacy Policy</a>
+        <a th:href="@{/terms}" href="/terms">Terms &amp; Conditions</a>
       </div>
       <div class="col-lg-3 col-6">
         <h5>Services</h5>
@@ -305,3 +311,5 @@
 <script th:src="@{/js/main.js}" src="../static/js/main.js"></script>
 </body>
 </html>
+
+

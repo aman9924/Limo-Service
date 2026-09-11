@@ -23,6 +23,12 @@ public class Customer {
 
     private String email;
 
+    @Column(name = "sms_consent")
+    private Boolean smsConsent = false;
+
+    @Column(name = "sms_consent_timestamp")
+    private java.time.Instant smsConsentTimestamp;
+
     public Customer() {
     }
 
@@ -58,5 +64,21 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Boolean getSmsConsent() {
+        return smsConsent;
+    }
+
+    public void setSmsConsent(Boolean smsConsent) {
+        this.smsConsent = smsConsent;
+    }
+
+    public java.time.Instant getSmsConsentTimestamp() {
+        return smsConsentTimestamp;
+    }
+
+    public void setSmsConsentTimestamp(java.time.Instant smsConsentTimestamp) {
+        this.smsConsentTimestamp = smsConsentTimestamp;
     }
 }

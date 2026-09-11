@@ -43,8 +43,8 @@ public class WhatsAppService {
     }
 
     public void sendBookingNotifications(BookingRequest booking) {
-        if (!initialized) {
-            log.warn("Skipping WhatsApp notification — Twilio is not configured.");
+        if (!initialized || !props.isWhatsappEnabled()) {
+            log.warn("Skipping WhatsApp notification — Twilio WhatsApp is disabled or not configured.");
             return;
         }
 
@@ -62,7 +62,7 @@ public class WhatsAppService {
     }
 
     public void sendBookingConfirmation(Booking booking) {
-        if (!initialized) return;
+        if (!initialized || !props.isWhatsappEnabled()) return;
         
         if (StringUtils.hasText(booking.getCustomer().getPhone()) && StringUtils.hasText(props.getContentSidCustomerConfirmed())) {
             Map<String, String> vars = new LinkedHashMap<>();
@@ -75,7 +75,7 @@ public class WhatsAppService {
     }
 
     public void sendBookingCancellation(Booking booking) {
-        if (!initialized) return;
+        if (!initialized || !props.isWhatsappEnabled()) return;
         
         if (StringUtils.hasText(booking.getCustomer().getPhone()) && StringUtils.hasText(props.getContentSidCustomerCancelled())) {
             Map<String, String> vars = new LinkedHashMap<>();

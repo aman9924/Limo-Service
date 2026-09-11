@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>FAQ | HONK Limousine Service</title>
+<title>Privacy Policy | HONK Limousine Service</title>
 <meta name="description" content="Frequently asked questions about booking, cancellations, payment, child seats, and airport pickups with HONK Limousine Service." />
-<link rel="canonical" th:href="${baseUrl + '/faq'}" href="http://localhost:8080/faq" />
+<link rel="canonical" th:href="${baseUrl + '/privacy-policy'}" href="http://localhost:8080/privacy-policy" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="HONK Limousine Service" />
-<meta property="og:title" content="FAQ | HONK Limousine Service" />
+<meta property="og:title" content="Privacy Policy | HONK Limousine Service" />
 <meta property="og:description" content="Answers about booking, cancellations, payment, child seats, and airport pickups." />
 <meta property="og:url" th:content="${baseUrl + '/faq'}" content="http://localhost:8080/faq" />
 <meta name="twitter:card" content="summary" />
@@ -42,7 +42,7 @@
         <li class="nav-item"><a class="nav-link" th:href="@{/}" href="/">Home</a></li>
         <li class="nav-item"><a class="nav-link" th:href="@{/services}" href="/services">Services</a></li>
         <li class="nav-item"><a class="nav-link" th:href="@{/fleet}" href="/fleet">Fleet</a></li>
-        <li class="nav-item"><a class="nav-link active" th:href="@{/faq}" href="/faq">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/faq}" href="/faq">FAQ</a></li>
         <li class="nav-item"><a class="nav-link" th:href="@{/about}" href="/about">About</a></li>
         <li class="nav-item"><a class="nav-link" th:href="@{/contact}" href="/contact">Contact</a></li>
         <li class="nav-item ms-lg-3"><a class="btn btn-gold" th:href="@{/booking}" href="/booking">Book Now</a></li>
@@ -53,100 +53,39 @@
 
 <header class="page-header">
   <div class="container">
-    <h1 class="section-title">Frequently Asked Questions</h1>
-    <div class="breadcrumb-custom"><a th:href="@{/}" href="/">Home</a> / <span>FAQ</span></div>
+    <h1 class="section-title">Privacy Policy</h1>
+    <div class="breadcrumb-custom"><a th:href="@{/}" href="/">Home</a> / <span>Privacy Policy</span></div>
   </div>
 </header>
 
 <section class="section-padding">
   <div class="container" style="max-width:800px;">
-    <div class="accordion" id="faqAccordion">
-
-      <div class="accordion-item bg-black-card border-0 mb-3">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed bg-black-card text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-            How do I book?
-          </button>
-        </h2>
-        <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-          <div class="accordion-body" style="color:var(--gray);">
-            Fill out the booking form with your pickup/drop-off details, date, time, and vehicle preference.
-            We'll confirm your ride and reach out via WhatsApp or phone to finalize pricing and payment.
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item bg-black-card border-0 mb-3">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed bg-black-card text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-            Can I cancel?
-          </button>
-        </h2>
-        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-          <div class="accordion-body" style="color:var(--gray);">
-            Yes. Free cancellation is available up to 24 hours before your scheduled pickup. Contact us by
-            phone or WhatsApp with your booking reference to cancel or reschedule.
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item bg-black-card border-0 mb-3">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed bg-black-card text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-            What payment methods do you accept?
-          </button>
-        </h2>
-        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-          <div class="accordion-body" style="color:var(--gray);">
-            We accept major credit/debit cards via a secure payment link sent after your booking is confirmed,
-            as well as cash for local rides. Payment is finalized directly with our team, not on the website.
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item bg-black-card border-0 mb-3">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed bg-black-card text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
-            Do you provide child seats?
-          </button>
-        </h2>
-        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-          <div class="accordion-body" style="color:var(--gray);">
-            Yes, baby seats are available for an additional $15. Just select "Baby Seat Required" on the
-            booking form or mention it when you call.
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item bg-black-card border-0 mb-3">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed bg-black-card text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
-            Are airport pickups available?
-          </button>
-        </h2>
-        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-          <div class="accordion-body" style="color:var(--gray);">
-            Yes, we offer 24/7 airport pickups with flight tracking and meet &amp; greet service available
-            (domestic +$35, international +$45). Just provide your flight number when booking.
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item bg-black-card border-0 mb-3">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed bg-black-card text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
-            How will I receive confirmation?
-          </button>
-        </h2>
-        <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-          <div class="accordion-body" style="color:var(--gray);">
-            You'll receive a WhatsApp message with your booking reference and ride summary immediately after
-            submitting the form, followed by personal confirmation from our team once pricing and availability
-            are finalized.
-          </div>
-        </div>
-      </div>
-
+    <div class="bg-black-card p-5 rounded-4" style="color:var(--gray);">
+      <h2 class="text-white mb-4">Privacy Policy</h2>
+      <p>Last Updated: September 2026</p>
+      
+      <h4 class="text-white mt-4">1. Information We Collect</h4>
+      <p>When you request a booking with Honk Limousine Service, we collect personal information including your name, email address, phone number, and ride details (pickup/dropoff locations, dates, and times).</p>
+      
+      <h4 class="text-white mt-4">2. How We Use Your Information</h4>
+      <p>We use your information exclusively to process your booking requests, manage your transportation services, communicate with you regarding your reservations, and provide customer support.</p>
+      
+      <h4 class="text-white mt-4">3. SMS Messaging and Consent</h4>
+      <p>If you explicitly opt-in to receive SMS messages, we will send you transactional and service-related notifications regarding your booking request, reservation updates, and customer service communications.</p>
+      <ul>
+        <li><strong>Frequency:</strong> Message frequency may vary depending on your booking activity.</li>
+        <li><strong>Rates:</strong> Message and data rates may apply.</li>
+        <li><strong>Opt-Out:</strong> You can opt out of receiving SMS messages at any time by replying <strong>STOP</strong> to any message we send.</li>
+        <li><strong>Help:</strong> If you need assistance, reply <strong>HELP</strong> to any of our messages or contact us directly.</li>
+        <li><strong>No Condition to Purchase:</strong> SMS consent is entirely optional and is not a condition of purchasing or booking our transportation services.</li>
+      </ul>
+      
+      <h4 class="text-white mt-4">4. No Data Sharing for Marketing</h4>
+      <p><strong>Mobile numbers and SMS consent information will NOT be sold, rented, or shared with third parties or affiliates for marketing or promotional purposes.</strong> Your information is kept strictly confidential and used solely for the fulfillment of your requested services.</p>
+      
+      <h4 class="text-white mt-4">5. Contact Us</h4>
+      <p>If you have any questions about this Privacy Policy or our practices, please contact us at:</p>
+      <p>Honk Limousine Service<br>Email: HonkLimoservice@gmail.com<br>Phone: (843) 929-6113</p>
     </div>
   </div>
 </section>
@@ -217,4 +156,5 @@
 <script th:src="@{/js/main.js}" src="../static/js/main.js"></script>
 </body>
 </html>
+
 

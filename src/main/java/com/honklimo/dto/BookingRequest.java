@@ -35,6 +35,7 @@ public class BookingRequest {
     private String flightNumber;
     private String specialRequests;
     private boolean meetAndGreet;
+    private boolean smsConsent;
 
     public String getFullName() {
         return fullName;
@@ -162,5 +163,13 @@ public class BookingRequest {
 
     public void setMeetAndGreet(boolean meetAndGreet) {
         this.meetAndGreet = meetAndGreet;
+    }
+
+    public boolean isSmsConsent() {
+        return smsConsent;
+    }
+
+    public void setSmsConsent(boolean smsConsent) {
+        this.smsConsent = smsConsent;
     }
 }

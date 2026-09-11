@@ -8,6 +8,14 @@ public class TwilioProperties {
 
     private String accountSid;
     private String authToken;
+    
+    // SMS fields
+    private boolean smsEnabled = true;
+    private String smsFrom;
+    private String ownerSmsNumber;
+    
+    // WhatsApp fields
+    private boolean whatsappEnabled = false;
     private String whatsappFrom;
     private String ownerWhatsappTo;
     private String contentSidOwner;
@@ -21,6 +29,38 @@ public class TwilioProperties {
 
     public void setAccountSid(String accountSid) {
         this.accountSid = accountSid;
+    }
+
+    public boolean isSmsEnabled() {
+        return smsEnabled;
+    }
+
+    public void setSmsEnabled(boolean smsEnabled) {
+        this.smsEnabled = smsEnabled;
+    }
+
+    public String getSmsFrom() {
+        return smsFrom;
+    }
+
+    public void setSmsFrom(String smsFrom) {
+        this.smsFrom = smsFrom;
+    }
+
+    public String getOwnerSmsNumber() {
+        return ownerSmsNumber;
+    }
+
+    public void setOwnerSmsNumber(String ownerSmsNumber) {
+        this.ownerSmsNumber = ownerSmsNumber;
+    }
+
+    public boolean isWhatsappEnabled() {
+        return whatsappEnabled;
+    }
+
+    public void setWhatsappEnabled(boolean whatsappEnabled) {
+        this.whatsappEnabled = whatsappEnabled;
     }
 
     public String getAuthToken() {

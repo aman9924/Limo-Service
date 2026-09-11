@@ -5,6 +5,7 @@ import com.honklimo.entity.Booking;
 import com.honklimo.service.BookingService;
 import com.honklimo.service.EmailService;
 import com.honklimo.service.WhatsAppService;
+import com.honklimo.service.TwilioSmsService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,19 +30,27 @@ public class BookingApiController {
     private final WhatsAppService whatsAppService;
     private final BookingService bookingService;
     private final EmailService emailService;
+    private final TwilioSmsService twilioSmsService;
 
-    public BookingApiController(WhatsAppService whatsAppService, BookingService bookingService, EmailService emailService) {
+    public BookingApiController(WhatsAppService whatsAppService, BookingService bookingService, EmailService emailService, TwilioSmsService twilioSmsService) {
         this.whatsAppService = whatsAppService;
         this.bookingService = bookingService;
         this.emailService = emailService;
+        this.twilioSmsService = twilioSmsService;
     }
 
     @PostMapping("/bookings")
     public ResponseEntity<Map<String, String>> submitBooking(@Valid @RequestBody BookingRequest request) {
         try {
             Booking booking = bookingService.createBooking(request);
+            
+            // Notifications are designed not to fail the main booking transaction
             whatsAppService.sendBookingNotifications(request);
             emailService.sendBookingNotifications(booking);
+            
+            // New SMS A2P 10DLC notifications
+            twilioSmsService.sendBookingAcknowledgment(booking);
+            twilioSmsService.sendOwnerNotification(booking);
             return ResponseEntity.ok(Map.of(
                     "status", "success",
                     "message", "Thank you! Your booking request has been sent.",
