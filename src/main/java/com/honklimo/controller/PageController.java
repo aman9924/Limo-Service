@@ -22,7 +22,7 @@ public class PageController {
     private String baseUrl;
 
     private static final String[] SITEMAP_PATHS = {
-            "/", "/booking", "/fleet", "/services", "/pricing", "/faq", "/about", "/contact", "/track"
+            "/", "/booking", "/fleet", "/services", "/pricing", "/faq", "/about", "/contact", "/track", "/privacy-policy", "/terms"
     };
 
     public PageController(VehicleRepository vehicleRepository, PricingRateRepository pricingRateRepository,
@@ -82,6 +82,16 @@ public class PageController {
     @GetMapping("/track")
     public String track() {
         return "track";
+    }
+
+    @GetMapping("/privacy-policy")
+    public String privacyPolicy() {
+        return "privacy-policy";
+    }
+
+    @GetMapping("/terms")
+    public String terms() {
+        return "terms";
     }
 
     @GetMapping(value = "/sitemap.xml", produces = MediaType.APPLICATION_XML_VALUE)

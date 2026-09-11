@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Our Fleet | HONK Limousine Service</title>
-<meta name="description" content="Explore HONK Limousine Service's fleet — executive sedans, luxury SUVs, sprinter vans, stretch limos, and party buses for any Chicago occasion." />
+<meta name="description" content="Explore HONK Limousine Service's fleet â€” executive sedans, luxury SUVs, sprinter vans, stretch limos, and party buses for any Chicago occasion." />
 <link rel="canonical" th:href="${baseUrl + '/fleet'}" href="http://localhost:8080/fleet" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="HONK Limousine Service" />
@@ -116,6 +116,8 @@
         <a th:href="@{/contact}" href="/contact">Contact</a>
         <a th:href="@{/faq}" href="/faq">FAQ</a>
         <a th:href="@{/track}" href="/track">Track Booking</a>
+        <a th:href="@{/privacy-policy}" href="/privacy-policy">Privacy Policy</a>
+        <a th:href="@{/terms}" href="/terms">Terms &amp; Conditions</a>
       </div>
       <div class="col-lg-3 col-6">
         <h5>Services</h5>
@@ -147,3 +149,4 @@
 <script th:src="@{/js/main.js}" src="../static/js/main.js"></script>
 </body>
 </html>
+

@@ -23,20 +23,30 @@ public class BookingService {
     private final BookingRepository bookingRepository;
     private final EmailService emailService;
     private final WhatsAppService whatsAppService;
+    private final TwilioSmsService twilioSmsService;
 
     public BookingService(CustomerRepository customerRepository, BookingRepository bookingRepository,
-                          EmailService emailService, WhatsAppService whatsAppService) {
+                          EmailService emailService, WhatsAppService whatsAppService, TwilioSmsService twilioSmsService) {
         this.customerRepository = customerRepository;
         this.bookingRepository = bookingRepository;
         this.emailService = emailService;
         this.whatsAppService = whatsAppService;
+        this.twilioSmsService = twilioSmsService;
     }
 
     @Transactional
     public Booking createBooking(BookingRequest request) {
         Customer customer = customerRepository.findByPhone(request.getPhone())
-                .orElseGet(() -> customerRepository.save(
-                        new Customer(request.getFullName(), request.getPhone(), request.getEmail())));
+                .orElseGet(() -> new Customer(request.getFullName(), request.getPhone(), request.getEmail()));
+                
+        // Only update SMS consent if they provided it (we don't want to overwrite an opt-in with an opt-out implicitly,
+        // though typically web forms are a hard overwrite. Since it's a new request, if they checked it, set it).
+        if (request.isSmsConsent()) {
+            customer.setSmsConsent(true);
+            customer.setSmsConsentTimestamp(java.time.Instant.now());
+        }
+        
+        customer = customerRepository.save(customer);
 
         Booking booking = new Booking();
         booking.setCustomer(customer);
@@ -130,6 +140,7 @@ public class BookingService {
             try {
                 emailService.sendBookingConfirmation(saved);
                 whatsAppService.sendBookingConfirmation(saved);
+                twilioSmsService.sendBookingConfirmation(saved);
             } catch (Exception e) {
                 // Log and continue, don't fail transaction
             }
@@ -137,6 +148,7 @@ public class BookingService {
             try {
                 emailService.sendBookingCancellation(saved);
                 whatsAppService.sendBookingCancellation(saved);
+                twilioSmsService.sendBookingCancellation(saved);
             } catch (Exception e) {
                 // Log and continue
             }
