@@ -5,7 +5,7 @@
 // Client-side config for the WhatsApp "quick contact" links/buttons only.
 // Actual booking notifications are sent server-side (see BookingApiController + WhatsAppService).
 const SITE_CONFIG = {
-  ownerWhatsAppNumber: "13125550100", // country code + number, no + or spaces
+  ownerWhatsAppNumber: "18439296113", // country code + number, no + or spaces
   // Public Mapbox token for browser-side autocomplete only — restrict it to this site's
   // domain(s) in your Mapbox account (Tokens > URL restrictions). The Directions API call
   // (distance/fare) runs server-side using a separate MAPBOX_ACCESS_TOKEN env var.
@@ -14,6 +14,7 @@ const SITE_CONFIG = {
 
 document.addEventListener("DOMContentLoaded", () => {
   initNavbarScroll();
+  initDeferredHeroImages();
   initHeroQuickBooking();
   initBookingForm();
   initContactForm();
@@ -28,6 +29,18 @@ document.addEventListener("DOMContentLoaded", () => {
   initSidebarShowcase();
   initMeetAndGreet();
 });
+
+function initDeferredHeroImages() {
+  const loadImages = () => {
+    document.querySelectorAll(".hero-slide[data-background-image]").forEach(slide => {
+      slide.style.backgroundImage = slide.dataset.backgroundImage;
+      slide.removeAttribute("data-background-image");
+    });
+  };
+
+  const schedule = window.requestIdleCallback || ((callback) => window.setTimeout(callback, 300));
+  window.addEventListener("load", () => schedule(loadImages), { once: true });
+}
 
 /* ---------- Phone Auto-formatter ---------- */
 function initPhoneFormatter() {

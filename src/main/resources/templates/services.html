@@ -28,18 +28,7 @@
 </head>
 <body>
 
-<div class="navbar-top-bar">
-  <div class="container d-flex justify-content-between flex-wrap">
-    <div><i class="bi bi-geo-alt-fill text-gold"></i> Serving Chicago &amp; Suburbs, 24/7</div>
-    <div>
-      <a href="tel:+13125550100"><i class="bi bi-telephone-fill text-gold"></i> (312) 555-0100</a>
-      &nbsp;|&nbsp;
-      <a href="mailto:bookings@honklimo.com"><i class="bi bi-envelope-fill text-gold"></i> bookings@honklimo.com</a>
-    </div>
-  </div>
-</div>
-
-<nav class="navbar navbar-expand-lg navbar-custom fixed-top" style="top:33px;">
+<nav class="navbar navbar-expand-lg navbar-custom fixed-top">
   <div class="container">
     <a class="navbar-brand brand-font fs-4 fw-bold d-flex align-items-center gap-2" th:href="@{/}" href="/">
       <img src="/images/fleet/logo/honk-logo.png" alt="HONK Logo" height="40" />
@@ -75,6 +64,7 @@
 
       <div class="col-md-6 col-lg-4">
         <div class="service-card">
+          <div class="service-media service-media--contained"><img src="/images/fleet/Services/shared%20image.jpg" alt="Luxury airport transfer vehicle" loading="lazy" decoding="async" /></div>
           <div class="service-icon"><i class="bi bi-airplane-fill"></i></div>
           <h5>Airport Transfers</h5>
           <p style="color:var(--gray);">Door-to-door service to and from O'Hare and Midway with live flight tracking, meet &amp; greet, and no surge pricing.</p>
@@ -83,6 +73,7 @@
 
       <div class="col-md-6 col-lg-4">
         <div class="service-card">
+          <div class="service-media"><img src="/images/fleet/Services/Media%20(14).jpg" alt="Professional chauffeur service" loading="lazy" decoding="async" /></div>
           <div class="service-icon"><i class="bi bi-briefcase-fill"></i></div>
           <h5>Corporate &amp; Black Car</h5>
           <p style="color:var(--gray);">Executive transportation for meetings, roadshows, client visits, and daily commutes with professional, discreet chauffeurs.</p>
@@ -91,6 +82,7 @@
 
       <div class="col-md-6 col-lg-4">
         <div class="service-card">
+          <div class="service-media service-media--contained"><img src="/images/fleet/Services/Media%20(6).jpg" alt="Wedding limousine transportation" loading="lazy" decoding="async" /></div>
           <div class="service-icon"><i class="bi bi-heart-fill"></i></div>
           <h5>Weddings</h5>
           <p style="color:var(--gray);">Elegant rides for the bridal party and guests — stretch limos, luxury sedans, and Sprinter shuttles available.</p>
@@ -99,6 +91,7 @@
 
       <div class="col-md-6 col-lg-4">
         <div class="service-card">
+          <div class="service-media service-media--contained"><img src="/images/fleet/Services/shared%20image%20(1).jpg" alt="Family event transportation" loading="lazy" decoding="async" /></div>
           <div class="service-icon"><i class="bi bi-mortarboard-fill"></i></div>
           <h5>Prom &amp; Graduation</h5>
           <p style="color:var(--gray);">Safe, stylish transportation for prom night and graduation celebrations, with flexible group packages.</p>
@@ -107,6 +100,7 @@
 
       <div class="col-md-6 col-lg-4">
         <div class="service-card">
+          <div class="service-media service-media--contained"><img src="/images/fleet/Services/Media%20(15).jpg" alt="Luxury group transportation vehicles" loading="lazy" decoding="async" /></div>
           <div class="service-icon"><i class="bi bi-people-fill"></i></div>
           <h5>Group Transportation</h5>
           <p style="color:var(--gray);">Sprinter vans, mini buses, and motor coaches for conferences, family reunions, and large group travel.</p>
@@ -115,6 +109,7 @@
 
       <div class="col-md-6 col-lg-4">
         <div class="service-card">
+          <div class="service-media service-media--contained"><img src="/images/fleet/Services/Media%20(10).jpg" alt="Trip itinerary planning" loading="lazy" decoding="async" /></div>
           <div class="service-icon"><i class="bi bi-clock-fill"></i></div>
           <h5>Hourly / As Directed</h5>
           <p style="color:var(--gray);">Keep the same vehicle and chauffeur on standby for the exact duration of your itinerary, anywhere in the city.</p>
@@ -123,6 +118,7 @@
 
       <div class="col-md-6 col-lg-4">
         <div class="service-card">
+          <div class="service-media service-media--contained"><img src="/images/fleet/Services/Media%20(16).jpg" alt="Airport event transportation" loading="lazy" decoding="async" /></div>
           <div class="service-icon"><i class="bi bi-music-note-beamed"></i></div>
           <h5>Concerts &amp; Sports Events</h5>
           <p style="color:var(--gray);">Drop-off and pickup at every major Chicago venue — United Center, Wrigley Field, Soldier Field, and more.</p>
@@ -131,6 +127,7 @@
 
       <div class="col-md-6 col-lg-4">
         <div class="service-card">
+          <div class="service-media"><img src="/images/fleet/Services/Media%20(13).jpg" alt="Premium vehicle for private tours" loading="lazy" decoding="async" /></div>
           <div class="service-icon"><i class="bi bi-cup-straw"></i></div>
           <h5>Wine &amp; Brewery Tours</h5>
           <p style="color:var(--gray);">A designated chauffeur for a full day of tastings — relax and enjoy without worrying about driving.</p>
@@ -139,6 +136,7 @@
 
       <div class="col-md-6 col-lg-4">
         <div class="service-card">
+          <div class="service-media service-media--contained"><img src="/images/fleet/Services/Media%20(12).jpg" alt="Hotel concierge vehicle pickup" loading="lazy" decoding="async" /></div>
           <div class="service-icon"><i class="bi bi-building"></i></div>
           <h5>Hotel &amp; Concierge Partnerships</h5>
           <p style="color:var(--gray);">Reliable, on-demand transportation partnerships for hotels and travel agents across Chicagoland.</p>
@@ -154,7 +152,7 @@
     <h2 class="section-title">Ready to Book Your Service?</h2>
     <p class="section-subtitle mb-4">Fill out our quick form and we'll confirm your ride within minutes.</p>
     <a th:href="@{/booking}" href="/booking" class="btn btn-gold me-2">Book Your Ride</a>
-    <a href="tel:+13125550100" class="btn btn-outline-gold">Call (312) 555-0100</a>
+    <a href="tel:+18439296113" class="btn btn-outline-gold">Call (843) 929-6113</a>
   </div>
 </section>
 
@@ -192,18 +190,21 @@
       </div>
       <div class="col-lg-3">
         <h5>Contact</h5>
-        <a href="tel:+13125550100"><i class="bi bi-telephone-fill"></i> (312) 555-0100</a>
-        <a href="mailto:bookings@honklimo.com"><i class="bi bi-envelope-fill"></i> bookings@honklimo.com</a>
-        <a href="#"><i class="bi bi-geo-alt-fill"></i> Chicago, IL</a>
+        <a href="tel:+18439296113"><i class="bi bi-telephone-fill"></i> (843) 929-6113</a>
+        <a href="mailto:HonkLimoservice@gmail.com"><i class="bi bi-envelope-fill"></i> HonkLimoservice@gmail.com</a>
+        <a href="#"><i class="bi bi-geo-alt-fill"></i> 9344 Noel Ave Unit B, Des Plaines, IL 60016</a>
       </div>
     </div>
-    <div class="footer-bottom">&copy; 2026 HONK Limousine Service. All rights reserved.</div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 HONK Limousine Service. All rights reserved.</div>
+      <div class="footer-credit">Developed &amp; Designed by <strong>Dhruvil &amp; Aman</strong> <span class="footer-credit-divider">|</span> <a href="https://wa.me/919998242316" target="_blank" rel="noopener noreferrer"><i class="bi bi-whatsapp"></i> +91 9998242316</a></div>
+    </div>
   </div>
 </footer>
 
 <div class="floating-actions">
-  <a href="https://wa.me/13125550100" target="_blank" class="whatsapp-btn" title="WhatsApp Us"><i class="bi bi-whatsapp"></i></a>
-  <a href="tel:+13125550100" class="call-btn" title="Call Us"><i class="bi bi-telephone-fill"></i></a>
+  <a href="https://wa.me/18439296113" target="_blank" class="whatsapp-btn" title="WhatsApp Us"><i class="bi bi-whatsapp"></i></a>
+  <a href="tel:+18439296113" class="call-btn" title="Call Us"><i class="bi bi-telephone-fill"></i></a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

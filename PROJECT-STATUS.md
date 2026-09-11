@@ -135,7 +135,7 @@ pricing_rates (id, vehicle_key [unique], label, flat_airport_rate, per_mile_rate
 | (client-side Mapbox public token) | Autocomplete | Hardcoded in `main.js` `SITE_CONFIG.mapboxPublicToken` — **not an env var**, embedded directly since it's meant to be public |
 | `ADMIN_USERNAME`, `ADMIN_PASSWORD` | Admin login | Falls back to `admin`/`admin123` — **must** be set before any real deployment |
 | `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD` | SMTP | Email disabled |
-| `OWNER_EMAIL`, `MAIL_FROM_ADDRESS` | Email recipients | `bookings@honklimo.com` default from |
+| `OWNER_EMAIL`, `MAIL_FROM_ADDRESS` | Email recipients | `HonkLimoservice@gmail.com` default from |
 | `APP_BASE_URL` | Canonical/OG URLs, sitemap | `http://localhost:8080` |
 | `GOOGLE_ANALYTICS_ID` | GA4 tracking | Unset — no script rendered at all |
 
