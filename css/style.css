@@ -500,6 +500,96 @@ a {
   gap: 12px;
 }
 
+@media (max-width: 767.98px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .navbar-custom {
+    padding: 10px 0;
+  }
+
+  .navbar-brand {
+    min-width: 0;
+    max-width: calc(100% - 58px);
+    font-size: 1.05rem !important;
+    line-height: 1.1;
+  }
+
+  .navbar-brand > img {
+    width: 46px;
+    height: 46px;
+    flex-basis: 46px;
+  }
+
+  .navbar-collapse {
+    margin-top: 10px;
+    padding: 10px 14px 14px;
+    background: rgba(11, 11, 13, 0.98);
+    border: 1px solid rgba(201, 162, 75, 0.2);
+    border-radius: 8px;
+  }
+
+  .navbar-custom .nav-link {
+    margin: 0;
+    padding: 10px 4px;
+  }
+
+  .navbar-custom .btn-gold {
+    display: block;
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  .section-padding {
+    padding: 64px 0;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .section-subtitle {
+    margin-bottom: 32px;
+    padding: 0 12px;
+  }
+
+  .service-card {
+    padding-bottom: 26px;
+  }
+
+  .service-media {
+    height: 150px;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 118px 0 56px;
+  }
+
+  .hero h1 {
+    font-size: 2.35rem;
+  }
+
+  .quick-booking-card {
+    padding: 22px 18px;
+  }
+
+  .floating-actions {
+    right: 14px;
+    bottom: 14px;
+    gap: 8px;
+  }
+
+  .floating-actions a {
+    width: 48px;
+    height: 48px;
+    font-size: 1.15rem;
+  }
+}
+
 .floating-actions a {
   width: 54px;
   height: 54px;
