@@ -49,7 +49,7 @@ public class DataSeeder implements CommandLineRunner {
                     v.setCapacity(4);
                     v.setLuggage(3);
                     v.setPricePerHour(150.0);
-                    v.setImageUrl("/images/fleet/New%20Cars%20Images/Corporate%20service.jpg");
+                    v.setImageUrl("/images/fleet/New%20Cars%20Images/Mercides.jpg");
                     v.setDescription("Seats up to 4 passengers. The pinnacle of luxury and comfort.");
                 }
                 else if ("stretch".equals(v.getVehicleKey())) {
@@ -82,7 +82,7 @@ public class DataSeeder implements CommandLineRunner {
                         "Seats up to 3 passengers. Free Wi-Fi & bottled water.", 1),
                 vehicle("suv", "Luxury SUV", 6, 6, 110.0, "bi-truck-front-fill", "/images/fleet/New%20Cars%20Images/Black%20car.jpg",
                         "Seats up to 6 passengers. Premium leather interior.", 2),
-                vehicle("sprinter", "Ultra-Luxury Sedan", 4, 3, 150.0, "bi-car-front-fill", "/images/fleet/New%20Cars%20Images/Corporate%20service.jpg",
+                vehicle("sprinter", "Ultra-Luxury Sedan", 4, 3, 150.0, "bi-car-front-fill", "/images/fleet/New%20Cars%20Images/Mercides.jpg",
                         "Seats up to 4 passengers. The pinnacle of luxury and comfort.", 3),
                 vehicle("stretch", "Stretch Limo", 10, 4, 120.0, "bi-car-front", "/images/fleet/New%20Cars%20Images/limo.jpg",
                         "Seats up to 10 passengers. LED ambient lighting & bar.", 4),
