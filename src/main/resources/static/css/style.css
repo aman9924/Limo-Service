@@ -8,7 +8,7 @@
   --gold-light: #e0c27a;
   --black: #0b0b0d;
   --black-soft: #16161a;
-  --black-card: rgba(30, 30, 35, 0.65);
+  --black-card: rgba(22, 22, 26, 0.94);
   --gray: #b0b0b8; /* Brighter for contrast */
   --white: #ffffff; /* pure white for contrast */
   --radius: 12px;
@@ -81,16 +81,15 @@ a {
   color: var(--black);
   border: none;
   font-weight: 600;
-  padding: 14px 32px; /* slightly larger for mobile */
+  padding: 14px 32px;
   border-radius: 6px;
-  transition: all 0.3s ease;
-  animation: pulse-gold 2.5s infinite;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-gold:hover {
   background-color: var(--gold-light);
   color: var(--black);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(201, 162, 75, 0.4);
 }
 
@@ -101,22 +100,21 @@ a {
   padding: 14px 32px;
   border-radius: 6px;
   background: transparent;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-outline-gold:hover {
   background-color: var(--gold);
   color: var(--black);
+  transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(201, 162, 75, 0.3);
 }
 
 /* ===================== NAVBAR ===================== */
 .navbar-custom {
-  background-color: rgba(11, 11, 13, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background-color: rgba(11, 11, 13, 0.95);
   padding: 16px 0;
-  transition: padding 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, top 0.3s ease;
+  transition: padding 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -190,6 +188,8 @@ a.navbar-brand, .navbar-brand {
   opacity: 0;
   animation: heroSlideshow 15s infinite;
   z-index: 0;
+  will-change: opacity;
+  transform: translateZ(0);
 }
 
 .hero-overlay {
@@ -200,10 +200,10 @@ a.navbar-brand, .navbar-brand {
 }
 
 @keyframes heroSlideshow {
-  0%   { opacity: 0; transform: scale(1.05); }
-  5%   { opacity: 0.6; transform: scale(1.02); }
-  33%  { opacity: 0.6; transform: scale(1); }
-  38%  { opacity: 0; transform: scale(0.98); }
+  0%   { opacity: 0; }
+  6%   { opacity: 0.65; }
+  33%  { opacity: 0.65; }
+  39%  { opacity: 0; }
   100% { opacity: 0; }
 }
 
@@ -234,8 +234,6 @@ a.navbar-brand, .navbar-brand {
 /* ===================== QUICK BOOKING WIDGET ===================== */
 .quick-booking-card {
   background: var(--black-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border: var(--glass-border-gold);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -313,20 +311,18 @@ a.navbar-brand, .navbar-brand {
 .service-card,
 .fleet-card {
   background: var(--black-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: var(--glass-border);
   border-radius: var(--radius);
   padding: 34px 28px;
   height: 100%;
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .service-card:hover,
 .fleet-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-5px);
   border-color: var(--gold);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(201, 162, 75, 0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 16px rgba(201, 162, 75, 0.12);
 }
 
 .service-card {
@@ -501,8 +497,6 @@ a.navbar-brand, .navbar-brand {
 /* ===================== TESTIMONIALS ===================== */
 .testimonial-card {
   background: var(--black-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border-radius: var(--radius);
   padding: 40px;
   text-align: center;
@@ -603,8 +597,6 @@ a.navbar-brand, .navbar-brand {
 /* ===================== BOOKING FORM PAGE ===================== */
 .booking-form-card {
   background: var(--black-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: var(--glass-border);
   border-radius: var(--radius);
   padding: 40px;
@@ -613,8 +605,6 @@ a.navbar-brand, .navbar-brand {
 
 .booking-sidebar-card {
   background: var(--black-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: var(--glass-border-gold);
   border-radius: var(--radius);
   padding: 30px;
@@ -689,9 +679,7 @@ body { animation: site-page-in 0.65s ease both; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(105deg, transparent 35%, rgba(201, 162, 75, 0.08), transparent 65%);
-  transform: translateX(-100%);
-  animation: site-sheen 7s ease-in-out infinite;
+  background: radial-gradient(circle at center, rgba(201, 162, 75, 0.08) 0%, transparent 70%);
   pointer-events: none;
 }
 
