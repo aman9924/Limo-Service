@@ -494,6 +494,27 @@ a.navbar-brand, .navbar-brand {
   object-fit: contain;
 }
 
+/* ===================== PREMIER FLEET SHOWCASE ===================== */
+.premier-showcase {
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: var(--glass-border-gold);
+  box-shadow: var(--shadow);
+  aspect-ratio: 4 / 3;
+}
+
+.premier-showcase img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.premier-showcase:hover img {
+  transform: scale(1.04);
+}
+
 /* ===================== TESTIMONIALS ===================== */
 .testimonial-card {
   background: var(--black-card);
@@ -817,6 +838,10 @@ body { animation: site-page-in 0.65s ease both; }
 
   .logo-showcase {
     min-height: 260px;
+  }
+
+  .premier-showcase {
+    aspect-ratio: 16 / 11;
   }
 
   .floating-actions {
