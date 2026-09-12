@@ -195,16 +195,18 @@
             </div>
 
                         <div class="col-12">
-              <div class="form-check mb-3">
+                                          <div class="form-check mb-2">
                 <input class="form-check-input" type="checkbox" id="smsConsent" name="smsConsent" value="true" />
                 <label class="form-check-label" for="smsConsent" style="color:var(--gray); font-size:0.85rem;">
-                  I agree to receive transactional SMS messages from Honk Limousine Service regarding my booking request, reservation updates, and related customer service communications. Message and data rates may apply. SMS consent is optional and is not a condition of booking. Reply STOP to opt out and HELP for help.
+                  I agree to receive transactional SMS messages from Honk Limousine Service regarding my booking request, reservation updates, and related customer service communications. Message frequency varies based on booking activity. Message and data rates may apply. SMS consent is optional and is not a condition of booking. Reply STOP to opt out or HELP for help.<br><br>
+                  <a href="/privacy-policy" target="_blank" style="color:var(--white); text-decoration:none; font-weight:600;">Privacy Policy</a> <span style="color:var(--gray);">|</span> 
+                  <a href="/terms" target="_blank" style="color:var(--white); text-decoration:none; font-weight:600;">Terms &amp; Conditions</a>
                 </label>
               </div>
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="termsConsent" required />
                 <label class="form-check-label" for="termsConsent" style="color:var(--gray); font-size:0.85rem;">
-                  I have read and agree to the <a href="/terms" target="_blank" style="color:var(--gold);">Terms &amp; Conditions</a> and <a href="/privacy-policy" target="_blank" style="color:var(--gold);">Privacy Policy</a>.
+                  I have read and agree to the Terms &amp; Conditions and Privacy Policy.
                 </label>
                 <div class="invalid-feedback">You must agree to the Terms &amp; Conditions and Privacy Policy.</div>
               </div>
@@ -311,5 +313,8 @@
 <script th:src="@{/js/main.js}" src="../static/js/main.js"></script>
 </body>
 </html>
+
+
+
 
 
