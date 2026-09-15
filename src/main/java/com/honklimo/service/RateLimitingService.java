@@ -23,6 +23,10 @@ public class RateLimitingService {
     private static final Duration TIME_WINDOW = Duration.ofHours(24);
 
     public boolean isAllowed(String key) {
+        return isAllowed(key, MAX_REQUESTS);
+    }
+
+    public boolean isAllowed(String key, int maxRequests) {
         if (key == null || key.trim().isEmpty()) {
             return true; // Don't block if key is somehow missing
         }
@@ -41,10 +45,10 @@ public class RateLimitingService {
             return existingTimestamps;
         });
         
-        boolean allowed = timestamps.size() <= MAX_REQUESTS;
+        boolean allowed = timestamps.size() <= maxRequests;
         
         if (!allowed) {
-            logger.warn("Rate limit exceeded for key: {}", key);
+            logger.warn("Rate limit exceeded for key: {} (Limit: {})", key, maxRequests);
         }
         
         return allowed;
