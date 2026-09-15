@@ -244,9 +244,16 @@ function initDateConstraints() {
 function initNavbarScroll() {
   const navbar = document.querySelector(".navbar-custom");
   if (!navbar) return;
+  let ticking = false;
   window.addEventListener("scroll", () => {
-    navbar.classList.toggle("scrolled", window.scrollY > 40);
-  });
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        navbar.classList.toggle("scrolled", window.scrollY > 30);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
 }
 
 /* ---------- Highlight current page in nav ---------- */

@@ -8,7 +8,7 @@
   --gold-light: #e0c27a;
   --black: #0b0b0d;
   --black-soft: #16161a;
-  --black-card: rgba(30, 30, 35, 0.65);
+  --black-card: rgba(22, 22, 26, 0.94);
   --gray: #b0b0b8; /* Brighter for contrast */
   --white: #ffffff; /* pure white for contrast */
   --radius: 12px;
@@ -81,16 +81,15 @@ a {
   color: var(--black);
   border: none;
   font-weight: 600;
-  padding: 14px 32px; /* slightly larger for mobile */
+  padding: 14px 32px;
   border-radius: 6px;
-  transition: all 0.3s ease;
-  animation: pulse-gold 2.5s infinite;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-gold:hover {
   background-color: var(--gold-light);
   color: var(--black);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(201, 162, 75, 0.4);
 }
 
@@ -101,22 +100,21 @@ a {
   padding: 14px 32px;
   border-radius: 6px;
   background: transparent;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-outline-gold:hover {
   background-color: var(--gold);
   color: var(--black);
+  transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(201, 162, 75, 0.3);
 }
 
 /* ===================== NAVBAR ===================== */
 .navbar-custom {
-  background-color: rgba(11, 11, 13, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background-color: rgba(11, 11, 13, 0.95);
   padding: 16px 0;
-  transition: padding 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, top 0.3s ease;
+  transition: padding 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -132,12 +130,14 @@ a.navbar-brand, .navbar-brand {
 }
 
 .navbar-brand > img {
-  width: 56px;
-  height: 56px;
-  object-fit: contain;
-  flex: 0 0 56px;
-  background: #050506;
-  border-radius: 4px;
+  width: 54px;
+  height: 54px;
+  object-fit: cover;
+  flex: 0 0 54px;
+  background: #16161a;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .navbar-brand span {
@@ -190,6 +190,8 @@ a.navbar-brand, .navbar-brand {
   opacity: 0;
   animation: heroSlideshow 15s infinite;
   z-index: 0;
+  will-change: opacity;
+  transform: translateZ(0);
 }
 
 .hero-overlay {
@@ -200,10 +202,10 @@ a.navbar-brand, .navbar-brand {
 }
 
 @keyframes heroSlideshow {
-  0%   { opacity: 0; transform: scale(1.05); }
-  5%   { opacity: 0.6; transform: scale(1.02); }
-  33%  { opacity: 0.6; transform: scale(1); }
-  38%  { opacity: 0; transform: scale(0.98); }
+  0%   { opacity: 0; }
+  6%   { opacity: 0.65; }
+  33%  { opacity: 0.65; }
+  39%  { opacity: 0; }
   100% { opacity: 0; }
 }
 
@@ -234,8 +236,6 @@ a.navbar-brand, .navbar-brand {
 /* ===================== QUICK BOOKING WIDGET ===================== */
 .quick-booking-card {
   background: var(--black-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border: var(--glass-border-gold);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -313,20 +313,18 @@ a.navbar-brand, .navbar-brand {
 .service-card,
 .fleet-card {
   background: var(--black-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: var(--glass-border);
   border-radius: var(--radius);
   padding: 34px 28px;
   height: 100%;
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .service-card:hover,
 .fleet-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-5px);
   border-color: var(--gold);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(201, 162, 75, 0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 16px rgba(201, 162, 75, 0.12);
 }
 
 .service-card {
@@ -498,11 +496,72 @@ a.navbar-brand, .navbar-brand {
   object-fit: contain;
 }
 
+/* ===================== PREMIER FLEET SHOWCASE ===================== */
+.premier-showcase {
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: var(--glass-border-gold);
+  box-shadow: var(--shadow);
+  aspect-ratio: 4 / 3;
+}
+
+.premier-showcase img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.premier-showcase:hover img {
+  transform: scale(1.04);
+}
+
+/* ===================== RIDE FLEET LINEUP ===================== */
+.eyebrow-gold {
+  display: block;
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.fleet-lineup-heading {
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ride-card-media {
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: var(--glass-border-gold);
+  box-shadow: var(--shadow);
+  margin-bottom: 18px;
+}
+
+.ride-card-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.ride-card:hover .ride-card-media img {
+  transform: scale(1.05);
+}
+
+.ride-card h5 {
+  margin-bottom: 6px;
+}
+
 /* ===================== TESTIMONIALS ===================== */
 .testimonial-card {
   background: var(--black-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border-radius: var(--radius);
   padding: 40px;
   text-align: center;
@@ -525,6 +584,83 @@ a.navbar-brand, .navbar-brand {
   margin-top: 20px;
   color: var(--gold);
   font-weight: 600;
+}
+
+/* ===================== TEAM / LEADERSHIP ===================== */
+.team-card {
+  background: var(--black-card);
+  border: var(--glass-border);
+  border-radius: var(--radius);
+  padding: 30px 26px 34px;
+  height: 100%;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 16px rgba(201, 162, 75, 0.12);
+}
+
+.team-photo {
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 22px;
+  border: var(--glass-border-gold);
+}
+
+.team-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.team-card:hover .team-photo img {
+  transform: scale(1.05);
+}
+
+.team-card h5 {
+  margin-bottom: 4px;
+}
+
+.team-role {
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.team-bio {
+  color: var(--gray);
+  font-size: 0.95rem;
+}
+
+.team-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.team-actions a {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(201, 162, 75, 0.12);
+  color: var(--gold);
+  font-size: 1.1rem;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.team-actions a:hover {
+  background: var(--gold);
+  color: var(--black);
+  transform: translateY(-2px);
 }
 
 /* ===================== CTA BANNER ===================== */
@@ -603,8 +739,6 @@ a.navbar-brand, .navbar-brand {
 /* ===================== BOOKING FORM PAGE ===================== */
 .booking-form-card {
   background: var(--black-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: var(--glass-border);
   border-radius: var(--radius);
   padding: 40px;
@@ -613,8 +747,6 @@ a.navbar-brand, .navbar-brand {
 
 .booking-sidebar-card {
   background: var(--black-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: var(--glass-border-gold);
   border-radius: var(--radius);
   padding: 30px;
@@ -689,9 +821,7 @@ body { animation: site-page-in 0.65s ease both; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(105deg, transparent 35%, rgba(201, 162, 75, 0.08), transparent 65%);
-  transform: translateX(-100%);
-  animation: site-sheen 7s ease-in-out infinite;
+  background: radial-gradient(circle at center, rgba(201, 162, 75, 0.08) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -735,10 +865,84 @@ body { animation: site-page-in 0.65s ease both; }
 }
 
 @media (max-width: 767.98px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .navbar-custom {
+    padding: 10px 0;
+  }
+
   .navbar-brand > img {
     width: 46px;
     height: 46px;
     flex-basis: 46px;
+  }
+
+  .navbar-brand {
+    min-width: 0;
+    max-width: calc(100% - 58px);
+    font-size: 1.05rem !important;
+    line-height: 1.1;
+  }
+
+  .navbar-collapse {
+    margin-top: 10px;
+    padding: 10px 14px 14px;
+    background: rgba(11, 11, 13, 0.98);
+    border: 1px solid rgba(201, 162, 75, 0.2);
+    border-radius: 8px;
+  }
+
+  .navbar-custom .nav-link {
+    margin: 0;
+    padding: 10px 4px;
+  }
+
+  .navbar-custom .btn-gold {
+    display: block;
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  .section-padding {
+    padding: 64px 0;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .section-subtitle {
+    margin-bottom: 32px;
+    padding: 0 12px;
+  }
+
+  .service-card {
+    padding-bottom: 26px;
+  }
+
+  .service-media {
+    height: 150px;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 118px 0 56px;
+  }
+
+  .hero h1 {
+    font-size: 2.35rem;
+  }
+
+  .hero-content .row {
+    --bs-gutter-y: 2rem;
+  }
+
+  .quick-booking-card {
+    padding: 22px 18px;
   }
 
   .navbar-custom,
@@ -755,6 +959,22 @@ body { animation: site-page-in 0.65s ease both; }
 
   .logo-showcase {
     min-height: 260px;
+  }
+
+  .premier-showcase {
+    aspect-ratio: 16 / 11;
+  }
+
+  .floating-actions {
+    right: 14px;
+    bottom: 14px;
+    gap: 8px;
+  }
+
+  .floating-actions a {
+    width: 48px;
+    height: 48px;
+    font-size: 1.15rem;
   }
 }
 
