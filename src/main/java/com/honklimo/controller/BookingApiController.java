@@ -6,6 +6,8 @@ import com.honklimo.service.BookingService;
 import com.honklimo.service.EmailService;
 import com.honklimo.service.WhatsAppService;
 import com.honklimo.service.TwilioSmsService;
+import com.honklimo.service.RateLimitingService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,17 +33,51 @@ public class BookingApiController {
     private final BookingService bookingService;
     private final EmailService emailService;
     private final TwilioSmsService twilioSmsService;
+    private final RateLimitingService rateLimitingService;
 
-    public BookingApiController(WhatsAppService whatsAppService, BookingService bookingService, EmailService emailService, TwilioSmsService twilioSmsService) {
+    public BookingApiController(WhatsAppService whatsAppService, BookingService bookingService, EmailService emailService, TwilioSmsService twilioSmsService, RateLimitingService rateLimitingService) {
         this.whatsAppService = whatsAppService;
         this.bookingService = bookingService;
         this.emailService = emailService;
         this.twilioSmsService = twilioSmsService;
+        this.rateLimitingService = rateLimitingService;
     }
 
     @PostMapping("/bookings")
-    public ResponseEntity<Map<String, String>> submitBooking(@Valid @RequestBody BookingRequest request) {
+    public ResponseEntity<Map<String, String>> submitBooking(@Valid @RequestBody BookingRequest request, HttpServletRequest httpRequest) {
         try {
+            // 1. Honeypot check
+            if (request.getWebsiteUrl() != null && !request.getWebsiteUrl().trim().isEmpty()) {
+                log.warn("Honeypot triggered by IP: {}", httpRequest.getRemoteAddr());
+                return ResponseEntity.ok(Map.of(
+                        "status", "success",
+                        "message", "Thank you! Your booking request has been sent.",
+                        "bookingReference", "SPAM-" + System.currentTimeMillis()
+                ));
+            }
+
+            // 2. Rate Limiting check
+            String ipAddress = httpRequest.getHeader("X-Forwarded-For");
+            if (ipAddress == null) {
+                ipAddress = httpRequest.getRemoteAddr();
+            }
+            if (!rateLimitingService.isAllowed(ipAddress)) {
+                log.warn("Rate limit exceeded for IP: {}", ipAddress);
+                return ResponseEntity.ok(Map.of(
+                        "status", "success",
+                        "message", "Thank you! Your booking request has been sent.",
+                        "bookingReference", "RL-" + System.currentTimeMillis()
+                ));
+            }
+            if (!rateLimitingService.isAllowed(request.getPhone())) {
+                log.warn("Rate limit exceeded for Phone: {}", request.getPhone());
+                return ResponseEntity.ok(Map.of(
+                        "status", "success",
+                        "message", "Thank you! Your booking request has been sent.",
+                        "bookingReference", "RL-" + System.currentTimeMillis()
+                ));
+            }
+            
             Booking booking = bookingService.createBooking(request);
             
             // Notifications are designed not to fail the main booking transaction

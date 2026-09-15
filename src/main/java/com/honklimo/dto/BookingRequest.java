@@ -4,6 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 
 public class BookingRequest {
 
+    // Honeypot field for spam prevention. If this is filled, reject the booking.
+    private String websiteUrl;
+
     @NotBlank
     private String fullName;
 
@@ -43,6 +46,14 @@ public class BookingRequest {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getWebsiteUrl() {
+        return websiteUrl;
+    }
+
+    public void setWebsiteUrl(String websiteUrl) {
+        this.websiteUrl = websiteUrl;
     }
 
     public String getPhone() {
@@ -173,3 +184,5 @@ public class BookingRequest {
         this.smsConsent = smsConsent;
     }
 }
+
+
