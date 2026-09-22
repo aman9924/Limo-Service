@@ -123,6 +123,13 @@
                 <div class="form-text mb-3" style="color:var(--gray); font-size:0.75rem; margin-top:-10px;">
                   <i class="bi bi-info-circle-fill text-gold"></i> For accurate pricing, enter the exact address from Google/Apple Maps.
                 </div>
+                <div class="mb-3">
+                  <label class="form-label-dark">Vehicle Type</label>
+                  <select name="vehicleType" class="form-select form-select-dark" required>
+                    <option value="" disabled selected>Select a vehicle</option>
+                    <option th:each="v : ${allVehicles}" th:value="${v.vehicleKey}" th:text="${v.name}"></option>
+                  </select>
+                </div>
                 <div class="row">
                   <div class="col-6 mb-3">
                     <label class="form-label-dark">Date</label>
@@ -133,7 +140,9 @@
                     <input type="time" name="pickupTime" class="form-control form-control-dark" required />
                   </div>
                 </div>
+                <div id="heroEstimateResult" class="alert alert-success d-none mt-2 text-center fw-bold"></div>
                 <button type="submit" class="btn btn-gold w-100 mt-2">Get Instant Quote</button>
+                <a href="/booking" id="heroBookNowBtn" class="btn btn-outline-light w-100 mt-2 d-none">Continue to Booking</a>
               </form>
             </div>
 
@@ -152,6 +161,13 @@
                 </div>
                 <div class="form-text mb-3" style="color:var(--gray); font-size:0.75rem; margin-top:-10px;">
                   <i class="bi bi-info-circle-fill text-gold"></i> For accurate pricing, enter the exact address from Google/Apple Maps.
+                </div>
+                <div class="mb-3">
+                  <label class="form-label-dark">Vehicle Type</label>
+                  <select name="vehicleType" class="form-select form-select-dark" required>
+                    <option value="" disabled selected>Select a vehicle</option>
+                    <option th:each="v : ${allVehicles}" th:value="${v.vehicleKey}" th:text="${v.name}"></option>
+                  </select>
                 </div>
                 <div class="row">
                   <div class="col-6 mb-3">
@@ -172,7 +188,9 @@
                     <option>6+ hrs</option>
                   </select>
                 </div>
+                <div id="heroHourlyEstimateResult" class="alert alert-success d-none mt-2 text-center fw-bold"></div>
                 <button type="submit" class="btn btn-gold w-100 mt-2">Get Instant Quote</button>
+                <a href="/booking" id="heroHourlyBookNowBtn" class="btn btn-outline-light w-100 mt-2 d-none">Continue to Booking</a>
               </form>
             </div>
           </div>

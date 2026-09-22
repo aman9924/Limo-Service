@@ -271,15 +271,65 @@ function initHeroQuickBooking() {
     const form = document.getElementById(formId);
     if (!form) return;
 
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!form.checkValidity()) {
         e.stopPropagation();
         form.classList.add("was-validated");
         return;
       }
-      const params = new URLSearchParams(new FormData(form));
-      window.location.href = `/booking?${params.toString()}`;
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const resultDiv = formId === "quickBookingForm" ? document.getElementById("heroEstimateResult") : document.getElementById("heroHourlyEstimateResult");
+      const bookNowBtn = formId === "quickBookingForm" ? document.getElementById("heroBookNowBtn") : document.getElementById("heroHourlyBookNowBtn");
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Calculating...';
+      resultDiv.classList.add("d-none");
+      bookNowBtn.classList.add("d-none");
+
+      try {
+        // Send json payload
+        const res = await fetch("/api/estimate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+
+        resultDiv.classList.remove("d-none");
+        resultDiv.classList.remove("alert-success", "alert-warning", "alert-danger");
+
+        if (res.ok && result.status !== "error") {
+          if (result.pricingType === "CALL_FOR_PRICING") {
+            resultDiv.classList.add("alert-warning");
+            resultDiv.innerHTML = result.note || "Please call (843) 929-6113 for a custom quote.";
+          } else {
+            resultDiv.classList.add("alert-success");
+            const price = result.estimatedFare ? `$${parseFloat(result.estimatedFare).toFixed(2)}` : "Estimated";
+            const dist = result.distanceMiles ? ` (${result.distanceMiles.toFixed(1)} miles)` : "";
+            resultDiv.innerHTML = `Estimated Fare: ${price}${dist}`;
+            
+            // Enable Continue to booking
+            const params = new URLSearchParams(formData);
+            bookNowBtn.href = `/booking?${params.toString()}`;
+            bookNowBtn.classList.remove("d-none");
+            submitBtn.classList.add("d-none"); // Hide estimate button
+          }
+        } else {
+          resultDiv.classList.add("alert-danger");
+          resultDiv.innerHTML = result.message || "Failed to calculate estimate. Please try again.";
+        }
+      } catch (err) {
+        resultDiv.classList.remove("d-none");
+        resultDiv.classList.add("alert-danger");
+        resultDiv.innerHTML = "Network error. Please try again.";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Get Instant Quote';
+      }
     });
   });
 }
