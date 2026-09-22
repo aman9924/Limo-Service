@@ -7,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-// Mirrors the pricing tiers used by PricingService: flat airport rate + per-mile rate per vehicle.
 @Entity
 @Table(name = "pricing_rates")
 public class PricingRate {
@@ -20,8 +19,17 @@ public class PricingRate {
     private String vehicleKey;
 
     private String label;
-    private Double flatAirportRate;
-    private Double perMileRate;
+    
+    private Double tier1Price; // 1-10 miles
+    
+    private Double tier2Price; // 11-20 miles
+    
+    private Double tier3Price; // 21-30 miles
+
+    private Double perMileRate; // Over 30 miles
+
+    private Boolean callForPricingOnly = false;
+
     private Integer displayOrder = 0;
 
     public Long getId() {
@@ -44,12 +52,28 @@ public class PricingRate {
         this.label = label;
     }
 
-    public Double getFlatAirportRate() {
-        return flatAirportRate;
+    public Double getTier1Price() {
+        return tier1Price;
     }
 
-    public void setFlatAirportRate(Double flatAirportRate) {
-        this.flatAirportRate = flatAirportRate;
+    public void setTier1Price(Double tier1Price) {
+        this.tier1Price = tier1Price;
+    }
+
+    public Double getTier2Price() {
+        return tier2Price;
+    }
+
+    public void setTier2Price(Double tier2Price) {
+        this.tier2Price = tier2Price;
+    }
+
+    public Double getTier3Price() {
+        return tier3Price;
+    }
+
+    public void setTier3Price(Double tier3Price) {
+        this.tier3Price = tier3Price;
     }
 
     public Double getPerMileRate() {
@@ -58,6 +82,14 @@ public class PricingRate {
 
     public void setPerMileRate(Double perMileRate) {
         this.perMileRate = perMileRate;
+    }
+
+    public Boolean getCallForPricingOnly() {
+        return callForPricingOnly;
+    }
+
+    public void setCallForPricingOnly(Boolean callForPricingOnly) {
+        this.callForPricingOnly = callForPricingOnly;
     }
 
     public Integer getDisplayOrder() {

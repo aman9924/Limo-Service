@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
@@ -70,7 +70,7 @@
             <i th:unless="${v.imageUrl != null and !v.imageUrl.isEmpty()}" th:class="'bi ' + ${v.iconClass}"></i>
           </div>
           <h5 th:text="${v.name}"></h5>
-          <span class="price-tag" th:text="'From $' + ${v.pricePerHour} + '/hr'"></span>
+          <span class="price-tag"><a th:href="@{/pricing}" style="color: inherit; text-decoration: none;">View Pricing</a></span>
           <ul>
             <li><i class="bi bi-check-circle-fill"></i><span th:text="'Seats up to ' + ${v.capacity} + ' passengers'"></span></li>
             <li><i class="bi bi-check-circle-fill"></i><span th:text="${v.luggage} + ' luggage capacity'"></span></li>
@@ -101,7 +101,7 @@
           <img src="/images/fleet/logo/honk-logo.png" alt="HONK Logo" height="30" />
           HONK <span class="text-gold">LIMOUSINE</span> SERVICE
         </h5>
-        <p>Chicago's trusted flat-rate luxury ground transportation, available 24/7 for airports, corporate travel, weddings, and events.</p>
+        <p>Chicago's trusted luxury ground transportation, available 24/7 for airports, corporate travel, weddings, and events.</p>
         <div class="social-icons mt-3">
           <a href="#"><i class="bi bi-facebook"></i></a>
           <a href="#"><i class="bi bi-instagram"></i></a>

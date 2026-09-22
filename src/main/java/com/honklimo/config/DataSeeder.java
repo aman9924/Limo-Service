@@ -9,8 +9,6 @@ import com.honklimo.repository.VehicleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-// Seeds the fleet/pricing tables from the site's original static content, but only on an empty
-// database — admin edits afterward are never overwritten.
 @Component
 public class DataSeeder implements CommandLineRunner {
 
@@ -33,74 +31,34 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     private void seedVehicles() {
-        if (vehicleRepository.count() > 0) {
-            // Force update all vehicles to the new luxury lineup
-            vehicleRepository.findAll().forEach(v -> {
-                if ("sedan".equals(v.getVehicleKey())) {
-                    v.setName("Executive Sedan");
-                    v.setImageUrl("/images/fleet/New%20Cars%20Images/roy.jpg");
-                }
-                else if ("suv".equals(v.getVehicleKey())) {
-                    v.setName("Luxury SUV");
-                    v.setImageUrl("/images/fleet/New%20Cars%20Images/Black%20car.jpg");
-                }
-                else if ("sprinter".equals(v.getVehicleKey())) {
-                    v.setName("Ultra-Luxury Sedan");
-                    v.setCapacity(4);
-                    v.setLuggage(3);
-                    v.setPricePerHour(150.0);
-                    v.setImageUrl("/images/fleet/New%20Cars%20Images/Mercides.jpg");
-                    v.setDescription("Seats up to 4 passengers. The pinnacle of luxury and comfort.");
-                }
-                else if ("stretch".equals(v.getVehicleKey())) {
-                    v.setName("Stretch Limo");
-                    v.setImageUrl("/images/fleet/New%20Cars%20Images/limo.jpg");
-                }
-                else if ("partybus".equals(v.getVehicleKey())) {
-                    v.setName("Premium SUV");
-                    v.setCapacity(7);
-                    v.setLuggage(6);
-                    v.setPricePerHour(125.0);
-                    v.setImageUrl("/images/fleet/New%20Cars%20Images/Bulletproof%20Cadillac%20Escalade.jpg");
-                    v.setDescription("Seats up to 7 passengers. Spacious and sophisticated.");
-                }
-                else if ("motorcoach".equals(v.getVehicleKey())) {
-                    v.setName("Sport Luxury Sedan");
-                    v.setCapacity(4);
-                    v.setLuggage(3);
-                    v.setPricePerHour(130.0);
-                    v.setImageUrl("/images/fleet/New%20Cars%20Images/roces%20roy%20limo%20services.jpg");
-                    v.setDescription("Seats up to 4 passengers. Thrilling performance meets elegance.");
-                }
-                vehicleRepository.save(v);
-            });
-            return;
-        }
-
+        vehicleRepository.deleteAll(); 
+        
         vehicleRepository.saveAll(java.util.List.of(
-                vehicle("sedan", "Executive Sedan", 3, 3, 89.0, "bi-car-front-fill", "/images/fleet/New%20Cars%20Images/roy.jpg",
-                        "Seats up to 3 passengers. Free Wi-Fi & bottled water.", 1),
-                vehicle("suv", "Luxury SUV", 6, 6, 110.0, "bi-truck-front-fill", "/images/fleet/New%20Cars%20Images/Black%20car.jpg",
-                        "Seats up to 6 passengers. Premium leather interior.", 2),
-                vehicle("sprinter", "Ultra-Luxury Sedan", 4, 3, 150.0, "bi-car-front-fill", "/images/fleet/New%20Cars%20Images/Mercides.jpg",
-                        "Seats up to 4 passengers. The pinnacle of luxury and comfort.", 3),
-                vehicle("stretch", "Stretch Limo", 10, 4, 120.0, "bi-car-front", "/images/fleet/New%20Cars%20Images/limo.jpg",
-                        "Seats up to 10 passengers. LED ambient lighting & bar.", 4),
-                vehicle("partybus", "Premium SUV", 7, 6, 125.0, "bi-truck-front-fill", "/images/fleet/New%20Cars%20Images/Bulletproof%20Cadillac%20Escalade.jpg",
-                        "Seats up to 7 passengers. Spacious and sophisticated.", 5),
-                vehicle("motorcoach", "Sport Luxury Sedan", 4, 3, 130.0, "bi-car-front-fill", "/images/fleet/New%20Cars%20Images/roces%20roy%20limo%20services.jpg",
-                        "Seats up to 4 passengers. Thrilling performance meets elegance.", 6)
+                vehicle("regular_sedan", "Regular Sedan", 3, 3, 89.0, "bi-car-front-fill", "/images/fleet/New Cars Images/roy.jpg", "Seats up to 3 passengers. Comfort and style.", 1),
+                vehicle("luxury_sedan", "Luxury Sedan", 3, 3, 120.0, "bi-car-front-fill", "/images/fleet/New Cars Images/Mercides.jpg", "Seats up to 3 passengers. Ultimate luxury experience.", 2),
+                vehicle("regular_suv", "Regular SUV", 6, 6, 110.0, "bi-truck-front-fill", "/images/fleet/New Cars Images/Black car.jpg", "Seats up to 6 passengers. Perfect for families.", 3),
+                vehicle("luxury_suv", "Luxury SUV", 6, 6, 140.0, "bi-truck-front-fill", "/images/fleet/New Cars Images/Bulletproof Cadillac Escalade.jpg", "Seats up to 6 passengers. Premium cabin.", 4),
+                vehicle("premium_cars", "Premium / Luxury Cars", 4, 3, 150.0, "bi-star-fill", "", "High-end luxury vehicles and executive cars.", 5),
+                vehicle("party_buses", "Party Buses", 20, 10, 200.0, "bi-bus-front", "", "Perfect for large groups and celebrations.", 6),
+                vehicle("charter", "Charter Vehicles", 50, 50, 300.0, "bi-bus-front-fill", "", "Large scale transportation for events.", 7),
+                vehicle("wedding", "Wedding Transportation", 4, 2, 250.0, "bi-heart-fill", "/images/fleet/New Cars Images/limo.jpg", "Elegant vehicles for your special day.", 8),
+                vehicle("specialty", "Other Specialty Vehicles", 10, 5, 200.0, "bi-gem", "", "Unique transportation options tailored to you.", 9)
         ));
     }
 
     private void seedPricingRates() {
-        if (pricingRateRepository.count() > 0) return;
-
+        pricingRateRepository.deleteAll(); 
+        
         pricingRateRepository.saveAll(java.util.List.of(
-                rate("sedan", "Sedan", 95.0, 3.0, 1),
-                rate("suv", "SUV", 110.0, 4.0, 2),
-                rate("stretch", "Luxury Sedan (Stretch Limo)", 110.0, 4.5, 3),
-                rate("sprinter", "Luxury SUV (Sprinter Van)", 135.0, 6.0, 4)
+                rate("regular_sedan", "Regular Sedan", 85.0, 114.0, 135.0, 4.0, false, 1),
+                rate("luxury_sedan", "Luxury Sedan", 100.0, 129.0, 150.0, 5.0, false, 2),
+                rate("regular_suv", "Regular SUV", 115.0, 144.0, 165.0, 6.0, false, 3),
+                rate("luxury_suv", "Luxury SUV", 135.0, 164.0, 185.0, 7.0, false, 4),
+                rate("premium_cars", "Premium / Luxury Cars", 0.0, 0.0, 0.0, 0.0, true, 5),
+                rate("party_buses", "Party Buses", 0.0, 0.0, 0.0, 0.0, true, 6),
+                rate("charter", "Charter Vehicles", 0.0, 0.0, 0.0, 0.0, true, 7),
+                rate("wedding", "Wedding Transportation", 0.0, 0.0, 0.0, 0.0, true, 8),
+                rate("specialty", "Other Specialty Vehicles", 0.0, 0.0, 0.0, 0.0, true, 9)
         ));
     }
 
@@ -124,12 +82,15 @@ public class DataSeeder implements CommandLineRunner {
         return v;
     }
 
-    private PricingRate rate(String key, String label, double flat, double perMile, int order) {
+    private PricingRate rate(String key, String label, double t1, double t2, double t3, double perMile, boolean callForPricing, int order) {
         PricingRate r = new PricingRate();
         r.setVehicleKey(key);
         r.setLabel(label);
-        r.setFlatAirportRate(flat);
+        r.setTier1Price(t1);
+        r.setTier2Price(t2);
+        r.setTier3Price(t3);
         r.setPerMileRate(perMile);
+        r.setCallForPricingOnly(callForPricing);
         r.setDisplayOrder(order);
         return r;
     }

@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="icon" type="image/jpeg" th:href="@{/images/fleet/logo/new%20honk%20logo.jpg}" href="/images/fleet/logo/new%20honk%20logo.jpg" />
 <title>HONK Limousine Service | Luxury Car & Limo Service in Chicago</title>
-<meta name="description" content="HONK Limousine Service offers 24/7 airport transfers, corporate car service, weddings, and group transportation across Chicagoland." />
+<meta name="description" content="HONK Limousine Service offers guaranteed 5-minute airport pickups at O'Hare and Midway, transparent tiered pricing, and luxury rides across Chicago." />
 <link rel="canonical" th:href="${baseUrl + '/'}" href="http://localhost:8080/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="HONK Limousine Service" />
@@ -77,7 +77,8 @@
         <div class="hero-badges">
           <div class="hero-badge"><i class="bi bi-shield-check"></i> Licensed &amp; Insured</div>
           <div class="hero-badge"><i class="bi bi-clock-fill"></i> Available 24/7/365</div>
-          <div class="hero-badge"><i class="bi bi-cash-coin"></i> Flat-Rate Pricing</div>
+          <div class="hero-badge"><i class="bi bi-cash-coin"></i> Transparent Pricing</div>
+          <div class="hero-badge"><i class="bi bi-lightning-charge-fill text-gold"></i> Guaranteed 5-Min Airport Pickup</div>
         </div>
         <div class="mt-4 d-flex gap-3 flex-wrap">
           <a th:href="@{/booking}" href="/booking" class="btn btn-gold">Book Your Ride</a>
@@ -393,7 +394,7 @@
             <i th:unless="${v.imageUrl != null and !v.imageUrl.isEmpty()}" th:class="'bi ' + ${v.iconClass}"></i>
           </div>
           <h5 th:text="${v.name}"></h5>
-          <span class="price-tag" th:text="'From $' + ${v.pricePerHour} + '/hr'"></span>
+          <span class="price-tag"><a th:href="@{/pricing}" style="color: inherit; text-decoration: none;">View Pricing</a></span>
           <ul>
             <li><i class="bi bi-check-circle-fill"></i><span th:text="'Seats up to ' + ${v.capacity} + ' passengers'"></span></li>
             <li><i class="bi bi-check-circle-fill"></i><span th:text="${v.luggage} + ' luggage capacity'"></span></li>
@@ -421,9 +422,16 @@
           </div>
         </div>
         <div class="why-item">
+          <i class="bi bi-lightning-charge-fill text-gold"></i>
+          <div>
+            <h5>Guaranteed 5-Minute Airport Pickup</h5>
+            <p style="color:var(--gray);">Skip the waiting lines and ride-share delays. We promise curbside pickup at O'Hare and Midway within just 5 minutes of your arrival!</p>
+          </div>
+        </div>
+        <div class="why-item">
           <i class="bi bi-cash-stack"></i>
           <div>
-            <h5>Transparent Flat-Rate Pricing</h5>
+            <h5>Transparent Pricing</h5>
             <p style="color:var(--gray);">No surge pricing, no hidden fees â€” the price you're quoted is the price you pay.</p>
           </div>
         </div>
@@ -495,7 +503,7 @@
           <img src="/images/fleet/logo/honk-logo.png" alt="HONK Logo" height="30" />
           HONK <span class="text-gold">LIMOUSINE</span> SERVICE
         </h5>
-        <p>Chicago's trusted flat-rate luxury ground transportation, available 24/7 for airports, corporate travel, weddings, and events.</p>
+        <p>Chicago's trusted luxury ground transportation, available 24/7 for airports, corporate travel, weddings, and events.</p>
         <div class="social-icons mt-3">
           <a href="#"><i class="bi bi-facebook"></i></a>
           <a href="#"><i class="bi bi-instagram"></i></a>

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-// Rates come from the pricing_rates table (admin-editable) rather than being hardcoded.
 @Service
 public class PricingService {
 
@@ -18,33 +17,35 @@ public class PricingService {
         this.pricingRateRepository = pricingRateRepository;
     }
 
-    private static final double AIRPORT_FLAT_RATE_MAX_MILES = 20.0;
-
-    private static final List<String> AIRPORT_KEYWORDS =
-            List.of("airport", "o'hare", "ohare", "midway", "ord", "mdw");
-
     public FareEstimate estimate(String pickupLocation, String dropoffLocation, double distanceMiles, String vehicleType) {
         Optional<PricingRate> rate = pricingRateRepository.findByVehicleKey(
                 vehicleType == null ? "" : vehicleType.toLowerCase(Locale.ROOT));
+        
         if (rate.isEmpty()) {
-            return FareEstimate.callForPricing("This vehicle is quoted personally by our team.");
+            return FareEstimate.callForPricing("Contact us for availability and customized pricing.");
         }
 
-        boolean airportTrip = containsAirportKeyword(pickupLocation) || containsAirportKeyword(dropoffLocation);
         PricingRate r = rate.get();
 
-        if (airportTrip && distanceMiles <= AIRPORT_FLAT_RATE_MAX_MILES) {
-            return FareEstimate.flat(r.getFlatAirportRate(), "Airport flat rate");
+        if (Boolean.TRUE.equals(r.getCallForPricingOnly())) {
+            return FareEstimate.callForPricing("Contact us for availability and customized pricing.");
         }
-        return FareEstimate.perMile(distanceMiles * r.getPerMileRate(),
-                String.format(Locale.ROOT, "%.1f mi x $%.2f/mi", distanceMiles, r.getPerMileRate()));
-    }
 
-    private boolean containsAirportKeyword(String location) {
-        if (location == null) {
-            return false;
+        if (distanceMiles > 50.0) {
+            return FareEstimate.callForPricing("Long-distance trip (Over 50 Miles). Please contact us for a custom quote.");
         }
-        String lower = location.toLowerCase(Locale.ROOT);
-        return AIRPORT_KEYWORDS.stream().anyMatch(lower::contains);
+
+        if (distanceMiles <= 10.0) {
+            return FareEstimate.flat(r.getTier1Price(), "Tier 1: 1-10 Miles");
+        } else if (distanceMiles <= 20.0) {
+            return FareEstimate.flat(r.getTier2Price(), "Tier 2: 11-20 Miles");
+        } else if (distanceMiles <= 30.0) {
+            return FareEstimate.flat(r.getTier3Price(), "Tier 3: 21-30 Miles");
+        } else {
+            // 31 - 50 miles
+            double extraMiles = Math.max(0, distanceMiles - 30.0);
+            double price = r.getTier3Price() + (extraMiles * r.getPerMileRate());
+            return FareEstimate.flat(price, String.format(Locale.ROOT, "Tier 3 + %.1f extra miles @ $%.2f/mi", extraMiles, r.getPerMileRate()));
+        }
     }
 }

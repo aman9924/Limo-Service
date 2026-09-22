@@ -139,11 +139,18 @@ public class AdminController {
 
     @PostMapping("/pricing/{id}")
     public String updatePricing(@PathVariable Long id, @RequestParam String label,
-                                 @RequestParam Double flatAirportRate, @RequestParam Double perMileRate) {
+                                 @RequestParam(defaultValue = "0") Double tier1Price, 
+                                 @RequestParam(defaultValue = "0") Double tier2Price, 
+                                 @RequestParam(defaultValue = "0") Double tier3Price, 
+                                 @RequestParam(defaultValue = "0") Double perMileRate,
+                                 @RequestParam(required = false) Boolean callForPricingOnly) {
         PricingRate rate = pricingRateRepository.findById(id).orElseThrow();
         rate.setLabel(label);
-        rate.setFlatAirportRate(flatAirportRate);
+        rate.setTier1Price(tier1Price);
+        rate.setTier2Price(tier2Price);
+        rate.setTier3Price(tier3Price);
         rate.setPerMileRate(perMileRate);
+        rate.setCallForPricingOnly(callForPricingOnly != null && callForPricingOnly);
         pricingRateRepository.save(rate);
         return "redirect:/admin/pricing";
     }

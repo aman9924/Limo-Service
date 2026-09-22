@@ -56,6 +56,7 @@ public class PageController {
     @GetMapping("/pricing")
     public String pricing(Model model) {
         model.addAttribute("rates", pricingRateRepository.findAllByOrderByDisplayOrderAsc());
+        model.addAttribute("addonPricing", addonPricingRepository.findById(1L).orElseGet(AddonPricing::new));
         return "pricing";
     }
 
