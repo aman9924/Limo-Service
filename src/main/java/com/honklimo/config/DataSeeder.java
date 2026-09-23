@@ -38,11 +38,10 @@ public class DataSeeder implements CommandLineRunner {
                 vehicle("luxury_sedan", "Luxury Sedan", 3, 3, 120.0, "bi-car-front-fill", "/images/fleet/New Cars Images/Mercides.jpg", "Seats up to 3 passengers. Ultimate luxury experience.", 2),
                 vehicle("regular_suv", "Regular SUV", 6, 6, 110.0, "bi-truck-front-fill", "/images/fleet/New Cars Images/Black car.jpg", "Seats up to 6 passengers. Perfect for families.", 3),
                 vehicle("luxury_suv", "Luxury SUV", 6, 6, 140.0, "bi-truck-front-fill", "/images/fleet/New Cars Images/Bulletproof Cadillac Escalade.jpg", "Seats up to 6 passengers. Premium cabin.", 4),
-                vehicle("premium_cars", "Premium / Luxury Cars", 4, 3, 150.0, "bi-star-fill", "", "High-end luxury vehicles and executive cars.", 5),
-                vehicle("party_buses", "Party Buses", 20, 10, 200.0, "bi-bus-front", "", "Perfect for large groups and celebrations.", 6),
-                vehicle("charter", "Charter Vehicles", 50, 50, 300.0, "bi-bus-front-fill", "", "Large scale transportation for events.", 7),
-                vehicle("wedding", "Wedding Transportation", 4, 2, 250.0, "bi-heart-fill", "/images/fleet/New Cars Images/limo.jpg", "Elegant vehicles for your special day.", 8),
-                vehicle("specialty", "Other Specialty Vehicles", 10, 5, 200.0, "bi-gem", "", "Unique transportation options tailored to you.", 9)
+                vehicle("premium_cars", "Premium / Luxury Cars", 4, 3, 150.0, "bi-star-fill", "/images/fleet/New Cars Images/Corporate service.jpg", "High-end luxury vehicles and executive cars.", 5),
+                vehicle("party_buses", "Party Buses", 20, 10, 200.0, "bi-bus-front", "/images/fleet/New Cars Images/Bus.jpg", "Perfect for large groups and celebrations.", 6),
+                vehicle("wedding", "Wedding Transportation", 4, 2, 250.0, "bi-heart-fill", "/images/fleet/New Cars Images/limo.jpg", "Elegant vehicles for your special day.", 7),
+                vehicle("specialty", "Other Specialty Vehicles", 10, 5, 200.0, "bi-gem", "/images/fleet/New Cars Images/tesla-cybertruck-limo-rental-1-600x400.jpg", "Unique transportation options tailored to you.", 8)
         ));
     }
 
@@ -56,9 +55,8 @@ public class DataSeeder implements CommandLineRunner {
                 rate("luxury_suv", "Luxury SUV", 135.0, 164.0, 185.0, 7.0, false, 4),
                 rate("premium_cars", "Premium / Luxury Cars", 0.0, 0.0, 0.0, 0.0, true, 5),
                 rate("party_buses", "Party Buses", 0.0, 0.0, 0.0, 0.0, true, 6),
-                rate("charter", "Charter Vehicles", 0.0, 0.0, 0.0, 0.0, true, 7),
-                rate("wedding", "Wedding Transportation", 0.0, 0.0, 0.0, 0.0, true, 8),
-                rate("specialty", "Other Specialty Vehicles", 0.0, 0.0, 0.0, 0.0, true, 9)
+                rate("wedding", "Wedding Transportation", 0.0, 0.0, 0.0, 0.0, true, 7),
+                rate("specialty", "Other Specialty Vehicles", 0.0, 0.0, 0.0, 0.0, true, 8)
         ));
     }
 
