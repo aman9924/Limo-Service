@@ -32,6 +32,23 @@ body {
   color: var(--white);
   font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* Keep form fields usable — selection/typing must still work for bookings */
+input, textarea, select, [contenteditable="true"] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-touch-callout: none; /* blocks iOS long-press "save image" menu */
+  user-select: none;
 }
 
 h1, h2, h3, h4, h5, .brand-font {

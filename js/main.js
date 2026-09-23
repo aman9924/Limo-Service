@@ -28,7 +28,38 @@ document.addEventListener("DOMContentLoaded", () => {
   initCapacityValidator();
   initSidebarShowcase();
   initMeetAndGreet();
+  initContentProtection();
 });
+
+/* ---------- Content Protection ---------- */
+// Deters casual copying/saving of text and images. Not foolproof — a determined
+// user can still access page source or take a screenshot — but blocks the common shortcuts.
+function initContentProtection() {
+  const isFormField = (el) => el && ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName);
+
+  document.addEventListener("contextmenu", (e) => e.preventDefault());
+
+  document.addEventListener("dragstart", (e) => {
+    if (e.target.tagName === "IMG") e.preventDefault();
+  });
+
+  document.addEventListener("copy", (e) => {
+    if (!isFormField(e.target)) e.preventDefault();
+  });
+
+  document.addEventListener("cut", (e) => {
+    if (!isFormField(e.target)) e.preventDefault();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    const key = e.key.toLowerCase();
+    const blocked =
+      e.key === "F12" ||
+      (e.ctrlKey && (key === "u" || key === "s")) ||
+      (e.ctrlKey && e.shiftKey && (key === "i" || key === "j" || key === "c"));
+    if (blocked) e.preventDefault();
+  });
+}
 
 function initDeferredHeroImages() {
   const loadImages = () => {
