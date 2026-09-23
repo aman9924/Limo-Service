@@ -63,6 +63,7 @@ public class BookingService {
         booking.setFlightNumber(request.getFlightNumber());
         booking.setSpecialRequests(request.getSpecialRequests());
         booking.setMeetAndGreet(request.isMeetAndGreet());
+        booking.setEstimatedFare(request.getEstimatedFare());
         booking.setStatus(BookingStatus.PENDING);
 
         Booking saved = bookingRepository.save(booking);

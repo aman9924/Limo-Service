@@ -217,7 +217,7 @@ function initDateConstraints() {
       altInput: true,
       altFormat: "F j, Y",
       altInputClass: "form-control form-control-dark",
-      disableMobile: "true",
+      disableMobile: true,
       onChange: function(selectedDates, dateStr, instance) {
         // Flatpickr triggers blur or change, which is good for validation
       }
@@ -231,7 +231,7 @@ function initDateConstraints() {
       altFormat: "h:i K",
       altInputClass: "form-control form-control-dark",
       time_24hr: false, // Use AM/PM
-      disableMobile: "true"
+      disableMobile: true
     });
   } else {
     dateInputs.forEach(input => {
@@ -535,6 +535,17 @@ function initTrackForm() {
     document.getElementById("resultDropoffLocation").textContent = data.dropoffLocation || "-";
     document.getElementById("resultDateTime").textContent = `${data.pickupDate || "-"} ${data.pickupTime || ""}`;
     document.getElementById("resultMeetAndGreet").style.display = data.meetAndGreet ? "block" : "none";
+
+    const fareLi = document.getElementById("resultFareLi");
+    const fareSpan = document.getElementById("resultEstimatedFare");
+    if (data.estimatedFare && data.estimatedFare !== "null" && data.estimatedFare !== "Call for Pricing") {
+      if (fareLi && fareSpan) {
+        fareSpan.textContent = data.estimatedFare;
+        fareLi.style.display = "block";
+      }
+    } else {
+      if (fareLi) fareLi.style.display = "none";
+    }
 
     const badge = document.getElementById("resultStatusBadge");
     badge.textContent = data.bookingStatus;
@@ -869,6 +880,11 @@ function renderFareCard(panel, { loading, error, result, vehicleLabel } = {}) {
   const totalFare = isCallForPricing ? null : parseFloat(result.estimatedFare) + meetAndGreetFee;
   const priceText = isCallForPricing ? "Call for Pricing" : `$${totalFare.toFixed(2)}`;
   const detailsId = "fareDetailsPanel";
+  
+  const estimatedFareInput = document.getElementById("estimatedFareInput");
+  if (estimatedFareInput) {
+    estimatedFareInput.value = priceText;
+  }
   
   let mapHtml = "";
   if (result.geometry && SITE_CONFIG.mapboxPublicToken) {

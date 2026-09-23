@@ -80,6 +80,7 @@ public class BookingTrackController {
         m.put("dropoffLocation", b.getDropoffLocation());
         m.put("pickupDate", b.getPickupDate());
         m.put("pickupTime", b.getPickupTime());
+        m.put("estimatedFare", b.getEstimatedFare());
         m.put("meetAndGreet", b.isMeetAndGreet());
         m.put("driverName", b.getDriverName());
         m.put("driverPhone", b.getDriverPhone());

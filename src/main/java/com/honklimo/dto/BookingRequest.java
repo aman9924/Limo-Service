@@ -39,6 +39,15 @@ public class BookingRequest {
     private String specialRequests;
     private boolean meetAndGreet;
     private boolean smsConsent;
+    private String estimatedFare;
+
+    public String getEstimatedFare() {
+        return estimatedFare;
+    }
+
+    public void setEstimatedFare(String estimatedFare) {
+        this.estimatedFare = estimatedFare;
+    }
 
     public String getFullName() {
         return fullName;

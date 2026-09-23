@@ -68,6 +68,12 @@
         <div class="booking-form-card">
           <div class="form-step-label">Ride Details</div>
           <form id="bookingForm" class="row g-3 needs-validation" novalidate>
+            <input type="hidden" name="estimatedFare" id="estimatedFareInput" />
+            <input type="hidden" name="websiteUrl" value="" />
+            <input type="hidden" name="pickupLat" id="pickupLat" />
+            <input type="hidden" name="pickupLng" id="pickupLng" />
+            <input type="hidden" name="dropoffLat" id="dropoffLat" />
+            <input type="hidden" name="dropoffLng" id="dropoffLng" />
 
             <div class="col-md-6">
               <label class="form-label-dark">Full Name</label>

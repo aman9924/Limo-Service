@@ -33,6 +33,9 @@
             <tr><th>Pickup</th><td th:text="${booking.pickupLocation}"></td></tr>
             <tr><th>Drop-off</th><td th:text="${booking.dropoffLocation}"></td></tr>
             <tr><th>Vehicle</th><td th:text="${booking.vehicleType}"></td></tr>
+            <tr th:if="${booking.estimatedFare != null and !booking.estimatedFare.isEmpty() and booking.estimatedFare != 'null' and booking.estimatedFare != 'Call for Pricing'}">
+                <th>Estimated Fare</th><td th:text="${booking.estimatedFare}" style="color: #28a745; font-weight: bold;"></td>
+            </tr>
             <tr><th>Pax / Luggage</th><td th:text="${booking.passengers + ' / ' + booking.luggage}"></td></tr>
             <tr th:if="${booking.flightNumber != null and !booking.flightNumber.isEmpty()}">
                 <th>Flight #</th><td th:text="${booking.flightNumber}"></td>

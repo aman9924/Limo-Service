@@ -44,11 +44,16 @@ public class TwilioSmsService {
         }
 
         String to = formatPhone(booking.getCustomer().getPhone());
+        String fareInfo = (booking.getEstimatedFare() != null && !booking.getEstimatedFare().trim().isEmpty() && !booking.getEstimatedFare().equalsIgnoreCase("null") && !booking.getEstimatedFare().equalsIgnoreCase("Call for Pricing")) 
+            ? " (Estimated Fare: " + booking.getEstimatedFare() + ")" 
+            : "";
+
         String msg = String.format(
-            "Honk Limousine Service: We received your booking request %s for %s at %s. Your request is not yet confirmed. Our team will contact you to confirm availability and final details. Reply STOP to opt out or HELP for help.",
+            "Honk Limousine Service: We received your booking request %s for %s at %s%s. Your request is not yet confirmed. Our team will contact you to confirm availability and final details. Reply STOP to opt out or HELP for help.",
             booking.getBookingReference(),
             booking.getPickupDate(),
-            booking.getPickupTime()
+            booking.getPickupTime(),
+            fareInfo
         );
 
         sendSmsSafely(to, msg, "Booking Acknowledgment");
@@ -62,13 +67,18 @@ public class TwilioSmsService {
             return;
         }
 
+        String fareInfo = (booking.getEstimatedFare() != null && !booking.getEstimatedFare().trim().isEmpty() && !booking.getEstimatedFare().equalsIgnoreCase("null") && !booking.getEstimatedFare().equalsIgnoreCase("Call for Pricing")) 
+            ? " Fare: " + booking.getEstimatedFare() + "." 
+            : "";
+
         String to = formatPhone(booking.getCustomer().getPhone());
         String msg = String.format(
-            "Honk Limousine Service: Your reservation %s has been confirmed for %s at %s. Pickup: %s. Reply STOP to opt out or HELP for help.",
+            "Honk Limousine Service: Your reservation %s has been confirmed for %s at %s. Pickup: %s.%s Reply STOP to opt out or HELP for help.",
             booking.getBookingReference(),
             booking.getPickupDate(),
             booking.getPickupTime(),
-            booking.getPickupLocation()
+            booking.getPickupLocation(),
+            fareInfo
         );
 
         sendSmsSafely(to, msg, "Booking Confirmation");
@@ -99,8 +109,12 @@ public class TwilioSmsService {
             return;
         }
 
+        String fareInfo = (booking.getEstimatedFare() != null && !booking.getEstimatedFare().trim().isEmpty() && !booking.getEstimatedFare().equalsIgnoreCase("null") && !booking.getEstimatedFare().equalsIgnoreCase("Call for Pricing")) 
+            ? " Fare: " + booking.getEstimatedFare() + "." 
+            : "";
+
         String msg = String.format(
-            "Honk Limousine Service: New booking request %s. Customer: %s. Phone: %s. Pickup: %s. Dropoff: %s. Date: %s. Time: %s. Vehicle: %s. Review the booking in the admin system.",
+            "Honk Limousine Service: New booking request %s. Customer: %s. Phone: %s. Pickup: %s. Dropoff: %s. Date: %s. Time: %s. Vehicle: %s.%s Review the booking in the admin system.",
             booking.getBookingReference(),
             booking.getCustomer().getName(),
             booking.getCustomer().getPhone(),
@@ -108,7 +122,8 @@ public class TwilioSmsService {
             booking.getDropoffLocation(),
             booking.getPickupDate(),
             booking.getPickupTime(),
-            booking.getVehicleType()
+            booking.getVehicleType(),
+            fareInfo
         );
 
         sendSmsSafely(twilioProperties.getOwnerSmsNumber(), msg, "Owner Notification");
