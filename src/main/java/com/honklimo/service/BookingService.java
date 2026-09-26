@@ -39,6 +39,14 @@ public class BookingService {
         Customer customer = customerRepository.findByPhone(request.getPhone())
                 .orElseGet(() -> new Customer(request.getFullName(), request.getPhone(), request.getEmail()));
                 
+        // Always sync the latest name and email from the new booking request
+        if (request.getFullName() != null && !request.getFullName().trim().isEmpty()) {
+            customer.setName(request.getFullName());
+        }
+        if (request.getEmail() != null && !request.getEmail().trim().isEmpty()) {
+            customer.setEmail(request.getEmail());
+        }
+                
         // Only update SMS consent if they provided it (we don't want to overwrite an opt-in with an opt-out implicitly,
         // though typically web forms are a hard overwrite. Since it's a new request, if they checked it, set it).
         if (request.isSmsConsent()) {
