@@ -36,6 +36,9 @@
             <tr th:if="${booking.estimatedFare != null and !booking.estimatedFare.isEmpty() and booking.estimatedFare != 'null' and booking.estimatedFare != 'Call for Pricing'}">
                 <th>Estimated Fare</th><td th:text="${booking.estimatedFare}" style="color: #28a745; font-weight: bold;"></td>
             </tr>
+            <tr th:if="${booking.distanceMiles != null}">
+                <th>Distance</th><td th:text="${booking.distanceMiles} + ' miles'"></td>
+            </tr>
             <tr><th>Pax / Luggage</th><td th:text="${booking.passengers + ' / ' + booking.luggage}"></td></tr>
             <tr th:if="${booking.flightNumber != null and !booking.flightNumber.isEmpty()}">
                 <th>Flight #</th><td th:text="${booking.flightNumber}"></td>

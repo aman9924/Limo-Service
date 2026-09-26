@@ -40,6 +40,15 @@ public class BookingRequest {
     private boolean meetAndGreet;
     private boolean smsConsent;
     private String estimatedFare;
+    private Double distanceMiles;
+
+    public Double getDistanceMiles() {
+        return distanceMiles;
+    }
+
+    public void setDistanceMiles(Double distanceMiles) {
+        this.distanceMiles = distanceMiles;
+    }
 
     public String getEstimatedFare() {
         return estimatedFare;

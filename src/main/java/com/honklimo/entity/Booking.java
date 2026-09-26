@@ -54,6 +54,7 @@ public class Booking {
     private BookingStatus status = BookingStatus.PENDING;
 
     private String estimatedFare;
+    private Double distanceMiles;
 
     private String driverName;
     private String driverPhone;
@@ -205,6 +206,14 @@ public class Booking {
 
     public void setEstimatedFare(String estimatedFare) {
         this.estimatedFare = estimatedFare;
+    }
+
+    public Double getDistanceMiles() {
+        return distanceMiles;
+    }
+
+    public void setDistanceMiles(Double distanceMiles) {
+        this.distanceMiles = distanceMiles;
     }
 
     public Instant getCreatedAt() {

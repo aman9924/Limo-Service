@@ -72,6 +72,7 @@ public class BookingService {
         booking.setSpecialRequests(request.getSpecialRequests());
         booking.setMeetAndGreet(request.isMeetAndGreet());
         booking.setEstimatedFare(request.getEstimatedFare());
+        booking.setDistanceMiles(request.getDistanceMiles());
         booking.setStatus(BookingStatus.PENDING);
 
         Booking saved = bookingRepository.save(booking);
