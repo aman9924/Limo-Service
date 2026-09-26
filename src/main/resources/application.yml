@@ -10,19 +10,16 @@ spring:
   # between restarts in ./data. Swap this block for AWS RDS Postgres settings
   # (via env vars) when moving to production.
   datasource:
-    url: jdbc:h2:file:./data/honklimo;AUTO_SERVER=TRUE
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:honklimo}?createDatabaseIfNotExist=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:}
   jpa:
     hibernate:
       ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: false
     open-in-view: false
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
   # Email notifications via SMTP — for Gmail, use an App Password (not your regular password)
   # and MAIL_HOST=smtp.gmail.com, MAIL_PORT=587. Notifications are silently skipped (with a
   # logged warning) if MAIL_HOST is unset.
