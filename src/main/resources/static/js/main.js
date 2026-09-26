@@ -343,6 +343,23 @@ function initHeroQuickBooking() {
             const dist = result.distanceMiles ? ` (${result.distanceMiles.toFixed(1)} miles)` : "";
             resultDiv.innerHTML = `Estimated Fare: ${price}${dist}`;
             
+            if (result.distanceMiles > 50 && !window.distancePopupShownQuick) {
+              window.distancePopupShownQuick = true;
+              if (typeof Swal !== "undefined") {
+                Swal.fire({
+                  title: 'Long Distance Trip',
+                  text: 'Your trip is over 50 miles. You can contact the owner for the best discounted pricing!',
+                  icon: 'info',
+                  confirmButtonText: 'OK',
+                  confirmButtonColor: '#d4af37',
+                  background: '#1e1e1e',
+                  color: '#fff'
+                });
+              } else {
+                alert('Your trip is over 50 miles. You can contact the owner for the best discounted pricing!');
+              }
+            }
+            
             // Enable Continue to booking
             const params = new URLSearchParams(formData);
             bookNowBtn.href = `/booking?${params.toString()}`;
@@ -915,6 +932,28 @@ function renderFareCard(panel, { loading, error, result, vehicleLabel } = {}) {
   const estimatedFareInput = document.getElementById("estimatedFareInput");
   if (estimatedFareInput) {
     estimatedFareInput.value = priceText;
+  }
+  
+  const distanceMilesInput = document.getElementById("distanceMilesInput");
+  if (distanceMilesInput) {
+    distanceMilesInput.value = result.distanceMiles;
+  }
+
+  if (result.distanceMiles > 50 && !window.distancePopupShownFull) {
+    window.distancePopupShownFull = true;
+    if (typeof Swal !== "undefined") {
+      Swal.fire({
+        title: 'Long Distance Trip',
+        text: 'Your trip is over 50 miles. You can contact the owner for the best discounted pricing!',
+        icon: 'info',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#d4af37',
+        background: '#1e1e1e',
+        color: '#fff'
+      });
+    } else {
+      alert('Your trip is over 50 miles. You can contact the owner for the best discounted pricing!');
+    }
   }
   
   let mapHtml = "";

@@ -83,6 +83,7 @@
             <th>Drop-off</th>
             <th>Date / Time</th>
             <th>Vehicle</th>
+            <th>Distance</th>
             <th>Fare</th>
             <th>Status</th>
             <th>Actions</th>
@@ -100,6 +101,7 @@
             </td>
             <td th:text="${b.pickupDate + ' ' + b.pickupTime}"></td>
             <td th:text="${b.vehicleType}"></td>
+            <td th:text="${b.distanceMiles != null ? b.distanceMiles + ' mi' : ''}"></td>
             <td th:text="${b.estimatedFare}"></td>
             <td>
               <span class="badge" style="padding: 8px 12px; font-weight: 500;"
